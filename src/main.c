@@ -1,19 +1,14 @@
 #include "main.h"
 
 int main(void) {
-/*     int D[10][10];
-    club_t club[20];
-    city_t city[10];
-    memset(D,0,sizeof(D));
-
-    getDATA(city,D,club); */
-
-/*     printCITY(city);
-    printDIST(D);
-    printCLUB(club); */
+    int clubs = 6;
+    int **schedule = allocate(clubs,(2*clubs)-2);
 
     system("clear");
-    initsolve(6);
+    polygon(schedule,clubs);
+    printSschedule(schedule,clubs);
+
+    freeMEM(schedule,clubs);
 
     return 0;
 } 
