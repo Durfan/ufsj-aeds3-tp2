@@ -12,7 +12,8 @@ int main(void) {
     printDIST(D);
     printCLUB(club); */
 
-    initsolve(20);
+    system("clear");
+    initsolve(6);
 
     return 0;
 } 

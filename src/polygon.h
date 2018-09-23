@@ -1,4 +1,4 @@
-void polygon(int num_teams);
+int **initsolve(int m_teams);
 void rotate(int *array, size_t n);
-
-void initsolve(int m_teams);
+int **createTable(int m, int n);
+void printTable(int **table, size_t n);
