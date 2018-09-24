@@ -17,7 +17,6 @@ int lines(char *file) {
 
     if (line) free(line);
     fclose(fp);
-
     return count;
 }
 
