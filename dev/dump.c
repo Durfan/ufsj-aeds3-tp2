@@ -1,4 +1,5 @@
-/* void polygon(int num_teams) {
+/*
+void polygon(int num_teams) {
     int i,j, turno;
     int n2 = num_teams/2;
     int S0[num_teams+1][num_teams-1];
@@ -22,4 +23,5 @@
         }
         printf("\n");
     }
-} */
+}
+*/

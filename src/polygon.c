@@ -27,7 +27,40 @@ void polygon(int **schedule, int clubs) {
     }
 }
 
-void printSschedule(int **schedule, int clubs) {
+void createEscala(int **escala, int **schedule, int clubs) {
+    int i,j;
+    int tupla1,tupla2;
+
+    for (i=0; i<clubs; i++) {
+        for (j=0; j<clubs; j++) {
+            escala[i][j] = 0;
+        }
+    }
+
+    
+
+    for (i=0; i<clubs; i++) {
+        for (j=0; j<(2*clubs)-3; j++) {
+            tupla1 = abs(schedule[i][j])-1;
+            tupla2 = abs(schedule[i][j+1])-1;
+            escala[tupla1][tupla2]+=1;
+            escala[tupla2][tupla1]+=1;
+        }
+    }
+
+    printf("\n  ");
+    for (i=0; i<clubs; i++) printf(COLOR_BLUE " %c:" COLOR_RESET, i+65);
+    printf("\n");
+    for (i=0; i<clubs; i++) {
+        printf(COLOR_BLUE " %c" COLOR_RESET, i+65);
+        for (j=0; j<clubs; j++) {
+            printf(" %02d", escala[i][j]);
+        }
+        printf("\n");
+    } 
+}
+
+void printSchedule(int **schedule, int clubs) {
     int i,j;
 
     printf(" \033[4m   \033[24m");

@@ -1,2 +1,3 @@
 void polygon(int **schedule, int clubs);
-void printSschedule(int **schedule, int clubs);
+void printSchedule(int **schedule, int clubs);
+void createEscala(int **escala, int **schedule, int clubs);
