@@ -1,10 +1,8 @@
-#define _GNU_SOURCE
-
 #include "main.h"
 
 int lines(char *file) {
     FILE *fp = fopen(file, "r");
-    if (fp == NULL) errFile();
+    if (fp == NULL) return 0;
 
     int count = 0;
     char *line = NULL;
@@ -22,7 +20,10 @@ int lines(char *file) {
 
 void getCITY(city_t *city, char *file) {
     FILE *fp = fopen(file, "r");
-    if (fp == NULL) errFile();
+    if (fp == NULL) {
+        errFile(file);
+        return;
+    }
 
     int index=0;
     char *line = NULL;
@@ -39,7 +40,10 @@ void getCITY(city_t *city, char *file) {
 
 void getDIST(int **travel, char *file) {
     FILE *fp = fopen(file, "r");
-    if (fp == NULL) errFile();
+    if (fp == NULL) {
+        errFile(file);
+        return;
+    }
 
     int row, col, dist;
     char *line = NULL;
@@ -59,7 +63,10 @@ void getDIST(int **travel, char *file) {
 
 void getCLUB(club_t *club, char *file) {
     FILE *fp = fopen(file, "r");
-    if (fp == NULL) errFile();
+    if (fp == NULL) {
+        errFile(file);
+        return;
+    }
 
     int index=0;
     char *line = NULL;
@@ -75,7 +82,6 @@ void getCLUB(club_t *club, char *file) {
     fclose(fp);
 }
 
-void errFile() {
-    printf(" Erro ao abrir arquivo!\n");
-    exit(EXIT_FAILURE);
+void errFile(char *file) {
+    printf(" Erro ao abrir '%s'\n", file);
 }

@@ -1,14 +1,14 @@
 #include "main.h"
 
-void printEscala(int **escala, int clubs) {
+void printEscala(int **escala, size_t n) {
     int i,j;
     
     printf("\n  ");
-    for (i=0; i<clubs; i++) printf(COLOR_BLUE " %c:" COLOR_RESET, i+65);
+    for (i=0; i<n; i++) printf(COLOR_BLUE " %c:" COLOR_RESET, i+65);
     printf("\n");
-    for (i=0; i<clubs; i++) {
+    for (i=0; i<n; i++) {
         printf(COLOR_BLUE " %c" COLOR_RESET, i+65);
-        for (j=0; j<clubs; j++) {
+        for (j=0; j<n; j++) {
             if (!escala[i][j]) printf(COLOR_BLUE " --" COLOR_RESET);
             else printf(" %02d", escala[i][j]);
         }
@@ -16,16 +16,16 @@ void printEscala(int **escala, int clubs) {
     }
 }
 
-void printSchedule(int **schedule, int clubs) {
+void printSchedule(int **schedule, size_t n) {
     int i,j;
-    int rounds = rounds(clubs);
+    int rounds = rounds(n);
 
     printf(" \033[4m   \033[24m");
     for (i=0; i<rounds; i++) {
         printf("\033[4m %02d\033[24m", i+1);
     }
     printf("\n");
-    for (i=0; i<clubs; i++) {
+    for (i=0; i<n; i++) {
         printf(" %02d: ", i+1);
         for (j=0; j<rounds; j++) { // m_teams-1
             if (schedule[i][j]<0) printf(COLOR_YELL "%02d " COLOR_RESET, abs(schedule[i][j]));
@@ -35,13 +35,13 @@ void printSchedule(int **schedule, int clubs) {
     }
 }
 
-void printTravel(int **schedule, int **travel, club_t *club, int clubs) {
+void printTravel(int **schedule, int **travel, club_t *club, size_t n) {
     int i,j;
-    int rounds = rounds(clubs);
+    int rounds = rounds(n);
     int distance = 0;
 
     printf("\n");
-    for (i=0; i<clubs; i++) {
+    for (i=0; i<n; i++) {
         printf(" %02d %s", i+1, club[i].nome);
         for (j=0; j<rounds; j++) { // m_teams-1
             distance += viagem(travel,club,i,schedule[i][j]);
@@ -67,9 +67,9 @@ void printDIST(int **travel) {
     }
 }
 
-void printCLUB(club_t *club, int clubs) {
+void printCLUB(club_t *club, size_t n) {
     int i;
-    for (i=0;i<clubs;i++) {
+    for (i=0;i<n;i++) {
         printf("%d:%d \t%s\n", i, club[i].idCTY, club[i].nome);
     }
 }

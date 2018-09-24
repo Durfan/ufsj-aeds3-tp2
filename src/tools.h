@@ -1,3 +1,3 @@
-int **allocate(int n, int m);
-void freeMEM(int **ptr, int n);
-void rotateArray(int *array, int n);
+int **allocate(size_t n, size_t m);
+void freeMEM(int **ptr, size_t n);
+void rotateArray(int *array, size_t n);

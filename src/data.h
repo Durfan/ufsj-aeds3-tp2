@@ -12,4 +12,4 @@ int lines(char *file);
 void getCITY(city_t *city, char *file);
 void getDIST(int **travel, char *file);
 void getCLUB(club_t *times, char *file);
-void errFile();
+void errFile(char *file);
