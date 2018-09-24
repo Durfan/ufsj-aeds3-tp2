@@ -2,57 +2,77 @@
 
 #include "main.h"
 
-void getDATA(city_t *city, int D[][10], club_t *club) {
-    getCITY(city);
-    getDIST(D);
-    getCLUB(club);
-}
-
-void getCITY(city_t *city) {
-    FILE *fp = fopen("./data/dados_cidades.in", "r");
+int lines(char *file) {
+    FILE *fp = fopen(file, "r");
     if (fp == NULL) errFile();
+
+    int count = 0;
     char *line = NULL;
     size_t len = 0;
     ssize_t read;
+    
+    while ((read = getline(&line, &len, fp)) != -1) {
+        if (line[0] != '\n') count++;
+    }
+
+    if (line) free(line);
+    fclose(fp);
+
+    return count;
+}
+
+void getCITY(city_t *city, char *file) {
+    FILE *fp = fopen(file, "r");
+    if (fp == NULL) errFile();
+
     int index=0;
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
     while ((read = getline(&line, &len, fp)) != -1) {
         sscanf(line, "%d,%[^\t\n]", &city[index].idCTY, city[index].nome);
         index++;
     }
-    if (line)
-        free(line);
+    if (line) free(line);
     fclose(fp);
 }
 
-void getDIST(int D[][10]) {
-    FILE *fp = fopen("./data/dados_distancias.in", "r");
+void getDIST(int **travel, char *file) {
+    FILE *fp = fopen(file, "r");
     if (fp == NULL) errFile();
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read;
+
     int row, col, dist;
-    while ((read = getline(&line, &len, fp)) != -1) {
-        sscanf(line, "%d,%d,%d", &row, &col, &dist);
-        D[row-1][col-1] = dist;
-    }
-    if (line)
-        free(line);
-    fclose(fp);
-}
-
-void getCLUB(club_t *club) {
-    FILE *fp = fopen("./data/dados_times.in", "r");
-    if (fp == NULL) errFile();
     char *line = NULL;
     size_t len = 0;
     ssize_t read;
+    
+    while ((read = getline(&line, &len, fp)) != -1) {
+        if (line[0] != '\n') {
+        sscanf(line, "%d,%d,%d", &row, &col, &dist);
+        travel[row-1][col-1] = dist;
+        }
+    }
+
+    if (line) free(line);
+    fclose(fp);
+}
+
+void getCLUB(club_t *club, char *file) {
+    FILE *fp = fopen(file, "r");
+    if (fp == NULL) errFile();
+
     int index=0;
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
     while ((read = getline(&line, &len, fp)) != -1) {
         sscanf(line, "%d,%[^\t\n]", &club[index].idCTY, club[index].nome);
         index++;
     }
-    if (line)
-        free(line);
+
+    if (line) free(line);
     fclose(fp);
 }
 
