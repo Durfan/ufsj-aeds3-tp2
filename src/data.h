@@ -1,15 +1,15 @@
-typedef struct team {
+typedef struct clubes {
     int idCTY;
     char nome[50];
-} club_t;
+} clubes_t;
 
-typedef struct city {
+typedef struct cities {
     int idCTY;
     char nome[50];
-} city_t;
+} cities_t;
 
-int lines(char *file);
-void getCITY(city_t *city, char *file);
-void getDIST(int **travel, char *file);
-void getCLUB(club_t *times, char *file);
-void errFile(char *file);
+int getlines(const char* file);
+void getCLUB(const char* file, clubes_t* clubes);
+void getCITY(const char* file, cities_t* cities);
+void getDIST(const char* file, int** travel);
+void errFile(const char* file);

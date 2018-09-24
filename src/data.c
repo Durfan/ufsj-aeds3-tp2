@@ -1,6 +1,6 @@
 #include "main.h"
 
-int lines(char *file) {
+int getlines(const char* file) {
     FILE *fp = fopen(file, "r");
     if (fp == NULL) return 0;
 
@@ -18,7 +18,7 @@ int lines(char *file) {
     return count;
 }
 
-void getCITY(city_t *city, char *file) {
+void getCLUB(const char* file, clubes_t* clubes) {
     FILE *fp = fopen(file, "r");
     if (fp == NULL) {
         errFile(file);
@@ -31,14 +31,35 @@ void getCITY(city_t *city, char *file) {
     ssize_t read;
 
     while ((read = getline(&line, &len, fp)) != -1) {
-        sscanf(line, "%d,%[^\t\n]", &city[index].idCTY, city[index].nome);
+        sscanf(line, "%d,%[^\t\n]", &clubes[index].idCTY, clubes[index].nome);
+        index++;
+    }
+
+    if (line) free(line);
+    fclose(fp);
+}
+
+void getCITY(const char* file, cities_t* cities) {
+    FILE *fp = fopen(file, "r");
+    if (fp == NULL) {
+        errFile(file);
+        return;
+    }
+
+    int index=0;
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    while ((read = getline(&line, &len, fp)) != -1) {
+        sscanf(line, "%d,%[^\t\n]", &cities[index].idCTY, cities[index].nome);
         index++;
     }
     if (line) free(line);
     fclose(fp);
 }
 
-void getDIST(int **travel, char *file) {
+void getDIST(const char* file, int** travel) {
     FILE *fp = fopen(file, "r");
     if (fp == NULL) {
         errFile(file);
@@ -61,27 +82,6 @@ void getDIST(int **travel, char *file) {
     fclose(fp);
 }
 
-void getCLUB(club_t *club, char *file) {
-    FILE *fp = fopen(file, "r");
-    if (fp == NULL) {
-        errFile(file);
-        return;
-    }
-
-    int index=0;
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read;
-
-    while ((read = getline(&line, &len, fp)) != -1) {
-        sscanf(line, "%d,%[^\t\n]", &club[index].idCTY, club[index].nome);
-        index++;
-    }
-
-    if (line) free(line);
-    fclose(fp);
-}
-
-void errFile(char *file) {
+void errFile(const char* file) {
     printf(" Erro ao abrir '%s'\n", file);
 }

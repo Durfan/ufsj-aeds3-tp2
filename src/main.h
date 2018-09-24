@@ -1,6 +1,6 @@
 #define _GNU_SOURCE
 
-#define rounds(clubs) (2*clubs)-2
+#define getRodadas(clubes) (2*clubes)-2
 
 #define COLOR_RED   "\x1b[31m"
 #define COLOR_YELL  "\x1b[33m"
