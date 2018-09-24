@@ -1,5 +1,6 @@
 #define _GNU_SOURCE
 
+#define DEBUG 0
 #define getRodadas(clubes) (2*clubes)-2
 
 #define COLOR_RED   "\x1b[31m"

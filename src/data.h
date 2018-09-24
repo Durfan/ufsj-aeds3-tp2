@@ -1,5 +1,5 @@
 typedef struct clubes {
-    int idCTY;
+    int sede;
     char nome[50];
 } clubes_t;
 

@@ -24,4 +24,51 @@ void polygon(int num_teams) {
         printf("\n");
     }
 }
+
+void getCITY(const char* file, cities_t* cities) {
+    FILE* fp = fopen(file, "r");
+    if (fp == NULL) {
+        errFile(file);
+        return;
+    }
+
+    int i = 0;
+    char* line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    while ((read = getline(&line, &len, fp)) != -1) {
+        sscanf(line, "%d,%[^\t\n]", &i, cities[i].nome);
+        i++;
+    }
+    if (line) free(line);
+    fclose(fp);
+}
+
+void getCITY2(const char* file, char* cities) {
+    FILE *fp = fopen(file, "r");
+    if (fp == NULL) {
+        errFile(file);
+        return;
+    }
+
+    int i = 0;
+    char* line = NULL;
+    char* last;
+    size_t len = 0;
+    ssize_t read;
+
+    while ((read = getline(&line, &len, fp)) != -1) {
+        line[strcspn(line, "\n")] = 0;
+        last = strrchr(line, ',');
+        if (last != NULL) {
+            cities[i] = malloc(sizeof(last));
+            strcpy(cities[i],last+1);
+        }
+        i++;
+    }
+
+    if (line) free(line);
+    fclose(fp);
+}
 */

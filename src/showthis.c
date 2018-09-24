@@ -52,14 +52,18 @@ void printTravel(size_t n, int** tabela, int** travel, clubes_t* clubes) {
 
 void printCLUB(size_t n, clubes_t* clubes) {
     int i;
-    for (i=0; i<n; i++)
-        printf("%d:%d \t%s\n", i, clubes[i].idCTY, clubes[i].nome);
+    for (i=0; i<n; i++) {
+        printf("%02d:%02d %s\n", i, clubes[i].sede, clubes[i].nome);
+    }
+    printf("\n");
 }
 
 void printCITY(size_t n, cities_t* cities) {
     int i;
-    for (i=0; i<n; i++)
-        printf("%d:%d \t%s\n", i, cities[i].idCTY, cities[i].nome);
+    for (i=0; i<n; i++) {
+        printf("%02d:%02d %s\n", i, cities[i].idCTY, cities[i].nome);
+    }
+    printf("\n");
 }
 
 void printDIST(size_t n, int** travel) {
@@ -70,4 +74,5 @@ void printDIST(size_t n, int** travel) {
         }
         printf("\n");
     }
+    printf("\n");
 }

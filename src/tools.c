@@ -1,15 +1,15 @@
 #include "main.h"
 
-int** allocate(size_t n, size_t m) {
-    int i, **array;
-    array = calloc(n,sizeof(int*));
-    if (array == NULL) exit(EXIT_FAILURE);
+int** allocTable(size_t n, size_t m) {
+    int i, **table;
+    table = calloc(n,sizeof(int*));
+    if (table == NULL) exit(EXIT_FAILURE);
     for(i=0 ; i<n; i++)
-        array[i] = calloc(m,sizeof(int));
-    return array;
+        table[i] = calloc(m,sizeof(int));
+    return table;
 }
 
-void freeMEM(size_t n, int** ptr) {
+void freeMemory(size_t n, int** ptr) {
     int i;
     for(i=0 ; i<n ; i++)
         free(ptr[i]);

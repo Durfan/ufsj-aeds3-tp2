@@ -1,11 +1,11 @@
 #include "main.h"
 
 int getlines(const char* file) {
-    FILE *fp = fopen(file, "r");
+    FILE* fp = fopen(file, "r");
     if (fp == NULL) return 0;
 
     int count = 0;
-    char *line = NULL;
+    char* line = NULL;
     size_t len = 0;
     ssize_t read;
     
@@ -19,19 +19,19 @@ int getlines(const char* file) {
 }
 
 void getCLUB(const char* file, clubes_t* clubes) {
-    FILE *fp = fopen(file, "r");
+    FILE* fp = fopen(file, "r");
     if (fp == NULL) {
         errFile(file);
         return;
     }
 
-    int index=0;
-    char *line = NULL;
+    int index = 0;
+    char* line = NULL;
     size_t len = 0;
     ssize_t read;
 
     while ((read = getline(&line, &len, fp)) != -1) {
-        sscanf(line, "%d,%[^\t\n]", &clubes[index].idCTY, clubes[index].nome);
+        sscanf(line, "%d,%[^\t\n]", &clubes[index].sede, clubes[index].nome);
         index++;
     }
 
@@ -40,20 +40,20 @@ void getCLUB(const char* file, clubes_t* clubes) {
 }
 
 void getCITY(const char* file, cities_t* cities) {
-    FILE *fp = fopen(file, "r");
+    FILE* fp = fopen(file, "r");
     if (fp == NULL) {
         errFile(file);
         return;
     }
 
-    int index=0;
-    char *line = NULL;
+    int i = 0;
+    char* line = NULL;
     size_t len = 0;
     ssize_t read;
 
     while ((read = getline(&line, &len, fp)) != -1) {
-        sscanf(line, "%d,%[^\t\n]", &cities[index].idCTY, cities[index].nome);
-        index++;
+        sscanf(line, "%d,%[^\t\n]", &cities[i].idCTY, cities[i].nome);
+        i++;
     }
     if (line) free(line);
     fclose(fp);
