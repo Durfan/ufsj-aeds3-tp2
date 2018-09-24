@@ -2,7 +2,7 @@
 
 void polygon(int **schedule, int clubs) {
     int i,l;
-    int travel=1;
+    int travel = 1;
     int topTeam = clubs;
     int polygon[clubs-1];
     
@@ -29,17 +29,14 @@ void polygon(int **schedule, int clubs) {
 
 void createEscala(int **escala, int **schedule, int clubs) {
     int i,j;
-    int tupla1,tupla2;
-
-    for (i=0; i<clubs; i++)
-        for (j=0; j<clubs; j++) escala[i][j] = 0;
+    int club1,club2;
 
     for (i=0; i<clubs; i++) {
         for (j=0; j<(2*clubs)-3; j++) {
-            tupla1 = abs(schedule[i][j])-1;
-            tupla2 = abs(schedule[i][j+1])-1;
-            escala[tupla1][tupla2]+=1;
-            escala[tupla2][tupla1]+=1;
+            club1 = abs(schedule[i][j]) -1;
+            club2 = abs(schedule[i][j+1]) -1;
+            escala[club1][club2] += 1;
+            escala[club2][club1] += 1;
         }
     }
 }

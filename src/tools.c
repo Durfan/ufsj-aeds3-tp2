@@ -2,10 +2,10 @@
 
 int **allocate(int n, int m) {
     int i, **array;
-    array = malloc(n*sizeof(int*));
+    array = calloc(n,sizeof(int*));
     if (array == NULL) exit(EXIT_FAILURE);
     for(i=0 ; i<n; i++)
-        array[i] = malloc(m*sizeof(int));
+        array[i] = calloc(m,sizeof(int));
     return array;
 }
 

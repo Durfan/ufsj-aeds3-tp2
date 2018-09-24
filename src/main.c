@@ -1,8 +1,9 @@
 #include "main.h"
 
 int main(void) {
-    int clubs = 8;
-    int **schedule = allocate(clubs,(2*clubs)-2);
+    int clubs = 6;
+    int rounds = rounds(clubs);
+    int **schedule = allocate(clubs,rounds);
     int **escala = allocate(clubs,clubs);
     
     system("clear");
