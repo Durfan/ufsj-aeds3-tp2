@@ -22,10 +22,11 @@ int main(void) {
     printf(" AEDS III/TP2: Traveling Tournament Problem\n\n");
 
     polygon(schedule,clubs);
-    printSchedule(schedule,travel,club,clubs);
+    printSchedule(schedule,clubs);
+    printTravel(schedule,travel,club,clubs);
 
     createEscala(escala,schedule,clubs);
-    printEscala(escala,clubs);
+    // printEscala(escala,clubs);
 
     freeMEM(travel,cities);
     freeMEM(escala,clubs);
