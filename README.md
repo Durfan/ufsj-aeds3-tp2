@@ -1,3 +1,3 @@
 # Traveling Tournament Problem
 
-![](./captura.png)
+![](./doc/captura.png)
