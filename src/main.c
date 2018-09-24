@@ -5,7 +5,7 @@ int main(void) {
     char *fp_travel = "./data/dados_distancias.in";
     char *fp_clubs = "./data/dados_times.in";
 
-    int clubs = 6;
+    int clubs = lines(fp_clubs);
     int cities = lines(fp_cities);
     int rounds = rounds(clubs);
     int **schedule = allocate(clubs,rounds);
@@ -22,7 +22,7 @@ int main(void) {
     printf(" AEDS III/TP2: Traveling Tournament Problem\n\n");
 
     polygon(schedule,clubs);
-    printSchedule(schedule,clubs);
+    printSchedule(schedule,travel,club,clubs);
 
     createEscala(escala,schedule,clubs);
     printEscala(escala,clubs);

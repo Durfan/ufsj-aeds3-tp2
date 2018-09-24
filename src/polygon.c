@@ -1,5 +1,13 @@
 #include "main.h"
 
+int viagem(int **travel, club_t *club, int da_casa, int nemesis) {
+    int from = club[da_casa].idCTY-1;
+    int to   = club[abs(nemesis)-1].idCTY;
+    if (nemesis > 0) return 0;
+    if (nemesis < 0) return travel[from][to];
+    return -1;
+}
+
 void polygon(int **schedule, int clubs) {
     int i,l;
     int travel = 1;

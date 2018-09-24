@@ -16,9 +16,10 @@ void printEscala(int **escala, int clubs) {
     }
 }
 
-void printSchedule(int **schedule, int clubs) {
+void printSchedule(int **schedule, int **travel, club_t *club, int clubs) {
     int i,j;
     int rounds = rounds(clubs);
+    int distance = 0;
 
     printf(" \033[4m   \033[24m");
     for (i=0; i<rounds; i++) {
@@ -30,8 +31,9 @@ void printSchedule(int **schedule, int clubs) {
         for (j=0; j<rounds; j++) { // m_teams-1
             if (schedule[i][j]<0) printf(COLOR_YELL "%02d " COLOR_RESET, abs(schedule[i][j]));
             else printf("%02d ", abs(schedule[i][j]));
+            distance += viagem(travel,club,i,schedule[i][j]);
         }
-        printf("\n");
+        printf(" %05d km\n", distance);
     }
 }
 
@@ -52,9 +54,9 @@ void printDIST(int **travel) {
     }
 }
 
-void printCLUB(club_t *club) {
+void printCLUB(club_t *club, int clubs) {
     int i;
-    for (i=0;i<20;i++) {
+    for (i=0;i<clubs;i++) {
         printf("%d:%d \t%s\n", i, club[i].idCTY, club[i].nome);
     }
 }
