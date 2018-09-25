@@ -1,8 +1,8 @@
 #include "main.h"
 
 int viagem(int** travel, clubes_t* clubes, int da_casa, int nemesis) {
-    int from = clubes[da_casa].idCTY-1;
-    int to   = clubes[abs(nemesis)-1].idCTY;
+    int from = clubes[da_casa].sede-1;
+    int to   = clubes[abs(nemesis)-1].sede;
     if (nemesis > 0) return 0;
     if (nemesis < 0) return travel[from][to];
     return -1;

@@ -21,3 +21,7 @@ void shiftArray(size_t n, int* array) {
     memmove(&array[1], &array[0], (n-1)*sizeof(int));
     array[0] = tmp;
 }
+
+int colBKG(int i, int j) {
+    return (i+j)%2;
+}
