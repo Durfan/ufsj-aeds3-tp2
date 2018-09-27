@@ -135,6 +135,24 @@ void LLchg(list_t* list, node_t* nodeA, node_t* nodeB) {
     nodeB->next = p;
 }
 
+void LLdup(list_t* list) { 
+    node_t* current = list->head;
+    node_t* next_next;
+
+    if (isEmpty(list)) return;
+
+    while (current->next != NULL) {
+       if (current->data.T1 == current->next->data.T1 && 
+           current->data.T2 == current->next->data.T2) {
+           next_next = current->next->next;
+           free(current->next);
+           current->next = next_next;
+           list->size--;
+       } 
+       else current = current->next;
+    }
+}
+
 void LLinc(list_t* list) {
     int i;
     for (i=0; i<list->size-1; i++) {

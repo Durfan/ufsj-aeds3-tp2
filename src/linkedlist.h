@@ -24,6 +24,7 @@ void LLpop(list_t* list);
 void LLdel(list_t* list, int index);
 void LLins(list_t* list, data_t data, int index);
 void LLchg(list_t* list, node_t* nodeA, node_t* nodeB);
+void LLdup(list_t* list);
 void LLinc(list_t* list);
 void LLdec(list_t* list);
 void LLprt(list_t* list);

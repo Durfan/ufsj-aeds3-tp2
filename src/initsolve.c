@@ -33,11 +33,22 @@ void initPolygon(size_t n, int** tabela) {
 }
 
 void associaClub(size_t n, clubes_t* clubes, int** travel, int** tabela) {
+    int T1, T2;
+    int associado = 0;
     list_t* real = create();
     list_t* unreal = create();
-
     buildCalvin(n,real,clubes,travel);
     buildHarold(n,unreal,tabela);
+
+    LLprt(real);
+
+    node_t* NXTlink = real->head;
+    node_t* closeT1 = real->head;
+    while (associado < n) {
+        T1 = NXTlink->data.T1;
+        T2 = closeT1->data.T2;
+        associado++;
+    }
 
     LLclr(real);
     LLclr(unreal);
@@ -48,20 +59,19 @@ void buildCalvin(size_t n, list_t* list, clubes_t* clubes, int** travel) {
     int clube1, clube2;
     data_t distancia;
 
-    for (i=0; i<10; i++) {
+    for (i=0; i<n; i++) {
         clube1 = clubes[i].sede;
-        for (j=0; j<10; j++) {
+        for (j=0; j<n; j++) {
             clube2 = clubes[j].sede;
-            if (travel[clube1-1][clube2-1]) {
-                distancia.T1 = clube1;
-                distancia.T2 = clube2;
+            if (i < j) {
+                distancia.T1 = i+1;
+                distancia.T2 = j+1;
                 distancia.value = travel[clube1-1][clube2-1];
                 LLpsh(list,distancia);
             }
         }
     }
-
-    LLinc(list);
+    LLinc(list);  
 }
 
 void buildHarold(size_t n, list_t* list, int** tabela) {
