@@ -10,8 +10,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
-#include "data.h"
+#include "files.h"
+#include "linkedlist.h"
 #include "showthis.h"
-#include "polygon.h"
+#include "initsolve.h"
 #include "tools.h"
+
+typedef enum {false,true} bool;

@@ -71,4 +71,109 @@ void getCITY2(const char* file, char* cities) {
     if (line) free(line);
     fclose(fp);
 }
+
+    for (i=0; i<n; i++) {
+        for (j=0; j<n; j++) {
+            if (calvin[i][j]) {
+                k = 0;
+                while (k<4) {
+                    Rclubs[i][k] = i;
+                    Rclubs[i][k] = j;
+                    Rclubs[i][k] = calvin[i][j];
+                    k++;
+                }
+            }
+        }
+    }
+
+    for (i=0; i<n; i++) {
+        for (j=0; j<4; j++) {
+            if (calvin[i][j]) {
+                printf("%02dx%02d => %d\n", i+1, j+1, Rclubs[i][j]);
+            }
+        }
+    }
+
+    for (i=0; i<n; i++) {
+        for (j=0; j<n; j++) {
+            if (harold[i][j]) printf("%cx%c => %d\n", i+65, j+65, harold[i][j]);
+        }
+    }
+*/
+
+/* 
+void buildCalvin(size_t n, int** calvin, int** travel, clubes_t* clubes) {
+    int i,j;
+    int clube1,clube2;
+
+    for (i=0; i<n; i++) {
+        clube1 = clubes[i].sede -1;
+
+        for (j=0; j<n; j++) {
+            clube2 = clubes[j].sede -1;
+            calvin[i][j] = travel[clube1][clube2];
+        }
+    }
+}
+
+void buildHarold(size_t n, int** harold, int** tabela) {
+    int i,j;
+    int clube1,clube2;
+    int rodadas = getRodadas(n);
+
+    for (i=0; i<n; i++) {
+        for (j=0; j<rodadas-1; j++) {
+            clube1 = abs(tabela[i][j]) -1;
+            clube2 = abs(tabela[i][j+1]) -1;
+            harold[clube1][clube2] += 1;
+            harold[clube2][clube1] += 1;
+        }
+    }
+}
+ */
+
+// void buildCalvin(size_t n, int** calvin, int** travel, clubes_t* clubes);
+// void buildHarold(size_t n, int** harold, int** tabela);
+
+// buildCalvin(Nclubes,calvin,travel,clubes);
+// buildHarold(Nclubes,harold,tabela);
+
+/* 
+void initPolygon(size_t n, int** tabela) {
+    int i,l;
+    int travel = 1;
+    int topTeam = n;
+    int polygon[n-1];
+    
+    for (i=0; i<n-1; i++) polygon[i] = i + 1;
+    
+    for (i=0; i<n-1; i++) {
+        tabela[topTeam-1][i]    =  travel*polygon[0];
+        tabela[polygon[0]-1][i] = -travel*topTeam;
+
+        tabela[topTeam-1][i+n-1]    = -travel*polygon[0];
+        tabela[polygon[0]-1][i+n-1] =  travel*topTeam;
+
+        for (l=2; l<=n/2; l++) {
+            tabela[polygon[l-1]-1][i] =  travel*polygon[n-l];
+            tabela[polygon[n-l]-1][i] = -travel*polygon[l-1];
+            tabela[polygon[l-1]-1][i+n-1] = -travel*polygon[n-l];
+            tabela[polygon[n-l]-1][i+n-1] =  travel*polygon[l-1];
+        }
+
+        travel *= -1;
+        shiftArray(n-1,polygon);
+    }
+}
+
+memcpy(tabela2,tabela,Nclubes*sizeof(*tabela));
+
+    for (i=0; i<n; i++) {
+        clube1 = clubes[i].sede -1;
+        for (j=0; j<n; j++) {
+            clube2 = clubes[j].sede -1;
+            calvin[i][j] = travel[clube1][clube2];
+        }
+    }
+
 */

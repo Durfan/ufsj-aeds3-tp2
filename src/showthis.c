@@ -4,54 +4,42 @@ void printTabela(size_t n, int** tabela) {
     int i,j;
     int rodadas = getRodadas(n);
 
-    printf(" \033[4m  \033[24m");
-    for (i=0; i<rodadas && i<n-1; i++) {
-        printf("\033[4m  %02d\033[24m", i+1);
+    for (i=0; i<n; i++) {
+        printf(" %02d", i+1);
+        for (j=0; j<rodadas; j++) {
+            printf(" %c", tabela[i][j]+64);
+        }
+        printf("\n");
     }
+}
+
+void printCalvin(size_t n, int** calvin) {
+    int i,j;
+    
+    printf(" (Tabela: 'Calvin')\n");
+    for (i=0; i<n; i++) printf(COLOR_BLUE " %02d:" COLOR_RESET, i+1);
     printf("\n");
     for (i=0; i<n; i++) {
-        printf(" %02d ", i+1);
-        for (j=0; j<rodadas && j<n-1; j++) {
-            if (tabela[i][j]<0) printf(COLOR_YELL " %02d " COLOR_RESET, abs(tabela[i][j]));
-            else printf(" %02d ", abs(tabela[i][j]));
+        // printf(COLOR_BLUE " %02d" COLOR_RESET, i+1);
+        for (j=0; j<n; j++) {
+            if (!calvin[i][j]) printf(COLOR_BLUE " %03d" COLOR_RESET, calvin[i][j]);
+            else printf(" %01.1f", (float)calvin[i][j]/1000);
         }
         printf("\n");
-    }
-    if (n>=16) {
-        printf("\n Imprimir Returno... [Enter]");
-        while (getchar() !='\n');
-        printf("\n \033[4m  \033[24m");
-        for (i=n-1; i<rodadas; i++) {
-            printf("\033[4m  %02d\033[24m", i+1);
-        }
-        printf("\n");
-        for (i=0; i<n; i++) {
-            printf(" %02d ", i+1);
-            for (j=n-1; j<rodadas; j++) {
-                if (tabela[i][j]<0) printf(COLOR_YELL " %02d " COLOR_RESET, abs(tabela[i][j]));
-                else printf(" %02d ", abs(tabela[i][j]));
-            }
-            printf("\n");
-        }
     }
     printf("\n");
 }
 
-void printEscala(size_t n, int** escala) {
+void printHarold(size_t n, int** harold) {
     int i,j;
     
-    printf("\n  ");
-    for (i=0; i<n; i++) printf(COLOR_BLUE " %c:" COLOR_RESET, i+65);
-    printf("\n");
     for (i=0; i<n; i++) {
-        printf(COLOR_BLUE " %c" COLOR_RESET, i+65);
+        printf(" %c", i+65);
         for (j=0; j<n; j++) {
-            if (!escala[i][j]) printf(COLOR_BLUE " --" COLOR_RESET);
-            else printf(" %02d", escala[i][j]);
+            printf(" %02d", harold[i][j]);
         }
         printf("\n");
     }
-    printf("\n");
 }
 
 void printTravel(size_t n, int** tabela, int** travel, clubes_t* clubes) {
@@ -71,25 +59,29 @@ void printTravel(size_t n, int** tabela, int** travel, clubes_t* clubes) {
 
 void printCLUB(size_t n, clubes_t* clubes) {
     int i;
+    printf(COLOR_BLUE " ID SD CLUBE\n" COLOR_RESET);
     for (i=0; i<n; i++) {
-        printf(" %02d:%02d %s\n", i, clubes[i].sede, clubes[i].nome);
+        printf(" %02d %02d %s\n", i, clubes[i].sede, clubes[i].nome);
     }
     printf("\n");
 }
 
 void printCITY(size_t n, cities_t* cities) {
     int i;
+    printf(COLOR_BLUE " ID CT Cidade\n" COLOR_RESET);
     for (i=0; i<n; i++) {
-        printf(" %02d:%02d %s\n", i, cities[i].idCTY, cities[i].nome);
+        printf(" %02d %02d %s\n", i, cities[i].idCTY, cities[i].nome);
     }
     printf("\n");
 }
 
 void printDIST(size_t n, int** travel) {
     int i,j;
+    printf(" (Tabela: Distancias Relativas)\n");
     for (i=0; i<n; i++) {
         for (j=0; j<n; j++) {
-            printf(" %d\t", travel[i][j]);
+            if (!travel[i][j]) printf(COLOR_BLUE " %04d" COLOR_RESET, travel[i][j]);
+            else printf(" %04d", travel[i][j]);
         }
         printf("\n");
     }
