@@ -1,6 +1,6 @@
 typedef struct data {
-    int T1;
-    int T2;
+    int T1,T2;
+    int A,B;
     int value;
 } data_t;
 

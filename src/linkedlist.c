@@ -25,8 +25,8 @@ node_t* LLmin(list_t* list, int index) {
     if (p != NULL) {
         node_t* minNode = p;
         while (p != NULL) {
-            if (p->data.value < minNode->data.value) minNode = p;
-
+            if (p->data.value < minNode->data.value)
+                minNode = p;
             p = p->next;
         }
         return minNode;
@@ -39,8 +39,8 @@ node_t* LLmax(list_t* list, int index) {
     if (p != NULL) {
         node_t* maxNode = p;
         while (p != NULL) {
-            if (p->data.value > maxNode->data.value) maxNode = p;
-
+            if (p->data.value > maxNode->data.value)
+                maxNode = p;
             p = p->next;
         }
         return maxNode;
@@ -135,21 +135,24 @@ void LLchg(list_t* list, node_t* nodeA, node_t* nodeB) {
     nodeB->next = p;
 }
 
-void LLdup(list_t* list) { 
-    node_t* current = list->head;
-    node_t* next_next;
-
+void LLdup(list_t* list) {
     if (isEmpty(list)) return;
+    node_t* current = list->head;
+    node_t* next2next;
+    int T1a,T1b,T2a,T2b;
 
     while (current->next != NULL) {
-       if (current->data.T1 == current->next->data.T1 && 
-           current->data.T2 == current->next->data.T2) {
-           next_next = current->next->next;
-           free(current->next);
-           current->next = next_next;
-           list->size--;
-       } 
-       else current = current->next;
+        T1a = current->data.T1;
+        T1b = current->next->data.T1;
+        T2a = current->data.T2;
+        T2b = current->next->data.T2;
+        if (T1a == T1b && T2a == T2b) {
+            next2next = current->next->next;
+            free(current->next);
+            current->next = next2next;
+            list->size--;
+        } 
+        else current = current->next;
     }
 }
 
@@ -169,10 +172,11 @@ void LLdec(list_t* list) {
 
 void LLprt(list_t* list) {
     if (isEmpty(list)) return;
-    node_t* p = list->head;
-    while (p != NULL) {
-        printf ("%d %d %d\n", p->data.T1, p->data.T2, p->data.value);
-        p = p->next;
+    node_t* ptr = list->head;
+    while (ptr != NULL) {
+        printf ("%d %d ", ptr->data.T1, ptr->data.T2);
+        printf ("%d %d %d\n",ptr->data.A, ptr->data.B , ptr->data.value);
+        ptr = ptr->next;
     }
 }
 

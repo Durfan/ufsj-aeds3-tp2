@@ -12,10 +12,10 @@
 #include <string.h>
 #include <assert.h>
 
+typedef enum {false,true} bool;
+
 #include "files.h"
 #include "linkedlist.h"
 #include "showthis.h"
 #include "initsolve.h"
 #include "tools.h"
-
-typedef enum {false,true} bool;
