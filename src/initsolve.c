@@ -98,6 +98,8 @@ void associaClub(size_t n, clubes_t* clubes, int** travel, int** tabela) {
         }
     }
 
+    LLprt(linked);
+
     LLclr(isreal);
     LLclr(unreal);
     LLclr(linked);
