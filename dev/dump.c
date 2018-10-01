@@ -139,7 +139,7 @@ void buildHarold(size_t n, int** harold, int** tabela) {
 // buildHarold(Nclubes,harold,tabela);
 
 /* 
-
+printf(" 01: (a,b)=%02d,%02d : (T1,T2)=%02d,%02d \n", Uptr->data.A, Uptr->data.B, T1, T2);
 printf("%d -> Condicao T2: (a,b)=%d,%d : (T1,T2)=%d,%d \n", i+1, Uptr->data.A, Uptr->data.B, T1, T2);
 
 void initPolygon(size_t n, int** tabela) {
