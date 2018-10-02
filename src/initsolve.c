@@ -23,37 +23,12 @@ void initPolygon(size_t n, int** tabela) {
     }
 }
 
-int islinked(list_t* list, int T) {
-    node_t* ptr = atP(list,list->size-T);
-    if (ptr->data.value) return ptr->data.A;
-    return 0;
-}
-
-void associar(list_t* list, int ab, int T1) {
-    if (isEmpty(list)) return;
-    node_t* ptr = list->head;
-    while (ptr != NULL) {
-        if (ptr->data.A == ab) ptr->data.T1 = T1;
-        else if (ptr->data.B == ab) ptr->data.T2 = T1;
-        ptr = ptr->next;
-    }
-}
-
-bool areClubs(list_t* list) {
-    node_t* ptr = list->head;
-    while (ptr != NULL) {
-        if (!ptr->data.value) return false;
-        ptr = ptr->next;
-    }
-    return true;
-}
-
 void associaClub(size_t n, clubes_t* clubes, int** travel, int** tabela) {
     int i,T1,T2,T2link;
     list_t* isreal = create();
     list_t* unreal = create();
     list_t* linked = create();
-    buildCalvin(n,isreal,clubes,travel);
+    buildCalvin(n,clubes,isreal,travel);
     buildHarold(n,unreal,tabela);
     data_t link = {0};
 
@@ -98,14 +73,29 @@ void associaClub(size_t n, clubes_t* clubes, int** travel, int** tabela) {
         }
     }
 
-    LLprt(linked);
+    changeTable(n,clubes,linked,tabela);
 
     LLclr(isreal);
     LLclr(unreal);
     LLclr(linked);
 }
 
-void buildCalvin(size_t n, list_t* list, clubes_t* clubes, int** travel) {
+void changeTable(size_t n, clubes_t* clubes, list_t* list, int** tabela) {
+    int i,j;
+    int rodadas = getRodadas(n);
+    node_t* link;
+
+    for (i=0; i<n; i++) {
+        link = atP(list,n-clubes[i].id);
+        clubes[i].id = link->data.B;
+        for (j=0; j<rodadas; j++) {
+            link = atP(list,n-tabela[i][j]);
+            tabela[i][j] = link->data.B;
+        }
+    }
+}
+
+void buildCalvin(size_t n, clubes_t* clubes, list_t* list, int** travel) {
     int i,j;
     int club1, club2;
     data_t distance = {0};
@@ -151,6 +141,31 @@ void buildHarold(size_t n, list_t* list, int** tabela) {
     }
     LLdec(list);
     freeMemory(n,harold);
+}
+
+int islinked(list_t* list, int T) {
+    node_t* ptr = atP(list,list->size-T);
+    if (ptr->data.value) return ptr->data.A;
+    return 0;
+}
+
+void associar(list_t* list, int ab, int T1) {
+    if (isEmpty(list)) return;
+    node_t* ptr = list->head;
+    while (ptr != NULL) {
+        if (ptr->data.A == ab) ptr->data.T1 = T1;
+        else if (ptr->data.B == ab) ptr->data.T2 = T1;
+        ptr = ptr->next;
+    }
+}
+
+bool areClubs(list_t* list) {
+    node_t* ptr = list->head;
+    while (ptr != NULL) {
+        if (!ptr->data.value) return false;
+        ptr = ptr->next;
+    }
+    return true;
 }
 
 bool findAT1(node_t* ptr) {

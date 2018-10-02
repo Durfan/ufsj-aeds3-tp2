@@ -1,13 +1,13 @@
 #include "main.h"
 
-void printTabela(size_t n, int** tabela) {
+void printTabela(size_t n, clubes_t* clubes, int** tabela) {
     int i,j;
     int rodadas = getRodadas(n);
 
     for (i=0; i<n; i++) {
-        printf(" %02d", i+1);
+        printf(" %c", clubes[i].id+64);
         for (j=0; j<rodadas; j++) {
-            printf(" %c", tabela[i][j]+64);
+            printf("\u2502%c", tabela[i][j]+64);
         }
         printf("\n");
     }

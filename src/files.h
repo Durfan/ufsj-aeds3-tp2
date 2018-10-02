@@ -1,6 +1,8 @@
 typedef struct clubes {
+    int id;
     int sede;
     char nome[50];
+    char sigla[4];
 } clubes_t;
 
 typedef struct cities {

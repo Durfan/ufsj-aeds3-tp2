@@ -1,4 +1,4 @@
-void printTabela(size_t n, int** tabela);
+void printTabela(size_t n, clubes_t* clubes, int** tabela);
 void printMatrix(size_t n, int** tabela);
 
 void printCLUB(size_t n, clubes_t* clubes);
