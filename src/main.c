@@ -3,6 +3,7 @@
 int main(void) {
     system("clear");
     setlocale(LC_ALL, "Portuguese");
+    srand(time(NULL));
     
     const char* fp_cities = "./data/dados_cidades.in";
     const char* fp_travel = "./data/dados_distancias.in";
@@ -16,21 +17,15 @@ int main(void) {
     cities_t cities[Ncities];
     clubes_t clubes[Nclubes];
 
-    assert(!(Nclubes%2));
+    if (DEBUG) assert(!(Nclubes%2));
 
     getDIST(fp_travel,travel);
     getCITY(fp_cities,cities);
     getCLUB(fp_clubes,clubes);
     
-    printf(" AEDS III/TP2: Traveling Tournament Problem\n\n");
-
-    printf(" 1: Fatoracao \"Metodo do Poligono\":\n\n");
     initPolygon(Nclubes,tabela);
-    printTabela(Nclubes,clubes,tabela);
-
-    printf("\n 2: Associacao por jogos consecutivos:\n\n");
-
     associaClub(Nclubes,clubes,travel,tabela);
+
     printTabela(Nclubes,clubes,tabela);
 
 /* 

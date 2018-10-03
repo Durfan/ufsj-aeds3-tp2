@@ -24,22 +24,17 @@ void initPolygon(size_t n, int** tabela) {
 }
 
 void associaClub(size_t n, clubes_t* clubes, int** travel, int** tabela) {
-    int i,T1,T2,T2link;
+    int T1,T2,T2link;
     list_t* isreal = create();
     list_t* unreal = create();
     list_t* linked = create();
     buildCalvin(n,clubes,isreal,travel);
     buildHarold(n,unreal,tabela);
-    data_t link = {0};
+    buildLinked(n,linked);
 
     node_t* Rptr = isreal->head;
     node_t* Uptr = unreal->head;
     node_t* Lchg;
-
-    for (i=0; i<n; i++) {
-        link.A = i+1;
-        LLpsh(linked,link);
-    }
 
     while (!areClubs(linked)) {
 
@@ -51,7 +46,7 @@ void associaClub(size_t n, clubes_t* clubes, int** travel, int** tabela) {
                 T2 = Rptr->data.T1;
             }
             if (islinked(linked,T1)) Rptr = Rptr->next;
-            assert(Rptr != NULL);
+            if (DEBUG) assert(Rptr != NULL);
         } while (islinked(linked,T1));
         
         Uptr = unreal->head;
@@ -72,26 +67,45 @@ void associaClub(size_t n, clubes_t* clubes, int** travel, int** tabela) {
             Lchg->data.value = 1;
         }
     }
-
-    changeTable(n,clubes,linked,tabela);
+    changeClube(n,clubes,linked);
+    housemaster(n,tabela);
 
     LLclr(isreal);
     LLclr(unreal);
     LLclr(linked);
 }
 
-void changeTable(size_t n, clubes_t* clubes, list_t* list, int** tabela) {
-    int i,j;
-    int rodadas = getRodadas(n);
-    node_t* link;
+void changeClube(size_t n, clubes_t* clubes, list_t* list) {
+    int i;
+    clubes_t change[list->size];
+    node_t* swap;
 
+    for (i=0; i<list->size; i++) {
+        swap = atP(list,i);
+        change[swap->data.B-1] = clubes[swap->data.A-1];
+    }
+    for (i=0; i<list->size; i++) clubes[i] = change[i];
+}
+
+void housemaster(size_t n, int** tabela) {
+    int i, mando[n];
+    int out = -1;
+    sorteia(n,mando);
+    
     for (i=0; i<n; i++) {
-        link = atP(list,n-clubes[i].id);
-        clubes[i].id = link->data.B;
-        for (j=0; j<rodadas; j++) {
-            link = atP(list,n-tabela[i][j]);
-            tabela[i][j] = link->data.B;
-        }
+        if (!mando[i]) tabela[i][0] *= out;
+    }
+}
+
+void sorteia(size_t n, int* array) {
+    int i;
+    for (i=0; i<n/2; i++) {
+        array[i] = 0;
+        array[i] = randint(2);
+    }
+    for (i=n/2; i<n; i++) {
+        if(array[(n-1)-i]) array[i] = 0;
+        else array[i] = 1;
     }
 }
 
@@ -143,6 +157,15 @@ void buildHarold(size_t n, list_t* list, int** tabela) {
     freeMemory(n,harold);
 }
 
+void buildLinked(size_t n, list_t* list) {
+    int i;
+    data_t link = {0};
+    for (i=0; i<n; i++) {
+        link.A = i+1;
+        LLpsh(list,link);
+    }
+}
+
 int islinked(list_t* list, int T) {
     node_t* ptr = atP(list,list->size-T);
     if (ptr->data.value) return ptr->data.A;
@@ -169,16 +192,16 @@ bool areClubs(list_t* list) {
 }
 
 bool findAT1(node_t* ptr) {
-    if (ptr == NULL) assert(ptr != NULL);
+    if (DEBUG) assert(ptr != NULL);
     return (ptr->data.T1 == 0 && ptr->data.T2 == 0);
 }
 
 bool findBT1(node_t* ptr, int T2) {
-    if (ptr == NULL) assert(ptr != NULL);
+    if (DEBUG) assert(ptr != NULL);
     return (ptr->data.T1 == T2 && ptr->data.T2 == 0);
 }
 
 bool findCTY(node_t* ptr, int T) {
-    if (ptr == NULL) assert(ptr != NULL);
+    if (DEBUG) assert(ptr != NULL);
     return (ptr->data.T1 == T || ptr->data.T2 == T);
 }

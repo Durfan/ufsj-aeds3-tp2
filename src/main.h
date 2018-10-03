@@ -12,6 +12,7 @@
 #include <locale.h>
 #include <string.h>
 #include <assert.h>
+#include <time.h>
 
 typedef enum {false,true} bool;
 

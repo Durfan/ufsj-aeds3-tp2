@@ -130,6 +130,27 @@ void buildHarold(size_t n, int** harold, int** tabela) {
         }
     }
 }
+
+void housemaster(size_t n, clubes_t* clubes, int** tabela, int** travel) {
+    int i,j;
+    int club1, club2;
+    int rodadas = getRodadas(n);
+    int out = -1;
+
+    for (i=0; i<n; i++) {
+        club1 = clubes[i].sede;
+        printf("%d ", club1);
+        for (j=0; j<rodadas/2; j++) {
+            club2 = clubes[tabela[i][j] -1].sede;
+            printf("%d ", club2);
+            if (travel[club1-1][club2-1]>0) tabela[i][j]*=out;
+        }
+        printf("\n");
+    }
+
+    printCLUB(n,clubes);
+}
+
  */
 
 // void buildCalvin(size_t n, int** calvin, int** travel, clubes_t* clubes);

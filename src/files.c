@@ -32,7 +32,6 @@ void getCLUB(const char* file, clubes_t* clubes) {
 
     while ((read = getline(&line, &len, fp)) != -1) {
         sscanf(line, "%d,%[^\t\n]", &clubes[index].sede, clubes[index].nome);
-        clubes[index].id = index+1;
         index++;
     }
 

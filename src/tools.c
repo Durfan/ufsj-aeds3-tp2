@@ -21,3 +21,16 @@ void shiftArray(size_t n, int* array) {
     memmove(&array[1], &array[0], (n-1)*sizeof(int));
     array[0] = tmp;
 }
+
+int randint(int n) {
+    if ((n - 1) == RAND_MAX) return rand();
+    else {
+        if (DEBUG) assert(n<=RAND_MAX);
+        int end = RAND_MAX / n;
+        if (DEBUG) assert(end > 0);
+        end *= n;
+        int r;
+        while ((r = rand()) >= end);
+        return r % n;
+    }
+}
