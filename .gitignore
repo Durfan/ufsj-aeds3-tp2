@@ -1,4 +1,2 @@
 .vscode
-dev/
-*.o
-ttp
+build/

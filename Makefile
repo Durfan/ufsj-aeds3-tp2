@@ -1,38 +1,41 @@
-# project name
-TARGET	 = ttp
+TARGET_EXEC ?= TTP
 
-CC       = gcc
-# compiling flags here
-CFLAGS   = -g -std=gnu99 -Wall -I.
+BUILD_DIR ?= ./build
+SRC_DIRS ?= ./src
 
-LINKER   = gcc
-# linking flags
-LFLAGS   = -g -Wall -I.
+SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+DEPS := $(OBJS:.o=.d)
 
-# directories
-SRCDIR   = src
-OBJDIR   = obj
-BINDIR   = bin
+INC_DIRS := $(shell find $(SRC_DIRS) -type d)
+INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
-SOURCES  := $(wildcard $(SRCDIR)/*.c)
-INCLUDES := $(wildcard $(SRCDIR)/*.h)
-OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
-rm       = rm -f
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
 
-$(BINDIR)/$(TARGET): $(OBJECTS)
-	@$(LINKER) $(OBJECTS) $(LFLAGS) -o $@
-	@echo "Linking complete!"
+$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
+	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
-$(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "Compiled "$<" successfully!"
+# assembly
+$(BUILD_DIR)/%.s.o: %.s
+	$(MKDIR_P) $(dir $@)
+	$(AS) $(ASFLAGS) -c $< -o $@
+
+# c source
+$(BUILD_DIR)/%.c.o: %.c
+	$(MKDIR_P) $(dir $@)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+# c++ source
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	$(MKDIR_P) $(dir $@)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
 
 .PHONY: clean
-clean:
-	@$(rm) $(OBJECTS)
-	@echo "Cleanup complete!"
 
-.PHONY: remove
-remove: clean
-	@$(rm) $(BINDIR)/$(TARGET)
-	@echo "Executable removed!"
+clean:
+	$(RM) -r $(BUILD_DIR)
+
+-include $(DEPS)
+
+MKDIR_P ?= mkdir -p
