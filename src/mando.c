@@ -12,7 +12,7 @@ void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
     list_t* nt = create();
     for (i=0; i<n; i++) LLpsh(nt,booltable);
 
-    for (i=0; i<n-2; i++) {
+    for (i=0; i<n-3; i++) {
 
         for (j=0; j<n; j++) {
             T1 = atP(nt,abs(tabela[j][i])-1);
@@ -24,22 +24,40 @@ void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
             T1 = atP(nt,j);
             T2 = atP(nt,abs(tabela[j][i+1])-1);
 
-            if (T1->data.A > 0 && T2->data.A < 0) {
-                T1->data.B =  travel;
-                T2->data.B = -travel;
-            }
-            if (T1->data.A < 0 && T2->data.A > 0) {
-                T1->data.B = -travel;
-                T2->data.B =  travel;
-            }
-            else {
-                if (!randint(2)) {
-                    T1->data.B =  travel;
-                    T2->data.B = -travel;
-                }
-                else {
+            if (T2->data.value > T1->data.value) {
+                if (T2->data.A > 0) {
                     T1->data.B = -travel;
-                    T2->data.B =  travel;
+                    T2->data.B =  travel; }
+                if (T2->data.A < 0) {
+                    T1->data.B =  travel;
+                    T2->data.B = -travel; }
+
+            }
+
+            if (T2->data.value < T1->data.value) {
+                if (T1->data.A > 0) {
+                    T1->data.B =  travel;
+                    T2->data.B = -travel; }
+                if (T1->data.A < 0) {
+                    T1->data.B = -travel;
+                    T2->data.B =  travel; }
+                
+            }
+
+            if (T2->data.value == T1->data.value) {
+                if (T1->data.A > 0 && T2->data.A < 0) {
+                    T1->data.B =  travel;
+                    T2->data.B = -travel; }
+                if (T1->data.A < 0 && T2->data.A > 0) {
+                    T1->data.B = -travel;
+                    T2->data.B =  travel; }
+                else {
+                    if (!randint(2)) {
+                        T1->data.B =  travel;
+                        T2->data.B = -travel; }
+                    else {
+                        T1->data.B = -travel;
+                        T2->data.B =  travel; }
                 }
             }
         }
