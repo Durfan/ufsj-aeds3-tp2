@@ -231,4 +231,96 @@ memcpy(tabela2,tabela,Nclubes*sizeof(*tabela));
         }
     }
 
+void housemaster(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
+    int i,j,random,mando[n];
+    int club1, club2;
+    int out = -1;
+    list_t* nt = create();
+    data_t consecutive = {0};
+    node_t* T1;
+    node_t* T2;
+    sorteia(n,mando);
+
+    for (i=0; i<n; i++) LLpsh(nt,consecutive);
+    
+    for (i=0; i<n; i++) {
+        if (!mando[i]) tabela[i][0] *= out;
+    }
+
+    for (i=1; i<2; i++) {
+        getNT(n,nt,i,tabela);
+        for (j=0; j<n; j++) {
+            T1 = atP(nt,j);
+            T2 = atP(nt,abs(tabela[j][i])-1);
+            club1 = LLidx(nt,T1)+1;
+            club2 = LLidx(nt,T2)+1;
+            printf(" %d(%d) --> %d(%d)\n", club1, T1->data.A, club2, T2->data.A);
+                
+            if (T2->data.value == T1->data.value) {
+                if (T1->data.A && !T2->data.A) findClub(n,i,club1,tabela);
+                if (!T1->data.A && T2->data.A) tabela[j][i] = abs(tabela[j][i]);
+                else {
+                    random = randint(2);
+                    if (random) findClub(n,i,club1,tabela);
+                    else tabela[j][i] = abs(tabela[j][i]);
+                }
+            }
+        }
+    }
+
+    LLprt(nt);
+    LLclr(nt);
+}
+
+void findClub(size_t n, int j, int club, int** tabela) {
+    int i = 0;
+    while (i<n) {
+        if (abs(tabela[i][j]) == club) tabela[i][j] *= -1;
+        i++;
+    }
+}
+
+void getNT(size_t n, list_t* list, int rodada, int** tabela) {
+    int i, T1;
+    node_t* club;
+    bool home = 0;
+    bool away = 1;
+
+    for (i=0; i<n; i++) {
+        T1 = tabela[i][rodada-1];
+        club = atP(list,abs(T1)-1);
+        if (club->data.A && !home) club->data.value++;
+        if (club->data.A && away) club->data.value++;
+        if (T1 < 0) club->data.A = 0;
+        if (T1 > 0) club->data.A = 1;
+    }    
+}
+
+void sorteia(size_t n, int* array) {
+    int i;
+    for (i=0; i<n/2; i++) {
+        array[i] = 0;
+        array[i] = randint(2);
+    }
+    for (i=n/2; i<n; i++) {
+        if(array[(n-1)-i]) array[i] = 0;
+        else array[i] = 1;
+    }
+}
+
+
+int randint(int n) {
+    if ((n - 1) == RAND_MAX) return rand();
+    else {
+        if (DEBUG) assert(n<=RAND_MAX);
+        int end = RAND_MAX / n;
+        if (DEBUG) assert(end > 0);
+        end *= n;
+        int r;
+        while ((r = rand()) >= end);
+        return r % n;
+    }
+}
+
+
 */

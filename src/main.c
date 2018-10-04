@@ -3,7 +3,6 @@
 int main(void) {
     system("clear");
     setlocale(LC_ALL, "Portuguese");
-    srand(time(NULL));
     
     const char* fp_cities = "./data/dados_cidades.in";
     const char* fp_travel = "./data/dados_distancias.in";
