@@ -3,23 +3,21 @@
 void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
     int i,j;
     int travel = 1;
-    int counter;
     node_t* T1;
     node_t* T2;
-    node_t* club;
     
     sorteia1rdn(n,tabela);
     
-    data_t consecutive = {0};
+    data_t booltable = {0};
     list_t* nt = create();
-    for (i=0; i<n; i++) LLpsh(nt,consecutive);
+    for (i=0; i<n; i++) LLpsh(nt,booltable);
 
     for (i=0; i<n-2; i++) {
 
         for (j=0; j<n; j++) {
-            club = atP(nt,abs(tabela[j][i])-1);
-            if (tabela[j][i] < 0) club->data.A =  travel;
-            if (tabela[j][i] > 0) club->data.A = -travel;
+            T1 = atP(nt,abs(tabela[j][i])-1);
+            if (tabela[j][i] < 0) T1->data.A =  travel;
+            if (tabela[j][i] > 0) T1->data.A = -travel;
         }
 
         for (j=0; j<n; j++) {
@@ -44,12 +42,13 @@ void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
                     T2->data.B =  travel;
                 }
             }
-            if (T1 == T2) T1->data.value++;
         }
 
         for (j=0; j<n; j++) {
-            club = atP(nt,abs(tabela[j][i+1])-1);
-            tabela[j][i+1] *= club->data.B;
+            T1 = atP(nt,j);
+            T2 = atP(nt,abs(tabela[j][i+1])-1);
+            tabela[j][i+1] *= T2->data.B;
+            if (tabela[j][i]*tabela[j][i+1] > 0) T1->data.value++;
         }
     }
     LLclr(nt);
