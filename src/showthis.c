@@ -21,6 +21,26 @@ void printTabela(size_t n, clubes_t* clubes, int** tabela) {
         rodada = false;
         printf("\n");
     }
+
+    printf(COLOR_BLUE"\n   <--- RETURNO\n"COLOR_RESET);
+
+    rodada = true;
+    for (i=0; i<n; i++) {
+        if (rodada) {
+            printf(COLOR_BLUE"   Clube\\Rodada\t");
+            for (j=rodadas/2; j<rodadas; j++) {
+                printf(" %02d", j+1);
+            }
+            printf(COLOR_RESET"\n");
+        }
+        printf(" %02d %.11s\t", i+1, clubes[i].nome);
+        for (j=rodadas/2; j<rodadas; j++) {
+            if (tabela[i][j] > 0) printf("\u2502%02d", tabela[i][j]);
+            else printf("\u2502"COLOR_YELL"%02d"COLOR_RESET, abs(tabela[i][j]));
+        }
+        rodada = false;
+        printf("\n");
+    }
 }
 
 void printMatrix(size_t n, int** tabela) {

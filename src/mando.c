@@ -6,7 +6,7 @@ void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
     node_t* T1;
     node_t* T2;
     
-    sorteia1rdn(n,tabela);
+    sorteiaRDN(n,tabela,0);
     
     data_t booltable = {0};
     list_t* nt = create();
@@ -69,10 +69,14 @@ void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
             if (tabela[j][i]*tabela[j][i+1] > 0) T1->data.value++;
         }
     }
+
+    sorteiaRDN(n,tabela,1);
+    espelha(n,tabela);
+
     LLclr(nt);
 }
 
-void sorteia1rdn(size_t n, int** tabela) {
+void sorteiaRDN(size_t n, int** tabela, int rodada) {
     int i;
     int mando[n];
     int travel = 1;
@@ -85,9 +89,26 @@ void sorteia1rdn(size_t n, int** tabela) {
         else mando[i] = 1;
     }
 
+    if (!rodada) rodada = 0;
+    else rodada = n-2;
+    
     for (i=0; i<n; i++) {
-        if (!mando[i]) tabela[i][0] *= -travel;
+        if (!mando[i]) tabela[i][rodada] *= -travel;
     }
+}
+
+void espelha(size_t n, int** tabela) {
+    int i,j,k;
+    int rodadas = getRodadas(n);
+
+    for (i=0; i<n; i++) {
+        k = rodadas/2;
+        for (j=0; j<rodadas/2; j++) {
+            if (tabela[i][j] > 0) tabela[i][k] *= -1;
+            k++;
+        }
+    }
+
 }
  
 int randint(int n) {
