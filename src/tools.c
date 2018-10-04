@@ -21,3 +21,15 @@ void shiftArray(size_t n, int* array) {
     memmove(&array[1], &array[0], (n-1)*sizeof(int));
     array[0] = tmp;
 }
+
+int viagem(int** travel, clubes_t* clubes, int from, int to) {
+    int a = clubes[from].sede-1;
+    int b   = clubes[to].sede-1;
+    return travel[a][b];
+    return -1;
+}
+
+void ask() {
+    printf("\n Aperte ENTER para continuar...");
+    while( getchar() != '\n' );
+}

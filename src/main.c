@@ -27,15 +27,7 @@ int main(void) {
     associaClub(Nclubes,clubes,travel,tabela);
 
     printTabela(Nclubes,clubes,tabela);
-
-/* 
-    if (DEBUG) {
-        printDIST(Ncities,travel);
-        printCITY(Ncities,cities);
-        printCLUB(Nclubes,clubes);
-        printTravel(Nclubes,tabela,travel,clubes);
-    }
- */
+    printTravel(Nclubes,tabela,travel,clubes);    
 
     freeMemory(Ncities,travel);
     freeMemory(Nclubes,tabela);

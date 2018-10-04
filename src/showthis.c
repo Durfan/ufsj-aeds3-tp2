@@ -22,6 +22,7 @@ void printTabela(size_t n, clubes_t* clubes, int** tabela) {
         printf("\n");
     }
 
+    ask();
     printf(COLOR_BLUE"\n   <--- RETURNO\n"COLOR_RESET);
 
     rodada = true;
@@ -41,6 +42,26 @@ void printTabela(size_t n, clubes_t* clubes, int** tabela) {
         rodada = false;
         printf("\n");
     }
+    ask();
+}
+
+void printTravel(size_t n, int** tabela, int** travel, clubes_t* clubes) {
+    int i,j;
+    int rodadas = getRodadas(n);
+    int distance = 0;
+    int Tdistance;
+
+    printf("\n");
+    for (i=0; i<n; i++) {
+        for (j=0; j<rodadas-1; j++) { // m_teams-1
+            if (tabela[i][j] < 0) distance += viagem(travel,clubes,abs(tabela[i][j]),abs(tabela[i][j+1]));
+            Tdistance += distance;
+        }
+        printf(" %6d km : %s\n", distance, clubes[i].nome);
+        distance = 0;
+    }
+    printf(" -------------------------------\n %d Km\n", Tdistance);
+    ask();
 }
 
 void printMatrix(size_t n, int** tabela) {
