@@ -3,6 +3,7 @@
 void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
     int i,j;
     int travel = 1;
+    int counter;
     node_t* T1;
     node_t* T2;
     node_t* club;
@@ -13,7 +14,7 @@ void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
     list_t* nt = create();
     for (i=0; i<n; i++) LLpsh(nt,consecutive);
 
-    for (i=0; i<n; i++) {
+    for (i=0; i<n-2; i++) {
 
         for (j=0; j<n; j++) {
             club = atP(nt,abs(tabela[j][i])-1);
@@ -26,12 +27,12 @@ void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
             T2 = atP(nt,abs(tabela[j][i+1])-1);
 
             if (T1->data.A > 0 && T2->data.A < 0) {
-                T1->data.B = -travel;
-                T2->data.B =  travel;
-            }
-            if (T1->data.A < 0 && T2->data.A > 0) {
                 T1->data.B =  travel;
                 T2->data.B = -travel;
+            }
+            if (T1->data.A < 0 && T2->data.A > 0) {
+                T1->data.B = -travel;
+                T2->data.B =  travel;
             }
             else {
                 if (!randint(2)) {
@@ -43,6 +44,7 @@ void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
                     T2->data.B =  travel;
                 }
             }
+            if (T1 == T2) T1->data.value++;
         }
 
         for (j=0; j<n; j++) {
