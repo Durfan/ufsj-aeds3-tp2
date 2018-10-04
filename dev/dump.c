@@ -149,7 +149,38 @@ void housemaster(size_t n, clubes_t* clubes, int** tabela, int** travel) {
     }
 
     printCLUB(n,clubes);
+
+    void getNT(size_t n, list_t* list, int rodada, int** tabela) {
+    int i, T1;
+    node_t* club;
+    bool home, away;
+
+    for (i=0; i<n; i++) {
+        T1 = tabela[i][rodada-1];
+        club = atP(list,abs(T1)-1);
+        home = club->data.T2*club->data.A;
+        away = club->data.T1*club->data.B;
+        if (home) club->data.value++;
+        if (away) club->data.value++;
+        if (T1 > 0) {
+            club->data.A = 1;
+            club->data.T2 = 1;
+        }
+        else {
+            club->data.B = 1;
+            club->data.T1 = 1;
+        }
+
+    }    
 }
+}
+
+            T1 = tabela[j][i-1];
+            T2 = tabela[j][i-1];
+            club1 = atP(nt,abs(T1)-1);
+            club2 = atP(nt,abs(T2)-1);
+            printf("Clube 1: %d\n", club1->data.A);
+            printf("Clube 2: %d\n", club2->data.A);
 
  */
 

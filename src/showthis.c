@@ -13,10 +13,10 @@ void printTabela(size_t n, clubes_t* clubes, int** tabela) {
             }
             printf(COLOR_RESET"\n");
         }
-        printf(" %2d %.11s\t", i+1, clubes[i].nome);
+        printf(" %02d %.11s\t", i+1, clubes[i].nome);
         for (j=0; j<rodadas/2; j++) {
-            if (tabela[i][j] > 0) printf("\u2502%2d", tabela[i][j]);
-            else printf("\u2502"COLOR_YELL"%2d"COLOR_RESET, abs(tabela[i][j]));
+            if (tabela[i][j] > 0) printf("\u2502%02d", tabela[i][j]);
+            else printf("\u2502"COLOR_YELL"%02d"COLOR_RESET, abs(tabela[i][j]));
         }
         rodada = false;
         printf("\n");

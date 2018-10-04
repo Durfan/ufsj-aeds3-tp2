@@ -15,3 +15,4 @@ bool findBT1(node_t* ptr, int T2);
 bool findCTY(node_t* ptr, int T);
 
 void sorteia(size_t n, int* array);
+void getNT(size_t n, list_t* list, int rodada, int** tabela);
