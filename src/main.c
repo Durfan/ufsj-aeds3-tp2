@@ -17,7 +17,7 @@ int main(void) {
     cities_t cities[Ncities];
     clubes_t clubes[Nclubes];
 
-    if (DEBUG) assert(!(Nclubes%2));
+    assert(!(Nclubes%2));
 
     getDIST(fp_travel,travel);
     getCITY(fp_cities,cities);

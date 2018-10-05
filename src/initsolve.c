@@ -46,7 +46,7 @@ void associaClub(int n, clubes_t* clubes, int** travel, int** tabela) {
                 T2 = Rptr->data.T1;
             }
             if (islinked(linked,T1)) Rptr = Rptr->next;
-            if (DEBUG) assert(Rptr != NULL);
+            assert(Rptr != NULL);
         } while (islinked(linked,T1));
         
         Uptr = unreal->head;
@@ -170,16 +170,16 @@ bool areClubs(list_t* list) {
 }
 
 bool findAT1(node_t* ptr) {
-    if (DEBUG) assert(ptr != NULL);
+    assert(ptr != NULL);
     return (ptr->data.T1 == 0 && ptr->data.T2 == 0);
 }
 
 bool findBT1(node_t* ptr, int T2) {
-    if (DEBUG) assert(ptr != NULL);
+    assert(ptr != NULL);
     return (ptr->data.T1 == T2 && ptr->data.T2 == 0);
 }
 
 bool findCTY(node_t* ptr, int T) {
-    if (DEBUG) assert(ptr != NULL);
+    assert(ptr != NULL);
     return (ptr->data.T1 == T || ptr->data.T2 == T);
 }

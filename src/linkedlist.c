@@ -176,7 +176,8 @@ void LLprt(list_t* list) {
     printf("\n -----------------------> Size = %d\n", list->size);
     while (ptr != NULL) {
         printf (" : %02d %02d", ptr->data.T1, ptr->data.T2);
-        printf (" : %02d %02d : %02d\n",ptr->data.A, ptr->data.B , ptr->data.value);
+        printf (" : %02d %02d", ptr->data.A, ptr->data.B);
+        printf (" : %02d\n", ptr->data.value);
         ptr = ptr->next;
     }
 }

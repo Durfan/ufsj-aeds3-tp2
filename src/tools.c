@@ -25,8 +25,8 @@ void shiftArray(int n, int* array) {
 int viagem(int** travel, clubes_t* clubes, int from, int to) {
     int a = clubes[from].sede-1;
     int b   = clubes[to].sede-1;
+    assert(travel[a][b] >= 0);
     return travel[a][b];
-    return -1;
 }
 
 void ask() {

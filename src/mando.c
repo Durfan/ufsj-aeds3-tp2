@@ -6,13 +6,13 @@ void mando(int n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
     node_t* T1;
     node_t* T2;
     
-    sorteiaRDN(n,tabela,0);
+    sorteia(n,tabela,0);
     
     data_t booltable = {0};
     list_t* nt = create();
     for (i=0; i<n; i++) LLpsh(nt,booltable);
 
-    for (i=0; i<n-3; i++) {
+    for (i=0; i<n-2; i++) {
 
         for (j=0; j<n; j++) {
             T1 = atP(nt,abs(tabela[j][i])-1);
@@ -70,13 +70,12 @@ void mando(int n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
         }
     }
 
-    sorteiaRDN(n,tabela,1);
+    //sorteia(n,tabela,1);
     espelha(n,tabela);
-
     LLclr(nt);
 }
 
-void sorteiaRDN(int n, int** tabela, int rodada) {
+void sorteia(int n, int** tabela, int rodada) {
     int i;
     int mando[n];
     int travel = 1;
@@ -85,7 +84,7 @@ void sorteiaRDN(int n, int** tabela, int rodada) {
     for (i=0; i<n/2; i++) mando[i] = randint(2);
 
     for (i=n/2; i<n; i++) {
-        if(mando[(n-1)-i]) mando[i] = 0;
+        if (mando[(n-1)-i]) mando[i] = 0;
         else mando[i] = 1;
     }
 
@@ -108,15 +107,14 @@ void espelha(int n, int** tabela) {
             k++;
         }
     }
-
 }
  
 int randint(int n) {
     if ((n - 1) == RAND_MAX) return rand();
     else {
-        if (DEBUG) assert(n<=RAND_MAX);
+        assert(n<=RAND_MAX);
         int end = RAND_MAX / n;
-        if (DEBUG) assert(end > 0);
+        assert(end > 0);
         end *= n;
         int r;
         while ((r = rand()) >= end);

@@ -1,6 +1,5 @@
 #define _GNU_SOURCE
 
-#define DEBUG 1
 #define getRodadas(clubes) (2*clubes)-2
 
 #define COLOR_YELL  "\x1b[33m"
@@ -9,9 +8,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
 #include <string.h>
 #include <assert.h>
+#include <locale.h>
 #include <time.h>
 
 typedef enum {false,true} bool;
