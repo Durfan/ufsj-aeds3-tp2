@@ -16,6 +16,7 @@ int main(void) {
     int** travel = allocTable(Ncities,Ncities);
     cities_t cities[Ncities];
     clubes_t clubes[Nclubes];
+    int deslocTotal;
 
     assert(!(Nclubes%2));
 
@@ -25,9 +26,12 @@ int main(void) {
     
     initPolygon(Nclubes,tabela);
     associaClub(Nclubes,clubes,travel,tabela);
+    deslocTotal = custos(Nclubes,tabela,travel,clubes);
 
     printTabela(Nclubes,clubes,tabela);
-    printTravel(Nclubes,tabela,travel,clubes);    
+    printTravel(Nclubes,clubes);
+
+    printf(COLOR_YELL" Total -> %d Km\n"COLOR_RESET, deslocTotal);
 
     freeMemory(Ncities,travel);
     freeMemory(Nclubes,tabela);

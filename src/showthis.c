@@ -21,8 +21,6 @@ void printTabela(int n, clubes_t* clubes, int** tabela) {
         rodada = false;
         printf("\n");
     }
-
-    ask();
     printf("\n");
 
     rodada = true;
@@ -42,41 +40,19 @@ void printTabela(int n, clubes_t* clubes, int** tabela) {
         rodada = false;
         printf("\n");
     }
-    ask();
     printf("\n");
 }
 
-void printTravel(int n, int** tabela, int** travel, clubes_t* clubes) {
-    int i,j;
-    int from,to;
-    int rodadas = getRodadas(n);
-    unsigned int dist  = 0;
-    unsigned int Tdist = 0;
+void printTravel(int n, clubes_t* clubes) {
+    int i;
 
     for (i=0; i<n; i++) {
-        for (j=0; j<rodadas-1; j++) { // m_teams-1
-            from = abs(tabela[i][j]) -1;
-            to = abs(tabela[i][j+1]) -1;
-
-            if (tabela[i][j] > 0 && tabela[i][j+1] < 0)
-                dist += viagem(travel,clubes,i,to);
-            if (tabela[i][j] < 0 && tabela[i][j+1] < 0)
-                dist += viagem(travel,clubes,from,to);
-            if (tabela[i][j] < 0 && tabela[i][j+1] > 0)
-                dist += viagem(travel,clubes,from,i);
-            
-            Tdist += dist;
-        }
-        printf(" %6d km : %s\n", dist, clubes[i].nome);
-        dist = 0;
+        printf(" %d Km : %s\n", clubes[i].desloc, clubes[i].nome);
     }
-    printf(" -------------------------------\n %d Km\n", Tdist);
-    ask();
 }
 
 void printMatrix(int n, int** tabela) {
     int i,j;
-    
     for (i=0; i<n; i++) {
         for (j=0; j<n; j++) {
             printf(" %02d", tabela[i][j]);
@@ -88,9 +64,9 @@ void printMatrix(int n, int** tabela) {
 
 void printCLUB(int n, clubes_t* clubes) {
     int i;
-    printf(COLOR_BLUE " ID SD CLUBE\n" COLOR_RESET);
     for (i=0; i<n; i++) {
-        printf(" %02d %02d %s\n", i, clubes[i].sede, clubes[i].nome);
+        printf(" %02d %d ", clubes[i].sede, clubes[i].desloc);
+        printf("%s\n", clubes[i].nome);
     }
     printf("\n");
 }
