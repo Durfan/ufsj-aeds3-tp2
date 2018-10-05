@@ -1,6 +1,6 @@
 #include "main.h"
 
-void initPolygon(size_t n, int** tabela) {
+void initPolygon(int n, int** tabela) {
     int i,l;
     int topTeam = n;
     int polygon[n-1];
@@ -23,7 +23,7 @@ void initPolygon(size_t n, int** tabela) {
     }
 }
 
-void associaClub(size_t n, clubes_t* clubes, int** travel, int** tabela) {
+void associaClub(int n, clubes_t* clubes, int** travel, int** tabela) {
     int T1,T2,T2link;
     list_t* isreal = create();
     list_t* unreal = create();
@@ -67,7 +67,7 @@ void associaClub(size_t n, clubes_t* clubes, int** travel, int** tabela) {
             Lchg->data.value = 1;
         }
     }
-    changeClube(n,clubes,linked);
+    changeClube(clubes,linked);
     mando(n,tabela);
 
     LLclr(isreal);
@@ -75,7 +75,7 @@ void associaClub(size_t n, clubes_t* clubes, int** travel, int** tabela) {
     LLclr(linked);
 }
 
-void changeClube(size_t n, clubes_t* clubes, list_t* list) {
+void changeClube(clubes_t* clubes, list_t* list) {
     int i;
     clubes_t change[list->size];
     node_t* swap;
@@ -87,7 +87,7 @@ void changeClube(size_t n, clubes_t* clubes, list_t* list) {
     for (i=0; i<list->size; i++) clubes[i] = change[i];
 }
 
-void buildCalvin(size_t n, clubes_t* clubes, list_t* list, int** travel) {
+void buildCalvin(int n, clubes_t* clubes, list_t* list, int** travel) {
     int i,j;
     int club1, club2;
     data_t distance = {0};
@@ -105,7 +105,7 @@ void buildCalvin(size_t n, clubes_t* clubes, list_t* list, int** travel) {
     LLinc(list);
 }
 
-void buildHarold(size_t n, list_t* list, int** tabela) {
+void buildHarold(int n, list_t* list, int** tabela) {
     int i,j;
     int clube1, clube2;
     int rodadas = getRodadas(n);
@@ -135,7 +135,7 @@ void buildHarold(size_t n, list_t* list, int** tabela) {
     freeMemory(n,harold);
 }
 
-void buildLinked(size_t n, list_t* list) {
+void buildLinked(int n, list_t* list) {
     int i;
     data_t link = {0};
     for (i=0; i<n; i++) {

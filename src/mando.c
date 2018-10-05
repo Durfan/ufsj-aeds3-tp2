@@ -1,6 +1,6 @@
 #include "main.h"
 
-void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
+void mando(int n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
     int i,j;
     int travel = 1;
     node_t* T1;
@@ -76,7 +76,7 @@ void mando(size_t n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
     LLclr(nt);
 }
 
-void sorteiaRDN(size_t n, int** tabela, int rodada) {
+void sorteiaRDN(int n, int** tabela, int rodada) {
     int i;
     int mando[n];
     int travel = 1;
@@ -97,7 +97,7 @@ void sorteiaRDN(size_t n, int** tabela, int rodada) {
     }
 }
 
-void espelha(size_t n, int** tabela) {
+void espelha(int n, int** tabela) {
     int i,j,k;
     int rodadas = getRodadas(n);
 

@@ -10,7 +10,7 @@ typedef struct node {
 } node_t;
 
 typedef struct list {
-    size_t size;
+    int size;
     node_t* head;
 } list_t;
 

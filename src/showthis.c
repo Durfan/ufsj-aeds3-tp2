@@ -1,6 +1,6 @@
 #include "main.h"
 
-void printTabela(size_t n, clubes_t* clubes, int** tabela) {
+void printTabela(int n, clubes_t* clubes, int** tabela) {
     int i,j;
     int rodadas = getRodadas(n);
     bool rodada = true;
@@ -45,7 +45,7 @@ void printTabela(size_t n, clubes_t* clubes, int** tabela) {
     ask();
 }
 
-void printTravel(size_t n, int** tabela, int** travel, clubes_t* clubes) {
+void printTravel(int n, int** tabela, int** travel, clubes_t* clubes) {
     int i,j;
     int rodadas = getRodadas(n);
     int distance = 0;
@@ -64,7 +64,7 @@ void printTravel(size_t n, int** tabela, int** travel, clubes_t* clubes) {
     ask();
 }
 
-void printMatrix(size_t n, int** tabela) {
+void printMatrix(int n, int** tabela) {
     int i,j;
     
     for (i=0; i<n; i++) {
@@ -76,7 +76,7 @@ void printMatrix(size_t n, int** tabela) {
     printf("\n");
 }
 
-void printCLUB(size_t n, clubes_t* clubes) {
+void printCLUB(int n, clubes_t* clubes) {
     int i;
     printf(COLOR_BLUE " ID SD CLUBE\n" COLOR_RESET);
     for (i=0; i<n; i++) {
@@ -85,7 +85,7 @@ void printCLUB(size_t n, clubes_t* clubes) {
     printf("\n");
 }
 
-void printCITY(size_t n, cities_t* cities) {
+void printCITY(int n, cities_t* cities) {
     int i;
     printf(COLOR_BLUE " ID CT Cidade\n" COLOR_RESET);
     for (i=0; i<n; i++) {
