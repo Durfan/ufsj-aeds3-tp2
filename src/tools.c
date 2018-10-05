@@ -62,8 +62,3 @@ int custos(int n, int** tabela, int** travel, clubes_t* clubes) {
     }
     return deslocTotal;
 }
-
-void ask() {
-    printf("\n Aperte ENTER para continuar...");
-    while( getchar() != '\n' );
-}
