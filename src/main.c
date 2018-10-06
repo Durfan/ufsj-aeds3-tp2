@@ -1,7 +1,7 @@
 #include "main.h"
 
 int main(void) {
-    clock_t start = clock(), diff;
+    clock_t start, diff, Exec = clock();
 
     system("clear");
     setlocale(LC_ALL, "Portuguese");
@@ -9,7 +9,6 @@ int main(void) {
     
     printf(COLOR_BLUE" AEDS III/TP2: Traveling Tournament Problem\n\n"COLOR_RESET);
     printf(" Gerando Tabela:\n");
-    wait(1);
 
     const char* fp_cities = "./data/dados_cidades.in";
     const char* fp_travel = "./data/dados_distancias.in";
@@ -29,38 +28,41 @@ int main(void) {
 
     assert(!(Nclubes%2));
 
+    start = clock();
+    printf(" Carregando Dados....");
     getDIST(fp_travel,travel);
     getCITY(fp_cities,cities);
     getCLUB(fp_clubes,clubes);
+    diff = clock() - start;
+    msec = diff * 1000 / CLOCKS_PER_SEC;
+    printf(" %ds %dms\n", msec/1000, msec%1000);
     
+    start = clock();
     printf(" Fatorando Poligon...");
     initPolygon(Nclubes,tabela);
-        
     diff = clock() - start;
     msec = diff * 1000 / CLOCKS_PER_SEC;
     printf(" %ds %dms\n", msec/1000, msec%1000);
-    wait(1);
     
+    start = clock();
     printf(" Associando Clubes...");
     associaClub(Nclubes,clubes,travel,tabela);
-    
     diff = clock() - start;
     msec = diff * 1000 / CLOCKS_PER_SEC;
     printf(" %ds %dms\n", msec/1000, msec%1000);
-    wait(1);
 
+    start = clock();
     printf(" Solucao S0 Gulosa...");
     int** S0 = allocTable(Nclubes,Nrodada);
     copyTable(Nclubes,S0,tabela);
     setmando(Nclubes,S0);
     currsol = custos(Nclubes,S0,travel,clubes);
     freeMemory(Nclubes,S0);
-    
     diff = clock() - start;
     msec = diff * 1000 / CLOCKS_PER_SEC;
     printf(" %ds %dms\n", msec/1000, msec%1000);
-    wait(1);
     
+    start = clock();
     printf(" Refinando Solucao...");
     int iter = 0;
     int** trysol = allocTable(Nclubes,Nrodada);
@@ -78,31 +80,26 @@ int main(void) {
 
         iter++;
     }
-    
-    diff = clock() - start;
-    msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" %ds %dms\n", msec/1000, msec%1000);
-    wait(2);
-
-    printf("\n");
 
     copyTable(Nclubes,tabela,bstsol);
     deslocTotal = custos(Nclubes,tabela,travel,clubes);
-
     freeMemory(Nclubes,trysol);
     freeMemory(Nclubes,bstsol);
+
+    diff = clock() - start;
+    msec = diff * 1000 / CLOCKS_PER_SEC;
+    printf(" %ds %dms\n\n", msec/1000, msec%1000);
 
     printTabela(Nclubes,clubes,tabela);
     printTravel(Nclubes,clubes);
 
     printf(COLOR_YELL" Total -> %d Km\n"COLOR_RESET, deslocTotal);
-    
     printf("\n Tentativas para gerar o Mando de Campo: %d\n", count());
 
     freeMemory(Ncities,travel);
     freeMemory(Nclubes,tabela);
 
-    diff = clock() - start;
+    diff = clock() - Exec;
     msec = diff * 1000 / CLOCKS_PER_SEC;
     printf(" Tempo de Execucao: %ds %dms\n", msec/1000, msec%1000);
 
