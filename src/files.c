@@ -2,7 +2,10 @@
 
 int getlines(const char* file) {
     FILE* fp = fopen(file, "r");
-    if (fp == NULL) return 0;
+    if (fp == NULL) {
+        errFile(file);
+        exit(1);
+    }
 
     int count = 0;
     char* line = NULL;
