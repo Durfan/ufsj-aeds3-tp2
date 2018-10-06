@@ -61,6 +61,9 @@ int main(void) {
     freeMemory(Nclubes,S0);
     timeresult(start);
     
+    // Aplica a Solucao gerada pela fatoracao a um
+    // numero de interacoes com o mando de campo
+    // aleatorio afim de encontrar uma solucao melhor.
     start = clock();
     printf(" Refinando Solucao...\n");
     int iter = 0;
@@ -84,20 +87,20 @@ int main(void) {
     deslocTotal = custos(Nclubes,tabela,travel,clubes);
     freeMemory(Nclubes,trysol);
     freeMemory(Nclubes,bstsol);
-
     timeresult(start);
 
-    ask();
+    ask(); // pausa para coferir os tempos de execucao
+
+    // Exibe os resultados
     printTabela(Nclubes,clubes,tabela);
     printTravel(Nclubes,clubes);
+    freeMemory(Ncities,travel);
+    freeMemory(Nclubes,tabela);
 
     printf(COLOR_YELL" Total -> %d Km\n"COLOR_RESET, deslocTotal);
     printf("\n Tentativas para gerar o Mando de Campo: %d\n", count());
-
-    freeMemory(Ncities,travel);
-    freeMemory(Nclubes,tabela);
     printf(" TTP");
     timeresult(execucao);
 
-    return 0;
+    return 0; // Chegou ate aqui? Sweet zombie Jebus that was cool!
 } 
