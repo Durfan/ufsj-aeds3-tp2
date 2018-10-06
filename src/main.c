@@ -41,7 +41,6 @@ int main(void) {
     initPolygon(Nclubes,tabela);
     timeresult(start);
     
-    
     // links: Associa os Times com mais jogos
     // consecutivos com os clubes com sedes proximas. 
     start = clock();
