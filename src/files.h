@@ -10,7 +10,7 @@ typedef struct cities {
 } cities_t;
 
 int getlines(const char* file);
-void getCLUB(const char* file, clubes_t* clubes);
-void getCITY(const char* file, cities_t* cities);
-void getDIST(const char* file, int** travel);
+int getCLUB(const char* file, clubes_t* clubes);
+int getCITY(const char* file, cities_t* cities);
+int getDIST(const char* file, int** travel);
 void errFile(const char* file);

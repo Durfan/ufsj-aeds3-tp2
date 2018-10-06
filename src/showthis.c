@@ -48,14 +48,13 @@ void printEscala(int n, int** tabela) {
     int rodadas = getRodadas(n);
 
     for (i=0; i<n; i++) {
-        printf(" %02d ", i+1);
+        printf(" %02d", i+1);
         for (j=0; j<rodadas; j++) {
             if (tabela[i][j] > 0) printf("%02d", tabela[i][j]);
             else printf(COLOR_YELL"%02d"COLOR_RESET, abs(tabela[i][j]));
         }
         printf("\n");
     }
-    printf("\n");
 }
 
 void printTravel(int n, clubes_t* clubes) {

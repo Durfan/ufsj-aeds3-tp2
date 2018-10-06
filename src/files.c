@@ -7,25 +7,25 @@ int getlines(const char* file) {
         exit(1);
     }
 
-    int count = 0;
+    int k = 0;
     char* line = NULL;
     size_t len = 0;
     ssize_t read;
     
     while ((read = getline(&line, &len, fp)) != -1) {
-        if (line[0] != '\n') count++;
+        if (line[0] != '\n') k++;
     }
 
     if (line) free(line);
     fclose(fp);
-    return count;
+    return k;
 }
 
-void getCLUB(const char* file, clubes_t* clubes) {
+int getCLUB(const char* file, clubes_t* clubes) {
     FILE* fp = fopen(file, "r");
     if (fp == NULL) {
         errFile(file);
-        return;
+        return 1;
     }
 
     int index = 0;
@@ -41,13 +41,14 @@ void getCLUB(const char* file, clubes_t* clubes) {
 
     if (line) free(line);
     fclose(fp);
+    return 0;
 }
 
-void getCITY(const char* file, cities_t* cities) {
+int getCITY(const char* file, cities_t* cities) {
     FILE* fp = fopen(file, "r");
     if (fp == NULL) {
         errFile(file);
-        return;
+        return 1;
     }
 
     int i = 0;
@@ -61,13 +62,14 @@ void getCITY(const char* file, cities_t* cities) {
     }
     if (line) free(line);
     fclose(fp);
+    return 0;
 }
 
-void getDIST(const char* file, int** travel) {
+int getDIST(const char* file, int** travel) {
     FILE *fp = fopen(file, "r");
     if (fp == NULL) {
         errFile(file);
-        return;
+        return 1;
     }
 
     int row, col, dist;
@@ -84,6 +86,7 @@ void getDIST(const char* file, int** travel) {
 
     if (line) free(line);
     fclose(fp);
+    return 0;
 }
 
 void errFile(const char* file) {
