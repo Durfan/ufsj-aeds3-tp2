@@ -6,6 +6,10 @@ int main(void) {
     system("clear");
     setlocale(LC_ALL, "Portuguese");
     srand(time(NULL));
+    
+    printf(COLOR_BLUE" AEDS III/TP2: Traveling Tournament Problem\n\n"COLOR_RESET);
+    printf(" Gerando Tabela:\n");
+    wait(1);
 
     const char* fp_cities = "./data/dados_cidades.in";
     const char* fp_travel = "./data/dados_distancias.in";
@@ -21,6 +25,7 @@ int main(void) {
     int currsol;
     int solution;
     int deslocTotal;
+    int msec;
 
     assert(!(Nclubes%2));
 
@@ -28,20 +33,40 @@ int main(void) {
     getCITY(fp_cities,cities);
     getCLUB(fp_clubes,clubes);
     
+    printf(" Fatorando Poligon...");
     initPolygon(Nclubes,tabela);
+        
+    diff = clock() - start;
+    msec = diff * 1000 / CLOCKS_PER_SEC;
+    printf(" %ds %dms\n", msec/1000, msec%1000);
+    wait(1);
+    
+    printf(" Associando Clubes...");
     associaClub(Nclubes,clubes,travel,tabela);
+    
+    diff = clock() - start;
+    msec = diff * 1000 / CLOCKS_PER_SEC;
+    printf(" %ds %dms\n", msec/1000, msec%1000);
+    wait(1);
 
+    printf(" Solucao S0 Gulosa...");
     int** S0 = allocTable(Nclubes,Nrodada);
     copyTable(Nclubes,S0,tabela);
     setmando(Nclubes,S0);
     currsol = custos(Nclubes,S0,travel,clubes);
     freeMemory(Nclubes,S0);
     
-    int interation = 0;
+    diff = clock() - start;
+    msec = diff * 1000 / CLOCKS_PER_SEC;
+    printf(" %ds %dms\n", msec/1000, msec%1000);
+    wait(1);
+    
+    printf(" Refinando Solucao...");
+    int iter = 0;
     int** trysol = allocTable(Nclubes,Nrodada);
     int** bstsol = allocTable(Nclubes,Nrodada);
 
-    while (interation < 350) {
+    while (iter < 350) {
         copyTable(Nclubes,trysol,tabela);
         setmando(Nclubes,trysol);
 
@@ -51,8 +76,15 @@ int main(void) {
             currsol = solution;
         }
 
-        interation++;
+        iter++;
     }
+    
+    diff = clock() - start;
+    msec = diff * 1000 / CLOCKS_PER_SEC;
+    printf(" %ds %dms\n", msec/1000, msec%1000);
+    wait(2);
+
+    printf("\n");
 
     copyTable(Nclubes,tabela,bstsol);
     deslocTotal = custos(Nclubes,tabela,travel,clubes);
@@ -71,7 +103,7 @@ int main(void) {
     freeMemory(Nclubes,tabela);
 
     diff = clock() - start;
-    int msec = diff * 1000 / CLOCKS_PER_SEC;
+    msec = diff * 1000 / CLOCKS_PER_SEC;
     printf(" Tempo de Execucao: %ds %dms\n", msec/1000, msec%1000);
 
     return 0;

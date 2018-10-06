@@ -7,3 +7,4 @@ int viagem(int** travel, clubes_t* clubes, int a, int b);
 int custos(int n, int** tabela, int** travel, clubes_t* clubes);
 
 int count();
+void wait(unsigned int secs);
