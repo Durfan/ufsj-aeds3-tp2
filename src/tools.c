@@ -4,15 +4,23 @@ int** allocTable(int n, int m) {
     int i; 
     int **table = calloc(n,sizeof(int*));
     if (table == NULL) exit(EXIT_FAILURE);
-    for(i=0 ; i<n; i++)
+    for(i=0; i<n; i++)
         table[i] = calloc(m,sizeof(int));
     return table;
 }
 
+void copyTable(int n, int** a, int** b) {
+    int i,j;
+    for (i=0; i<n; i++) {
+        for (j=0; j<(2*n)-2; j++) {
+            a[i][j] = b[i][j];
+        }
+    }
+}
+
 void freeMemory(int n, int** ptr) {
     int i;
-    for(i=0 ; i<n ; i++)
-        free(ptr[i]);
+    for (i=0 ; i<n ; i++) free(ptr[i]);
     free(ptr);
 }
 
@@ -61,4 +69,9 @@ int custos(int n, int** tabela, int** travel, clubes_t* clubes) {
         Clubedesloc = 0;
     }
     return deslocTotal;
+}
+
+int count() {
+    static int k = 0;
+    return k++;
 }

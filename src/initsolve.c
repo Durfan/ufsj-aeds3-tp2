@@ -68,7 +68,7 @@ void associaClub(int n, clubes_t* clubes, int** travel, int** tabela) {
         }
     }
     changeClube(clubes,linked);
-    mando(n,tabela);
+    setmando(n,tabela);
 
     LLclr(isreal);
     LLclr(unreal);

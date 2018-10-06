@@ -1,4 +1,5 @@
 void printTabela(int n, clubes_t* clubes, int** tabela);
+void printEscala(int n, int** tabela);
 void printTravel(int n, clubes_t* clubes);
 
 void printMatrix(int n, int** tabela);
