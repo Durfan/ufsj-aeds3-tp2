@@ -101,5 +101,5 @@ int main(void) {
     printf(" TTP");
     timeresult(execucao);
 
-    return 0; // Chegou ate aqui? Sweet zombie Jebus that was cool!
+    return 0; // Chegou ate aqui? Nao? Save Me, Jebus!!
 } 
