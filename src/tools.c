@@ -80,3 +80,8 @@ void wait(unsigned int secs) {
     unsigned int retTime = time(0) + secs;
     while (time(0) < retTime);
 }
+
+void ask() {
+     printf("\n Aperte ENTER para ver os resultados...");
+     while( getchar() != '\n' );
+ }

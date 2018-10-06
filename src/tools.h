@@ -8,3 +8,4 @@ int custos(int n, int** tabela, int** travel, clubes_t* clubes);
 
 int count();
 void wait(unsigned int secs);
+void ask();

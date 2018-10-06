@@ -8,7 +8,6 @@ int main(void) {
     srand(time(NULL));
     
     printf(COLOR_BLUE" AEDS III/TP2: Traveling Tournament Problem\n\n"COLOR_RESET);
-    printf(" Gerando Tabela:\n");
 
     const char* fp_cities = "./data/dados_cidades.in";
     const char* fp_travel = "./data/dados_distancias.in";
@@ -29,30 +28,30 @@ int main(void) {
     assert(!(Nclubes%2));
 
     start = clock();
-    printf(" Carregando Dados....");
+    printf(" Carregando Dados....\n");
     getDIST(fp_travel,travel);
     getCITY(fp_cities,cities);
     getCLUB(fp_clubes,clubes);
     diff = clock() - start;
     msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" %ds %dms\n", msec/1000, msec%1000);
+    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
     
     start = clock();
-    printf(" Fatorando Poligon...");
+    printf(" Fatorando Poligon...\n");
     initPolygon(Nclubes,tabela);
     diff = clock() - start;
     msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" %ds %dms\n", msec/1000, msec%1000);
+    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
     
     start = clock();
-    printf(" Associando Clubes...");
+    printf(" Associando Clubes...\n");
     associaClub(Nclubes,clubes,travel,tabela);
     diff = clock() - start;
     msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" %ds %dms\n", msec/1000, msec%1000);
+    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
 
     start = clock();
-    printf(" Solucao S0 Gulosa...");
+    printf(" Solucao S0 Gulosa...\n");
     int** S0 = allocTable(Nclubes,Nrodada);
     copyTable(Nclubes,S0,tabela);
     setmando(Nclubes,S0);
@@ -60,10 +59,10 @@ int main(void) {
     freeMemory(Nclubes,S0);
     diff = clock() - start;
     msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" %ds %dms\n", msec/1000, msec%1000);
+    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
     
     start = clock();
-    printf(" Refinando Solucao...");
+    printf(" Refinando Solucao...\n");
     int iter = 0;
     int** trysol = allocTable(Nclubes,Nrodada);
     int** bstsol = allocTable(Nclubes,Nrodada);
@@ -88,8 +87,9 @@ int main(void) {
 
     diff = clock() - start;
     msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" %ds %dms\n\n", msec/1000, msec%1000);
+    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
 
+    ask();
     printTabela(Nclubes,clubes,tabela);
     printTravel(Nclubes,clubes);
 
