@@ -1,13 +1,13 @@
 #include "main.h"
 
 int main(void) {
-    clock_t start, diff, Exec = clock();
+    clock_t start, execucao = clock();
 
     system("clear");
     setlocale(LC_ALL, "Portuguese");
     srand(time(NULL));
     
-    printf(COLOR_BLUE" AEDS III/TP2: Traveling Tournament Problem\n\n"COLOR_RESET);
+    printf(COLOR_BLUE"\n AEDS III/TP2: Traveling Tournament Problem\n\n"COLOR_RESET);
 
     const char* fp_cities = "./data/dados_cidades.in";
     const char* fp_travel = "./data/dados_distancias.in";
@@ -23,33 +23,35 @@ int main(void) {
     int currsol;
     int solution;
     int deslocTotal;
-    int msec;
 
     assert(!(Nclubes%2));
 
+    // load: Carrega os arquivos em ./data
     start = clock();
     printf(" Carregando Dados....\n");
     getDIST(fp_travel,travel);
     getCITY(fp_cities,cities);
     getCLUB(fp_clubes,clubes);
-    diff = clock() - start;
-    msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
-    
+    timeresult(start);
+
+    // factoring: Usa o metodo do Poligono
+    // para gerar uma tabela valida.
     start = clock();
     printf(" Fatorando Poligon...\n");
     initPolygon(Nclubes,tabela);
-    diff = clock() - start;
-    msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
+    timeresult(start);
     
+    
+    // links: Associa os Times com mais jogos
+    // consecutivos com os clubes com sedes proximas. 
     start = clock();
     printf(" Associando Clubes...\n");
     associaClub(Nclubes,clubes,travel,tabela);
-    diff = clock() - start;
-    msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
+    timeresult(start);
 
+    // Gera o mando de Campo a partir de uma primeira
+    // rodada com mando aleatorio. Define os custos da
+    // solucao inicial.
     start = clock();
     printf(" Solucao S0 Gulosa...\n");
     int** S0 = allocTable(Nclubes,Nrodada);
@@ -57,9 +59,7 @@ int main(void) {
     setmando(Nclubes,S0);
     currsol = custos(Nclubes,S0,travel,clubes);
     freeMemory(Nclubes,S0);
-    diff = clock() - start;
-    msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
+    timeresult(start);
     
     start = clock();
     printf(" Refinando Solucao...\n");
@@ -85,9 +85,7 @@ int main(void) {
     freeMemory(Nclubes,trysol);
     freeMemory(Nclubes,bstsol);
 
-    diff = clock() - start;
-    msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
+    timeresult(start);
 
     ask();
     printTabela(Nclubes,clubes,tabela);
@@ -98,10 +96,8 @@ int main(void) {
 
     freeMemory(Ncities,travel);
     freeMemory(Nclubes,tabela);
-
-    diff = clock() - Exec;
-    msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" Tempo de Execucao: %ds %dms\n", msec/1000, msec%1000);
+    printf(" TTP");
+    timeresult(execucao);
 
     return 0;
 } 

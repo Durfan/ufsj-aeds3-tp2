@@ -76,12 +76,21 @@ int count() {
     return k++;
 }
 
+void timeresult(clock_t start) {
+    clock_t diff;
+    int msec;
+    diff = clock() - start;
+    msec = diff * 1000 / CLOCKS_PER_SEC;
+    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
+    wait(1);
+}
+
 void wait(unsigned int secs) {
     unsigned int retTime = time(0) + secs;
     while (time(0) < retTime);
 }
 
 void ask() {
-     printf("\n Aperte ENTER para ver os resultados...");
-     while( getchar() != '\n' );
+    printf(COLOR_YELL"\n Aperte ENTER para ver os resultados...\n"COLOR_RESET);
+    while (getchar() != '\n');
  }
