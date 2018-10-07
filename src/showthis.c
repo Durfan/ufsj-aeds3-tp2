@@ -79,10 +79,12 @@ void printMatrix(int n, int** tabela) {
 void printCLUB(int n, clubes_t* clubes) {
     int i;
     for (i=0; i<n; i++) {
-        printf(" %02d %d ", clubes[i].sede, clubes[i].desloc);
-        printf("%s\n", clubes[i].nome);
+        printf(" %02d->", i+1);
+        printf(" %02d", clubes[i].sede);
+        if (clubes[i].desloc) printf(" %d ", clubes[i].desloc);
+        printf(" %s\n", clubes[i].nome);
     }
-    printf("\n");
+    printf(" --------------------------\n");
 }
 
 void printCITY(int n, cities_t* cities) {

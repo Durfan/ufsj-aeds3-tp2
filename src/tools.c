@@ -81,7 +81,7 @@ void timeresult(clock_t start) {
     int msec;
     diff = clock() - start;
     msec = diff * 1000 / CLOCKS_PER_SEC;
-    printf(" Completo: %ds %dms\n\n", msec/1000, msec%1000);
+    printf(COLOR_BLUE" %ds %dms\n\n"COLOR_RESET, msec/1000, msec%1000);
     wait(1);
 }
 
