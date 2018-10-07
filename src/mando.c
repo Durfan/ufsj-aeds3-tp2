@@ -1,6 +1,13 @@
 #include "main.h"
 
-void setmando(int n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
+// Determina o mando de campo baseado no numero de jogos
+// consecutivos dentro ou fora de casa. Os jogos da primeira
+// rodada sao sorteados aleatoriamente e a partir desse sorteio
+// a tabela e completada e espelhada do primeiro turno gerado.
+// Caso a funcao retorne uma tabela invalida, ela e reiniciada.
+// Utiliza uma lista simples encadeada como auxilio para
+// registrar e determinar o mando dos jogos.
+void setmando(int n, int** tabela) {
     int i,j;
     int travel = 1;
     node_t* T1;
@@ -16,7 +23,7 @@ void setmando(int n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
     list_t* nt = create();
     for (i=0; i<n; i++) LLpsh(nt,booltable);
 
-    for (j=0; j<n-2; j++) {
+    for (j=0; j<n-2; j++) { // DIE -1 ERROR FUCKING DIE!!!!!
 
         for (i=0; i<n; i++) {
             T1 = atP(nt,abs(mando[i][j])-1);
@@ -94,6 +101,8 @@ void setmando(int n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
     }
 }
 
+// Gera aleatoriamente o mando da primeira ou da
+// ultima rodada de um turno
 void sorteia(int n, int** tabela, int rodada) {
     int i;
     int mando[n];
@@ -115,6 +124,11 @@ void sorteia(int n, int** tabela, int rodada) {
     }
 }
 
+// Verifica e valida os mandos gerados pela funcao
+// "setmando", conferindo se a tabela gerada nao contem
+// mais de 3 jogos em casa ou fora, ou se a ultima
+// rodada possui o numero correto de mandos.
+// Retorna 0 ou "segmentation fault".
 int CSTMando(int n, int** tabela) {
     int i,j;
     int home = 0;
@@ -139,6 +153,9 @@ int CSTMando(int n, int** tabela) {
     return 0;
 }
 
+// Espelha e inverte os resultados dos mandos
+// obtidos pela funcao "setmando" no primeiro
+// turno no returno.
 void espelha(int n, int** tabela) {
     int i,j,k;
     int rodadas = getRodadas(n);
@@ -152,6 +169,8 @@ void espelha(int n, int** tabela) {
     }
 }
  
+// Gera um int entre 0 e n. No caso especifico
+// dos mandos, esse numero e aleatoriamente 0 ou 1
 int randint(int n) {
     if ((n - 1) == RAND_MAX) return rand();
     else {
