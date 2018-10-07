@@ -46,7 +46,6 @@ void printTabela(int n, clubes_t* clubes, int** tabela) {
 void printEscala(int n, int** tabela) {
     int i,j;
     int rodadas = getRodadas(n);
-
     for (i=0; i<n; i++) {
         printf(" %02d", i+1);
         for (j=0; j<rodadas; j++) {
@@ -59,7 +58,6 @@ void printEscala(int n, int** tabela) {
 
 void printTravel(int n, clubes_t* clubes) {
     int i;
-
     for (i=0; i<n; i++) {
         printf(" %d Km : %s\n", clubes[i].desloc, clubes[i].nome);
     }

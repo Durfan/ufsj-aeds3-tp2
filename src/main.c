@@ -70,14 +70,15 @@ int main(void) {
     // aleatorio afim de encontrar uma solucao melhor.
     start = clock();
     printf(COLOR_BLUE" Refinando Solucao...\n"COLOR_RESET);
-    int iter = 0;
+    int tryiter = 0;
     int maxiter = 800;
+    int bstiter = 0;
     int** trysol = allocTable(Nclubes,Nrodada);
     int** bstsol = allocTable(Nclubes,Nrodada);
     copyTable(Nclubes,bstsol,S0);
     freeMemory(Nclubes,S0);
 
-    while (iter < maxiter) {
+    while (tryiter < maxiter) {
         copyTable(Nclubes,trysol,tabela);
         setmando(Nclubes,trysol);
 
@@ -85,10 +86,11 @@ int main(void) {
         if (solution < currsol) {
             copyTable(Nclubes,bstsol,trysol);
             currsol = solution;
-            printf(" S%03d -> %d\n", iter+1, currsol);
+            printf(" S%03d -> %d\n", tryiter+1, currsol);
+            bstiter++;
         }
 
-        iter++;
+        tryiter++;
     }
 
     freeMemory(Nclubes,trysol);
@@ -103,7 +105,8 @@ int main(void) {
 
     solution = custos(Nclubes,bstsol,travel,clubes);
     printf(COLOR_YELL" Total -> %d Km\n"COLOR_RESET, solution);
-    printf("\n Interacoes randomicas de Mando: %d\n", maxiter);
+    printf("\n Interacoes randomicas de mando: %d\n", maxiter);
+    printf(" Interacoes de melhora de custo: %d\n", bstiter);
     printf(" Tentativas de geracao de Mando: %d\n", count());
 
     freeMemory(Ncities,travel);

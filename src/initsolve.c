@@ -8,9 +8,9 @@ void initPolygon(int n, int** tabela) {
     for (i=0; i<n-1; i++) polygon[i] = i + 1;
     
     for (i=0; i<n-1; i++) {
-        tabela[topTeam-1][i]    = polygon[0];
+        tabela[topTeam-1][i] = polygon[0];
         tabela[polygon[0]-1][i] = topTeam;
-        tabela[topTeam-1][i+n-1]    = polygon[0];
+        tabela[topTeam-1][i+n-1] = polygon[0];
         tabela[polygon[0]-1][i+n-1] = topTeam;
 
         for (l=2; l<=n/2; l++) {
