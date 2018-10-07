@@ -5,32 +5,20 @@
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
 
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.16}
-
-\usepackage[ruled]{algorithm}
-\usepackage{algpseudocode}
-\newcommand{\LineComment}[1]{\Statex \hfill\textit{#1}}
-
-\usepackage{graphicx}
 \usepackage{indentfirst}
-\usepackage{booktabs}
-\usepackage{fancyvrb}
-
-\usepackage{array}
-\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\usepackage{setspace}
+\onehalfspacing
 
 \usepackage[numbers]{natbib}
 \usepackage{url}
 \bibliographystyle{plainnat}
 
-\usepackage{setspace}
-\onehalfspacing
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage{booktabs}
+\usepackage{float}
 
 \author{Pablo Cecilio Oliveira\\
 	Alexander Cristian}
@@ -41,7 +29,7 @@ O Problema da Viagem do Torneio}
 \begin{document}
 \maketitle
 
-\section{ Introdução }
+\section{Introdução}
 
 Otimização é o processo de melhorar algo. Basicamente é a ferramenta de matemática que nós confiamos para obter respostas aos problemas. Em matemática e ciência da computação, um problema de otimização é o problema de encontrar a melhor solução de todas as soluções viáveis. A terminologia “melhor” solução implica que há mais de uma solução e as elas não são de igual valor. Esses problemas de otimização no domínio científico e da vida real encontram soluções em pesquisa algorítmica que mostra o uso de métodos clássicos, métodos heurísticos e baseados na natureza métodos para calcular a solução.
 
@@ -50,7 +38,7 @@ Na solução de problemas difíceis onde não há soluções exatas eficientes, 
 Então neste trabalho nós apresentamos um algoritmo que faz uso de uma dessas abordagens, para resolver um problema de otimização conhecido como Traveling Tournament Problem.
 
 
-\subsection{ Especificação do problema }
+\subsection{Especificação do problema}
 
 O Problema da viagem do torneio (Traveling Tournament Problem) é um problema de agendamento de esportes que abstrai as questões importantes na criação horários, onde a viagem em equipe é uma questão importante. Ligas esportivas profissionais existem em todo o mundo. Essas ligas são muitas vezes de grande importância econômica devido às enormes receitas geradas pela venda de bilhetes e direitos de transmissão para os jogos. Portanto, o planejamento dessas ligas é de suma importância. Um aspecto importante é a geração de um calendário para os torneios que especifica a ordem em que as equipes jogam entre si durante a temporada e o local de cada jogo. 
 
@@ -58,7 +46,7 @@ Portanto consideramos um torneio de n times, onde n é um número par. Em um tor
 
 O problema da viagem do torneio (Traveling Tournament Problem) é definido como a seguir. Dados n times e as distâncias entre as suas cidades de origem, o problema consiste em definir uma sequência DRR de tal forma que nenhum time joga mais de três jogos fora de casa, não há repetições (ou seja, dois jogos consecutivos entre os mesmos times em localidades diferentes), e a soma das distâncias percorridas pelos times é minimizada. O problema da viagem do torneio espelhada tem uma restrição adicional: os jogos da rodada k são os mesmos da rodada k + (n- 1), k = 1; . . . ; n - 1, com a localização invertida.
 
-\subsection{ Solução proposta }
+\subsection{Solução proposta}
 
 Para a resolução deste problema utilizamos o método de GRASP (Greedy Randomized Adaptive Search Procedures) que é uma meta-heurística constituída por heurísticas construtivas e busca local. Consiste de múltiplas aplicações de busca local, cada uma iniciando de uma solução diferente. As soluções iniciais são geradas por algum tipo de construção randômica gulosa ou algum esquema de perturbação, esse método é constituído basicamente de duas fases: uma fase de construção e uma fase de busca local, cujo objetivo é convergir à solução encontrada na fase de construção para um ótimo local.
 
@@ -67,7 +55,7 @@ Para a resolução deste problema utilizamos o método de GRASP (Greedy Randomiz
 Na segunda fase ocorre o refinamento da solução gerada pela fase de construção, aplicando um método de busca local. Quanto melhor é a qualidade da solução gerada pela heurística de construção, maior é a velocidade de convergência desta solução para um ótimo local.
 
 
-\section{ Implementação }
+\section{Implementação}
 
 Inicialmente os dados contidos no arquivo de entrada são verificados. Então é retornado o número de linhas do arquivo de clubes e por sequência o número de clubes. São carregados para um struct array os nomes das sedes e das cidades, e as distancias das cidades são carregadas para um 2Darray
 
@@ -81,11 +69,50 @@ A função “count” retorna o número de tentativas para gerar uma tabela com
 
 Logo depois aplica-se a solução gerada pela fatoração a um número de interações com o mando de campo aleatório a fim de encontrar uma solução melhor
 
-\section{ Análise de complexidade }
+\section{Análise de complexidade}
 
-\section{ Análise de resultados }
+\subsection{Funções da Lista Encadeada Simples}
 
-\section{ Considerações finais }
+\begin{table}[H]
+	\centering
+	\caption{Funções da Lista Encadeada Simples.}
+	\label{tab:funcoes}
+	\begin{tabular}{llc}
+		\toprule 
+		Função & Finalidade & Complexidade \\ 
+		\midrule
+		$create()$ & Inicializa uma Lista Encadeada Simples & $O(1)$ \\
+		$atP()$ & Dada a posição, retorna um nó da Lista. & $O(n)$ \\
+		$LLmin()$ & Retorna um nó com o menor valor de um dado. & $O(n)$ \\
+		$LLmax()$ & Retorna um nó com o maior valor de um dado. & $O(n)$ \\
+		$LLidx()$ & Retorna a posição de um nó. & $O(n)$ \\
+		$LLpsh()$ & Insere os dados a partir da posição cabeça. & $O(1)$ \\
+		$LLpop()$ & Remove os dados a partir da posição cabeça. & $O(1)$ \\
+		$LLdel()$ & Remove um nó, dado sua posição na Lista. & $O(n)$ \\
+		$LLins()$ & Insere um nó, dado sua posição na Lista. & $O(n)$ \\
+		$LLchg()$ & Troca a posição de dois nós. & $O(n)$ \\
+		$LLdup()$ & Remove os nós com dados duplicados. & $O(n)$ \\
+		$LLinc()$ & Ordena a Lista em ordem crescente. & $O(n)$ \\
+		$LLdec()$ & Ordena a Lista em ordem decrescente. & $O(n)$ \\
+		$LLprt()$ & Retorna a impressão da Lista. & $O(n)$ \\
+		$LLclr()$ & Libera os dados da Lista da memoria. & $O(n)$ \\
+		$isEmpty()$ & Retorna se uma Lista está ou não vazia. & $O(1)$ \\
+		\bottomrule
+		\footnotesize Fonte: autores
+	\end{tabular}
+\end{table}
+
+\subsection{Funções de fatoração inicial}
+
+\subsection{Funções de associação dos clubes}
+
+\subsection{Funções de mando de campo}
+
+\subsection{Funções de uso comum ao programa}
+
+\section{Análise de resultados}
+
+\section{Considerações finais}
 
 Durante o desenvolvimento vários métodos foram testados com o objetivo de encontrar a maneira mais eficiente de solucionar o problema da viagem do torneio.
 //comentários sobre as dificuldades no desenvolvimento do código
