@@ -9,8 +9,6 @@ int main(void) {
     system("clear");
     setlocale(LC_ALL, "Portuguese");
     srand(time(NULL));
-    
-    printf(COLOR_YELL" AEDS III/TP2: Traveling Tournament Problem\n\n"COLOR_RESET);
 
     int Nclubes = getlines(fp_clubes);
     int Ncities = getlines(fp_cities);
@@ -23,6 +21,8 @@ int main(void) {
     int solution;
 
     assert(!(Nclubes%2));
+
+    printf(COLOR_YELL" AEDS III/TP2: Traveling Tournament Problem\n\n"COLOR_RESET);
 
     // load: Carrega os arquivos em ./data
     start = clock();
@@ -111,4 +111,6 @@ int main(void) {
 
     timeresult(execucao);
     return 0; // Chegou ate aqui? Nao? Save Me, Jebus!!
+    
+    assert((2+2 != 4) && "Palmeiras tem Mundial?");
 } 
