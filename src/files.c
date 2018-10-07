@@ -1,5 +1,10 @@
 #include "main.h"
 
+// Nota: As funcoes de leitura dos arquivos
+// nao sao portaveis para o Windows.
+
+// Retorna o numero de linhas do arquivo de
+// clubes e por consequencia o numero de clubes
 int getlines(const char* file) {
     FILE* fp = fopen(file, "r");
     if (fp == NULL) {
@@ -21,6 +26,8 @@ int getlines(const char* file) {
     return k;
 }
 
+// Carrega a partir do arquivo de clubes, as sedes
+// e nomes destes para uma struct array
 int getCLUB(const char* file, clubes_t* clubes) {
     FILE* fp = fopen(file, "r");
     if (fp == NULL) {
@@ -44,6 +51,8 @@ int getCLUB(const char* file, clubes_t* clubes) {
     return 0;
 }
 
+// Carrega a partir do arquivo de cidades, os
+// nomes destas para uma struct array
 int getCITY(const char* file, cities_t* cities) {
     FILE* fp = fopen(file, "r");
     if (fp == NULL) {
@@ -65,6 +74,8 @@ int getCITY(const char* file, cities_t* cities) {
     return 0;
 }
 
+// Carrega a partir do arquivo de distancias, as
+// distancias relativas das cidades para um 2Darray
 int getDIST(const char* file, int** travel) {
     FILE *fp = fopen(file, "r");
     if (fp == NULL) {
@@ -89,6 +100,7 @@ int getDIST(const char* file, int** travel) {
     return 0;
 }
 
+// Retorno de erro na abertura de arquivos
 void errFile(const char* file) {
     printf(" Erro ao abrir '%s'\n", file);
 }

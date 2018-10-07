@@ -22,9 +22,9 @@ void setmando(int n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
             T1 = atP(nt,abs(mando[i][j])-1);
             if (mando[i][j] < 0) T1->data.A =  travel;
             if (mando[i][j] > 0) T1->data.A = -travel;
-        }
+        } // So far, so good
 
-        for (i=0; i<n; i++) {
+        for (i=0; i<n; i++) { // Oh God...
             T1 = atP(nt,i);
             T2 = atP(nt,abs(mando[i][j+1])-1);
 
@@ -60,7 +60,7 @@ void setmando(int n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
                     T2->data.B =  travel;
                 }
                 else {
-                    if (!randint(2)) {
+                    if (!randint(2)) { // Fucking Die!!!!
                         T1->data.B =  travel;
                         T2->data.B = -travel;
                     }
@@ -77,18 +77,18 @@ void setmando(int n, int** tabela) { // DIE -1 ERROR FUCKING DIE!!!!!
             T2 = atP(nt,abs(mando[i][j+1])-1);
             mando[i][j+1] *= T2->data.B;
             if (mando[i][j]*mando[i][j+1] > 0) T1->data.value++;
-        }
+        } // Cogitando reopcao para Letras...
     }
 
     if (CSTMando(n,mando)) {
-        freeMemory(n,mando);
+        freeMemory(n,mando); // Memory? Where We're Going We Don't Need Memory
         LLclr(nt);
-        setmando(n,tabela);
+        setmando(n,tabela);  // Soletre comigo "segmentation fault"
     }
     else {
-        //sorteia(n,tabela,1);
+        //sorteia(n,tabela,1); // Nope, nao vamos fazer isso de novo.
         copyTable(n,tabela,mando);
-        espelha(n,tabela);
+        espelha(n,tabela);     // TADA! Nunca duvidei!
         freeMemory(n,mando);
         LLclr(nt);
     }
