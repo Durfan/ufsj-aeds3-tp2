@@ -31,8 +31,6 @@ DESTDIR = /
 INSTALL_PREFIX = usr/local
 #### END PROJECT SETTINGS ####
 
-# include config.mk
-
 # Obtains the OS type, either 'Darwin' (OS X) or 'Linux'
 UNAME_S:=$(shell uname -s)
 
