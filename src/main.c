@@ -45,12 +45,12 @@ int main(void) {
     
     // links: Associa os Times com mais jogos
     // consecutivos com os clubes com sedes proximas. 
-    start = clock();
-    printf(COLOR_BLUE" Associando Clubes...\n"COLOR_RESET);
-    printCLUB(Nclubes,clubes);
+    //start = clock();
+    //printf(COLOR_BLUE" Associando Clubes...\n"COLOR_RESET);
+    //printCLUB(Nclubes,clubes);
     associaClub(Nclubes,clubes,travel,tabela);
-    printCLUB(Nclubes,clubes);
-    timeresult(start);
+    //printCLUB(Nclubes,clubes);
+    //timeresult(start);
 
     // Gera o mando de Campo a partir de uma primeira
     // rodada com mando aleatorio. Define os custos da

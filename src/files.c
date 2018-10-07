@@ -32,7 +32,7 @@ int getCLUB(const char* file, clubes_t* clubes) {
     FILE* fp = fopen(file, "r");
     if (fp == NULL) {
         errFile(file);
-        return 1;
+        exit(1);
     }
 
     int index = 0;
@@ -80,7 +80,7 @@ int getDIST(const char* file, int** travel) {
     FILE *fp = fopen(file, "r");
     if (fp == NULL) {
         errFile(file);
-        return 1;
+        exit(1);
     }
 
     int row, col, dist;
