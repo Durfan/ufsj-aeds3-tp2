@@ -52,7 +52,7 @@ Então neste trabalho nós apresentamos um algoritmo que faz uso de uma dessas a
 
 \subsection{ Especificação do problema }
 
-O Problema da viagem do torneio (Traveling Tournament Problem) é um problema de agendamento de esportes que abstrai as questões importantes na criação horários, onde a viagem em equipe é uma questão importante. Ligas esportivas profissionais existem em todo o mundo. Essas ligas são muitas vezes de grande importância económica devido às enormes receitas geradas pela venda de bilhetes e direitos de transmissão para os jogos. Portanto, o planejamento dessas ligas é de suma importância. Um aspecto importante é a geração de um calendário para os torneios que especifica a ordem em que as equipes jogam entre si durante a temporada e o local de cada jogo. 
+O Problema da viagem do torneio (Traveling Tournament Problem) é um problema de agendamento de esportes que abstrai as questões importantes na criação horários, onde a viagem em equipe é uma questão importante. Ligas esportivas profissionais existem em todo o mundo. Essas ligas são muitas vezes de grande importância econômica devido às enormes receitas geradas pela venda de bilhetes e direitos de transmissão para os jogos. Portanto, o planejamento dessas ligas é de suma importância. Um aspecto importante é a geração de um calendário para os torneios que especifica a ordem em que as equipes jogam entre si durante a temporada e o local de cada jogo. 
 
 Portanto consideramos um torneio de n times, onde n é um número par. Em um torneio simple round-robin (SRR), cada time joga com cada um dos demais exatamente uma vez, nas n - 1 rodadas pré-estabelecidas. O jogo entre os times i e j é representado pelo par não ordenado i, j. Há n=2 jogos em cada rodada. Cada time joga exatamente uma vez por rodada. Em um torneio double round-robin (DRR), cada time joga com cada um dos outros duas vezes, uma em casa e outra fora de casa. Um torneio mirrored double round-robin (MDRR) é um torneio SRR nas primeiras n – 1 rodadas, seguido das mesmas rodadas iniciais mas invertendo a sua localização. Uma viagem é uma sequência de jogos fora de casa. Enquanto uma estadia é uma sequência de jogos em casa. Assumimos que cada time tem um estádio para seu uso na sua cidade natal. As distâncias entre as cidades são conhecidas. Cada time parte de sua cidade no início do torneio e retorna à sua cidade no fim do torneio, se já não estiver lá. Sempre que duas rodadas de um time forem fora de casa, ele não retorna à sua cidade natal entre elas. 
 
@@ -60,12 +60,9 @@ O problema da viagem do torneio (Traveling Tournament Problem) é definido como 
 
 \subsection{ Solução proposta }
 
-Para a resolução deste problema utilizamos o método de GRASP (Greedy Randomized Adaptive Search Procedures) qué uma metaheurística constituída por heurísticas construtivas e busca local. Consiste de múltiplas aplicações de busca local, cada uma iniciando de uma solução diferente. As soluções iniciais são geradas por algum tipo de construção randômica gulosa ou algum esquema de perturbação, esse método é constituído basicamente de duas fases: uma fase de construção e uma fase de busca local, cujo objetivo é convergir à solução encontrada na fase de construção para um ótimo local.
+Para a resolução deste problema utilizamos o método de GRASP (Greedy Randomized Adaptive Search Procedures) que é uma meta-heurística constituída por heurísticas construtivas e busca local. Consiste de múltiplas aplicações de busca local, cada uma iniciando de uma solução diferente. As soluções iniciais são geradas por algum tipo de construção randômica gulosa ou algum esquema de perturbação, esse método é constituído basicamente de duas fases: uma fase de construção e uma fase de busca local, cujo objetivo é convergir à solução encontrada na fase de construção para um ótimo local.
 
-A primeira fase é a fase de construção, no qual a solução viável é construída elemento a elemento. Cada elemento da solução é avaliado e, em seguida, é adicionado ordenadamente de acordo com um critério guloso, em uma lista, denominada de
-Lista de Candidatos (LC). Através de um fator $α ∈[0,1]$ é criado a Lista Restrita de
-Candidatos (LRC), cujos elementos são os melhores da LC e cujo tamanho é
-$| LRC |$ $=$ $α×$ $| LC |$ , onde $| LC |$ é o numero de elementos da lista de candidatos. Definido a LRC, seleciona-se, aleatoriamente, um candidato da LRC e, em seguida, atualiza-se ambas as listas LC e LRC. O método para quando LC $=$ Ø .
+%A primeira fase é a fase de construção, no qual a solução viável é construída elemento a elemento. Cada elemento da solução é avaliado e, em seguida, é adicionado ordenadamente de acordo com um critério guloso, em uma lista, denominada de Lista de Candidatos (LC). Através de um fator $α ∈[0,1]$ é criado a Lista Restrita de Candidatos (LRC), cujos elementos são os melhores da LC e cujo tamanho é $| LRC |$ $=$ $α×$ $| LC |$ , onde $| LC |$ é o numero de elementos da lista de candidatos. Definido a LRC, seleciona-se, aleatoriamente, um candidato da LRC e, em seguida, atualiza-se ambas as listas LC e LRC. O método para quando LC $=$ Ø .
 
 Na segunda fase ocorre o refinamento da solução gerada pela fase de construção, aplicando um método de busca local. Quanto melhor é a qualidade da solução gerada pela heurística de construção, maior é a velocidade de convergência desta solução para um ótimo local.
 
@@ -91,7 +88,7 @@ Logo depois aplica-se a solução gerada pela fatoração a um número de intera
 \section{ Considerações finais }
 
 Durante o desenvolvimento vários métodos foram testados com o objetivo de encontrar a maneira mais eficiente de solucionar o problema da viagem do torneio.
-//comentarios sobre as dificuldades no desenvolvimento do codigo
+//comentários sobre as dificuldades no desenvolvimento do código
 
 \pagebreak
 O histórico do desenvolvimento desse trabalho se encontra online em:\\ \url{https://github.com/Durfan/ufsj-aeds3-tp2}.
