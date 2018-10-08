@@ -156,11 +156,13 @@ A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os tim
 	\end{tabular}
 \end{table}
 
-A tabela \ref{tab:poligono} mostra os resultados obtidos pelo método do polígono para $6$ times nas primeiras n-1 rodadas e espelhado para as n-1 rodadas seguintes no MDRR. O mesmo método pode ser aplicado aos 20 times requeridos nesse trabalho prático, para esse número de times ou qualquer outro número par de times, um polígono com n-1 vértices é utilizado.
+A tabela \ref{tab:poligono} mostra os resultados obtidos pelo método do polígono para $6$ times nas primeiras $n-1$ rodadas e espelhado para as $n-1$ rodadas seguintes no MDRR. O mesmo método pode ser aplicado aos 20 times requeridos nesse trabalho prático, para esse número de times ou qualquer outro número par de times, um polígono com $n-1$ vértices é utilizado.
 
 \subsubsection{Segunda fase: Associando Times}
 
-A segunda fase consiste na associação entre os times reais e os times abstratos. Nessa fase obtêm-se uma matriz quadrada $n \times n$ de oponentes consecutivos a partir da escala gerada pelo método do polígono.
+A segunda fase consiste na associação entre os times reais e os times abstratos. Para representar times abstratos usam-se as letras correspondentes aos números gerados pelo método do polígono, já os times reais são representados por números, correspondentes a ordem de seus índices.
+
+Nessa fase obtêm-se uma matriz quadrada $n \times n$ de oponentes consecutivos a partir da escala gerada pelo método do polígono.
 
 São considerados oponentes consecutivos no caso de um time $T_{k}$ possuir confrontos entre $T_{i} \times T_{k}$ e $T_{j} \times T_{k}$ em uma ou mais rodadas consecutivas, não importando a ordem dos jogos. Como exemplo observa-se na tabela \ref{tab:consecutivos} que os times B e E são oponentes consecutivos por 6 vezes de outros times.
 
@@ -203,7 +205,7 @@ A figura \ref{matriz:consecutivos} demonstra a matriz quadrada de oponentes cons
 
 A associação então ocorre entre os pares de times reais que possuem a menor distancia entre suas sedes com os pares de oponentes consecutivos de maior número de confrontos. Essa heurística é descrita a seguir.
 
-Inicialmente, pares de times abstratos são ordenados em ordem decrescente conforme o número de oponentes consecutivos. Times reais são ordenados em ordem crescente de distância em relação às sedes de seus oponentes, e são associados aos times abstratos nesta ordem. Dessa forma, os times abstratos com maior número de oponentes consecutivos serão preferencialmente associados aos times reais com as distâncias entre sedes menores.
+Inicialmente, pares de times abstratos são ordenados em ordem decrescente conforme o número de oponentes consecutivos (Tabela \ref{tab:abstratos}). Times reais são ordenados em ordem crescente de distância em relação às sedes de seus oponentes (Tabela \ref{tab:reais}), e são associados aos times abstratos nesta ordem. Dessa forma, os times abstratos com maior número de oponentes consecutivos serão preferencialmente associados aos times reais com as distâncias entre sedes menores.
 
 \begin{table}[H]
 	\centering
@@ -308,13 +310,35 @@ Essa associação tem como objetivo minimizar o deslocamento de um time $T_{k}$,
 
 \section{Análise de complexidade}
 
+\subsection{Funções de arquivos para os dados}
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\caption{Funções de arquivos para os dados.}
+	\label{tab:arquivos}
+	\begin{tabular}{p{2.7cm} p{9.5cm} c}
+		\toprule 
+		Função & Finalidade & Complexidade \\ 
+		\midrule
+		$getlines()$ & Retorna o numero de linhas validas de um arquivo. & $O(n)$ \\
+		$getCLUB()$ & Carrega os clubes a partir do arquivo de clubes. & $O(n)$ \\
+		$getCITY()$ & Carrega as cidades a partir do arquivo de cidades. & $O(n)$ \\
+		$getDIST()$ & Carrega as distancias a partir do arquivo de distancias. & $O(n)$ \\
+		$errFile()$ & Retorna a distancia entre as sedes dos times. & $O(1)$ \\
+		\bottomrule
+		\footnotesize Fonte: autores
+	\end{tabular}
+\end{table}
+
 \subsection{Funções da Lista Encadeada Simples}
 
 \begin{table}[H]
+	\renewcommand{\arraystretch}{1}
 	\centering
 	\caption{Funções da Lista Encadeada Simples.}
-	\label{tab:funcoes}
-	\begin{tabular}{llc}
+	\label{tab:linkedlist}
+	\begin{tabular}{p{2.7cm} p{9.5cm} c}
 		\toprule 
 		Função & Finalidade & Complexidade \\ 
 		\midrule
@@ -339,13 +363,58 @@ Essa associação tem como objetivo minimizar o deslocamento de um time $T_{k}$,
 	\end{tabular}
 \end{table}
 
-\subsection{Funções de fatoração inicial}
+\subsection{Funções da Solução inicial}
 
-\subsection{Funções de associação dos clubes}
-
-\subsection{Funções de mando de campo}
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\caption{Funções da Solução inicial.}
+	\label{tab:s0}
+	\begin{tabular}{p{2.7cm} p{9.5cm} c}
+		\toprule 
+		Função & Finalidade & Complexidade \\ 
+		\midrule
+		$initPolygon()$ & One-factorization para gerar uma tabela inicial valida. & $O(n^2)$ \\
+		$associaClub()$ & Associa os times reais aos times abstratos conforme o pseudo-código descrito no Algorítimo \ref{associa}. & $O(n^2)$ \\
+		$changeClube()$ & Altera o índice dos clubes conforme a associação realizada em $associaClub()$. & $O(n)$ \\
+		$buildCalvin()$ & Cria os pares de times reais para $associaClub()$. & $O(n)$ \\
+		$buildHarold()$ & Cria os pares de times abstratos para $associaClub()$. & $O(n)$ \\
+		$buildLinked()$ & Cria uma lista de times associados para $associaClub()$. & $O(n)$ \\
+		$islinked()$ & Verifica se um time real já esta associado. & $O(1)$ \\
+		$associar()$ & Associa times reais/abstratos na lista criada por $buildlinked()$. & $O(n)$ \\
+		$areClubs()$ & Verifica se todos os times já foram associados. & $O(n)$ \\
+		$findAT1()$ & Função booleana de retorno para $associaClub()$. & $O(1)$ \\
+		$findBT1()$ & Função booleana de retorno para $associaClub()$. & $O(1)$ \\
+		$findCTY()$ & Função booleana de retorno para $associaClub()$. & $O(1)$ \\
+		\bottomrule
+		\footnotesize Fonte: autores
+	\end{tabular}
+\end{table}
 
 \subsection{Funções de uso comum ao programa}
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\caption{Funções de uso comum ao programa.}
+	\label{tab:comum}
+	\begin{tabular}{p{2.7cm} p{9.5cm} c}
+		\toprule 
+		Função & Finalidade & Complexidade \\ 
+		\midrule
+		$allocTable()$ & Aloca uma matriz de ponteiros. & $O(n)$ \\
+		$freeMemory()$ & Libera a memoria alocada por $allocTable()$. & $O(n)$ \\
+		$copyTable()$ & Copia dados entre matrizes. & $O(n^2)$ \\
+		$shiftArray()$ & Movimenta os dados em um array (shift). & $O(1)$ \\
+		$viagem()$ & Retorna a distancia entre as sedes dos times. & $O(1)$ \\
+		$custos()$ & Calcula e retorna os custos totais de uma escala de jogos gerada, assim como o custo de deslocamento individual dos times. & $O(n^2)$ \\
+		$timeresult()$ & Retorna o tempo de execução até determinado ponto. & $O(1)$ \\
+		$wait()$ & Função de espera (pausa o tempo de execução por $n$ segundos). & $O(n)$ \\
+		$ask()$ & Espera por um input fornecido pelo usuário. & $O(n)$ \\
+		\bottomrule
+		\footnotesize Fonte: autores
+	\end{tabular}
+\end{table}
 
 \section{Análise de resultados}
 
