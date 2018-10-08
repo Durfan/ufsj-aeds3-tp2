@@ -160,9 +160,36 @@ A tabela \ref{tab:poligono} mostra os resultados obtidos pelo método do polígo
 
 \subsubsection{Segunda fase: Associando Times}
 
+A segunda fase consiste na associação entre os times reais e os times abstratos. Nessa fase obtêm-se uma matriz quadrada $n \times n$ de oponentes consecutivos a partir da escala gerada pelo método do polígono.
+
+São considerados oponentes consecutivos no caso de um time $T_{k}$ possuir confrontos entre $T_{i} \times T_{k}$ e $T_{j} \times T_{k}$ em uma ou mais rodadas consecutivas, não importando a ordem dos jogos. Como exemplo observa-se na tabela \ref{tab:consecutivos} que os times B e E são oponentes consecutivos por 6 vezes de outros times.
+
+\begin{table}[H]
+	\centering
+	\caption{Oponentes consecutivos}
+	\label{tab:consecutivos}
+	\begin{tabular}{l*{10}{c}}
+		\toprule
+		& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+		\midrule
+		Time 1 & F & D & \textbf{B} & \textbf{E} & C & F & D & \textbf{B} & \textbf{E} & C \\
+		Time 2 & E & C & A & D & F & E & C & A & D & F \\
+		Time 3 & D & \textbf{B} & \textbf{E} & F & A & D & \textbf{B} & \textbf{E} & F & A \\
+		Time 4 & C & A & F & \textbf{B} & \textbf{E} & C & A & F & \textbf{B} & \textbf{E} \\
+		Time 5 & B & F & C & A & D & B & F & C & A & D \\
+		Time 6 & A & E & D & C & B & A & E & D & C & B \\
+		\bottomrule
+		\footnotesize Fonte: autores
+	\end{tabular}
+\end{table}
+
+A figura \ref{matriz:consecutivos} demonstra a matriz quadrada de oponentes consecutivos dos jogos entre os times abstratos. Nessa matriz podemos observar que além de B e E serem oponentes consecutivos por 6 vezes, outros times também são consecutivos por uma ou mais vezes, como exemplo, C e A também são consecutivos por 6 vezes.
+
 \begin{figure}[H]
+	\centering
 	\caption{Matriz de oponentes consecutivos para $n=6$}
 	\label{matriz:consecutivos}
+	\vspace{-0.7cm}
 	\[ \begin{bmatrix}
 	0 & 1 & 6 & 5 & 2 & 4 \\
 	1 & 0 & 2 & 5 & 6 & 4 \\
@@ -171,11 +198,67 @@ A tabela \ref{tab:poligono} mostra os resultados obtidos pelo método do polígo
 	2 & 6 & 5 & 2 & 0 & 3 \\
 	4 & 4 & 3 & 4 & 3 & 0
 	\end{bmatrix} \]
+	\footnotesize Fonte: autores
 \end{figure}
 
+A associação então ocorre entre os pares de times reais que possuem a menor distancia entre suas sedes com os pares de oponentes consecutivos de maior número de confrontos. Essa heurística é descrita a seguir.
 
+Inicialmente, pares de times abstratos são ordenados em ordem decrescente conforme o número de oponentes consecutivos. Times reais são ordenados em ordem crescente de distância em relação às sedes de seus oponentes, e são associados aos times abstratos nesta ordem. Dessa forma, os times abstratos com maior número de oponentes consecutivos serão preferencialmente associados aos times reais com as distâncias entre sedes menores.
 
-\begin{algorithm}
+\begin{table}[H]
+	\centering
+	\caption{Pares ordenados de times reais.}
+	\label{tab:reais}
+	\vspace{0.2cm}
+	\begin{tabular}{cclr}
+		\toprule
+		 1 & (2,6) & (Atlético Mineiro, Cruzeiro) & 0 Km \\
+		 2 & (1,6) & (América Mineiro, Cruzeiro) & 0 Km \\
+		 3 & (1,2) & (América Mineiro, Atlético Mineiro) & 0 Km \\
+		 4 & (3,5) & (Atlético Paranaense, Corinthians) & 415 Km \\
+		 5 & (2,4) & (Atlético Mineiro, Botafogo) & 440 Km \\
+		 6 & (1,4) & (América Mineiro, Botafogo) & 440 Km \\
+		 7 & (4,6) & (Botafogo, Cruzeiro) & 441 Km \\
+		 8 & (4,5) & (Botafogo, Corinthians) & 444 Km \\
+		 9 & (1,5) & (América Mineiro, Corinthians) & 585 Km \\
+		10 & (2,5) & (Atlético Mineiro, Corinthians) & 585 Km \\
+		11 & (5,6) & (Corinthians, Cruzeiro) & 587 Km \\
+		12 & (3,4) & (Atlético Paranaense, Botafogo) & 849 Km \\
+		13 & (1,3) & (América Mineiro, Atlético Paranaense) & 1000 Km \\
+		14 & (2,3) & (Atlético Mineiro, Atlético Paranaense) & 1000 Km \\
+		15 & (3,6) & (Atlético Paranaense, Cruzeiro) & 1001 Km \\
+		\bottomrule
+	\end{tabular}
+	\vspace{0.2cm}\\
+	\footnotesize Fonte: autores
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Pares ordenados de times abstratos.}
+	\label{tab:abstratos}
+	\vspace{0.2cm}
+	\begin{tabular}{rcc c rcc c rcc}
+		\toprule
+		 1 & (E,B) & 6 && 11 & (D,F) & 4 && 21 & (D,E) & 2 \\
+		 2 & (C,A) & 6 && 12 & (F,A) & 4 && 22 & (C,D) & 2 \\
+		 3 & (B,E) & 6 && 13 & (F,D) & 4 && 23 & (C,B) & 2 \\
+		 4 & (A,C) & 6 && 14 & (B,F) & 4 && 24 & (B,C) & 2 \\
+		 5 & (E,C) & 5 && 15 & (A,F) & 4 && 25 & (E,D) & 2 \\
+		 6 & (D,B) & 5 && 16 & (F,B) & 4 && 26 & (A,E) & 2 \\
+		 7 & (D,A) & 5 && 17 & (E,F) & 3 && 27 & (E,A) & 2 \\
+		 8 & (C,E) & 5 && 18 & (F,C) & 3 && 28 & (D,C) & 2 \\
+		 9 & (B,D) & 5 && 19 & (F,E) & 3 && 29 & (B,A) & 1 \\
+		10 & (A,D) & 5 && 20 & (C,F) & 3 && 30 & (A,B) & 1 \\
+		\bottomrule
+	\end{tabular}
+	\vspace{0.2cm}\\
+	\footnotesize Fonte: autores
+\end{table}
+
+O pseudo-código para a heurística dessa associação é mostrado no Algorítimo \ref{associa}.
+
+\begin{algorithm}[H]
 	\caption{Algoritmo para associação dos times reais aos times abstratos}
 	\algorithmfootnote{Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}}
 	\label{associa}
@@ -186,12 +269,17 @@ A tabela \ref{tab:poligono} mostra os resultados obtidos pelo método do polígo
 			Encontre o primeiro par $(a,b)$ de times abstratos, tal que $a$ esteja\\
 			associado ao time $T_{2}$ e $b$ ainda não esteja associado a nenhum time real.\\
 			$b \leftarrow T_{1}$ }
-			{ Encontre o primeiro par $(a,b)$ de times abstratos, tal\\
+		{ Encontre o primeiro par $(a,b)$ de times abstratos, tal\\
 			que nenhum deles esteja associado a um time real.\\
 			$a \leftarrow T_{1}$ } }
 \end{algorithm}
+\vspace{0.5cm}
 
-\begin{algorithm}
+Essa associação tem como objetivo minimizar o deslocamento de um time $T_{k}$, baseando-se na ideia de que se existirem confrontos $T_{i} \times T_{k}$ e $T_{j} \times T_{k}$ consecutivos, a distancia percorrida por $T_{k}$ seria menor caso suas sedes forem próximas.
+
+\subsubsection{Terceira fase: Mando de Campo}
+
+\begin{algorithm}[H]
 	\caption{Algoritmo para determinação do mando de campo dos jogos}
 	\algorithmfootnote{Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}}
 	\label{mando}
@@ -217,18 +305,6 @@ A tabela \ref{tab:poligono} mostra os resultados obtidos pelo método do polígo
 	Determinar os jogos do segundo turno espelhados ao primeiro turno.\\
 	Caso a escala ainda permanecer inviável, reinicie o algoritmo.
 \end{algorithm}
-
-Inicialmente os dados contidos no arquivo de entrada são verificados. Então é retornado o número de linhas do arquivo de clubes e por sequência o número de clubes. São carregados para um struct array os nomes das sedes e das cidades, e as distancias das cidades são carregadas para um 2Darray
-
-Logo em seguida é utilizado o método do polígono parar gerar uma tabela valida, que consiste em inicialmente, os n-1 times abstratos serem colocados consecutivamente em sentido horário nos nós numerados de um polígono regular com n-1 nós. Os times 1,2,...,n-1 são colocados nos nós 1,2,...,n-1 respectivamente, enquanto que o time n não é inserido no polígono. A cada rodada k = 1,2,...,n-1 o time localizado no nó l = 2,...,n/2 joga contra o time localizado no nó n + 1 – l. Para toda rodada, o time localizado no nó 1 joga contra o time n. Depois de cada rodada, cada time 1,2,...,n-1 é movido em sentido horário para o próximo nó do polígono.
-
-Posteriormente, a escala é duplicada. Essa escala é utilizada para gerar uma matriz quadrada n x n de oponentes consecutivos. Cada célula (i, j) da matriz contém o número de vezes em que os times i e j são oponentes consecutivos dos outros times.
-
-Aloca-se dinamicamente essa matriz. Depois é retornada a distância de uma sede para outra de determinado clube e então a função “custos” avalia os custos de deslocamentos de cada time. Com a tabela formada associa-se os times com mais jogos consecutivos aos clubes com sedes mais próximas. 
-
-A função “count” retorna o número de tentativas para gerar uma tabela com mandos validos. Então gera-se o mando de campo a partir de uma primeira rodada com mando aleatório, e são definidos os custos da solução inicial.
-
-Logo depois aplica-se a solução gerada pela fatoração a um número de interações com o mando de campo aleatório a fim de encontrar uma solução melhor
 
 \section{Análise de complexidade}
 
