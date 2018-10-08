@@ -72,9 +72,18 @@ Na segunda fase ocorre o refinamento da solução gerada pela fase de construç�
 
 \section{Implementação}
 
+Para a construção de uma solução inicial, utiliza-se o método de três fases inicialmente proposto por Ribeiro e Urrutia (2004a)\cite{urrutia:heuristics}.
+
 \subsection{Método de três fases para geração de uma solução inicial}
 
+\subsubsection{Primeira fase: Método do Polígono}
+
+A primeira fase da solução inicial consiste em uma fatoração que utiliza o método do polígono. Nesse método, sendo $n$ o número de times participantes do campeonato, forma-se um polígono com $n-1$ nós numerados, um $n$-ésimo time é considerado como um nó fora desse polígono.
+
+A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os times localizados nos nós $n+1-k$, e o $n$-ésimo time localizado fora do polígono joga contra o time localizado no primeiro nó do polígono. Para as $n-1$ rodadas seguintes, o polígono é movido em sentido horário para determinar os novos jogos. A figura \ref{poligono}, demonstra a fatoração para as três primeiras rodadas de um campeonato com 6 times.
+
 \begin{figure}[H]
+	\centering
 	\caption{Método do polígono para três primeiras rodadas com n = 6}
 	\label{poligono}
 	\vspace{.6cm}
@@ -124,12 +133,14 @@ Na segunda fase ocorre o refinamento da solução gerada pela fase de construç�
 		\draw [<->] (-0.8,0.2) -- (0.8,0.2);
 		\draw [->] (1,4.25) to[out=10,in=-270] (2.25,3.25);
 	\end{tikzpicture}
+	\vspace{.3cm}\\
+	\footnotesize Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}
 \end{figure}
 
 \begin{table}[H]
 	\centering
 	\caption{Solução obtida pelo Método do Polígono}
-	\label{tab:poligerado}
+	\label{tab:poligono}
 	\begin{tabular}{l*{10}{c}}
 		\toprule
 		& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
@@ -145,6 +156,9 @@ Na segunda fase ocorre o refinamento da solução gerada pela fase de construç�
 	\end{tabular}
 \end{table}
 
+A tabela \ref{tab:poligono} mostra os resultados obtidos pelo método do polígono para $6$ times nas primeiras n-1 rodadas e espelhado para as n-1 rodadas seguintes no MDRR. O mesmo método pode ser aplicado aos 20 times requeridos nesse trabalho prático, para esse número de times ou qualquer outro número par de times, um polígono com n-1 vértices é utilizado.
+
+\subsubsection{Segunda fase: Associando Times}
 
 \begin{figure}[H]
 	\caption{Matriz de oponentes consecutivos para $n=6$}
