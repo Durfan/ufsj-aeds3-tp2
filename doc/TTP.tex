@@ -22,6 +22,18 @@
 
 \usepackage{tikz}
 \usepackage[portuguese, ruled]{algorithm2e}
+\usepackage{copyrightbox}
+
+\makeatletter
+\newcommand{\algorithmfootnote}[2][\footnotesize]{%
+	\let\old@algocf@finish\@algocf@finish% Store algorithm finish macro
+	\def\@algocf@finish{\old@algocf@finish% Update finish macro to insert "footnote"
+		\leavevmode\rlap{\begin{minipage}{\linewidth}
+				#1#2
+		\end{minipage}}%
+	}%
+}
+\makeatother
 
 \author{Pablo Cecilio Oliveira\\
 	Alexander Cristian}
@@ -128,22 +140,50 @@ Na segunda fase ocorre o refinamento da solução gerada pela fase de construç�
 	\end{bmatrix} \]
 \end{figure}
 
+
+
 \begin{algorithm}
 	\caption{Algoritmo para associação dos times reais aos times abstratos}
+	\algorithmfootnote{Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}}
 	\label{associa}
-
 	\Repita{todos os times reais sejam associados aos times abstratos} {
-		Seja $T1$ o próximo time real a ser associado a um time abstrato\\
-		e seja $T2$ o time, cuja cidade é mais próxima à cidade de $T1$.\\
-		\eSe{$T2$ já foi associado} {
+		Seja $T_{1}$ o próximo time real a ser associado a um time abstrato\\
+		e seja $T_{2}$ o time, cuja cidade é mais próxima à cidade de $T_{1}$.\\
+		\eSe{$T_{2}$ já foi associado} {
 			Encontre o primeiro par $(a,b)$ de times abstratos, tal que $a$ esteja\\
-			associado ao time $T2$ e $b$ ainda não esteja associado a nenhum time real.\\
-			$b \leftarrow T1$ }
+			associado ao time $T_{2}$ e $b$ ainda não esteja associado a nenhum time real.\\
+			$b \leftarrow T_{1}$ }
 			{ Encontre o primeiro par $(a,b)$ de times abstratos, tal\\
 			que nenhum deles esteja associado a um time real.\\
-			$a \leftarrow T1$ } }
+			$a \leftarrow T_{1}$ } }
 \end{algorithm}
 
+\begin{algorithm}
+	\caption{Algoritmo para determinação do mando de campo dos jogos}
+	\algorithmfootnote{Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}}
+	\label{mando}
+	Determine, de forma aleatória, o mando de campo dos jogos da primeira rodada.\\
+	\ParaCada{rodada $k = 2,3,...,(n-1)$ do primeiro turno}{
+		
+		\Se{$N_{2} > N_{1}$}{
+			\lSe{Se $T_{2}$ jogou seu último jogo em casa}{a realização do jogo será na casa do time $T_{1}$}
+			\lSe{Se $T_{2}$ jogou seu último jogo fora de casa}{a realização do jogo será na casa do time $T_{2}$}	
+		}
+	
+		\Se{$N_{2} < N_{1}$}{
+			\lSe{Se $T_{1}$ jogou seu último jogo em casa}{a realização do jogo será na casa do time $T_{2}$}
+			\lSe{Se $T_{1}$ jogou seu último jogo fora de casa}{a realização do jogo será na casa do time $T_{1}$}	
+		}
+	
+		\Se{$N_{2} = N_{1}$}{
+			\lSe{$T_{1}$ jogou seu último jogo em casa e o time $T_{2}$ jogou seu último jogo fora de casa}{a realização do jogo será na casa do time $T_{2}$}
+			\lSe{$T_{1}$ jogou seu último jogo fora de casa e o time $T_{2}$ jogou seu último jogo em casa}{a realização do jogo será na casa do time $T_{1}$}
+			\lSenao{o mando de campo é determinado aleatoriamente}
+		}
+	}
+	Determinar os jogos do segundo turno espelhados ao primeiro turno.\\
+	Caso a escala ainda permanecer inviável, reinicie o algoritmo.
+\end{algorithm}
 
 Inicialmente os dados contidos no arquivo de entrada são verificados. Então é retornado o número de linhas do arquivo de clubes e por sequência o número de clubes. São carregados para um struct array os nomes das sedes e das cidades, e as distancias das cidades são carregadas para um 2Darray
 
