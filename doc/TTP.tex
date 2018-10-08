@@ -322,10 +322,10 @@ Essa associação tem como objetivo minimizar o deslocamento de um time $T_{k}$,
 		Função & Finalidade & Complexidade \\ 
 		\midrule
 		$getlines()$ & Retorna o numero de linhas validas de um arquivo. & $O(n)$ \\
-		$getCLUB()$ & Carrega os clubes a partir do arquivo de clubes. & $O(n)$ \\
-		$getCITY()$ & Carrega as cidades a partir do arquivo de cidades. & $O(n)$ \\
-		$getDIST()$ & Carrega as distancias a partir do arquivo de distancias. & $O(n)$ \\
-		$errFile()$ & Retorna a distancia entre as sedes dos times. & $O(1)$ \\
+		$getCLUB()$ & Carrega os clubes a partir do arquivo de clubes, salva os dados em array struct. & $O(n)$ \\
+		$getCITY()$ & Carrega as cidades a partir do arquivo de cidades, salva os dados em um array struct. & $O(n)$ \\
+		$getDIST()$ & Carrega as distancias a partir do arquivo de distancias, salva os dados em uma matriz alocada. & $O(n)$ \\
+		$errFile()$ & Retorna a msg de erro caso o arquivo não for encontrado. & $O(1)$ \\
 		\bottomrule
 		\footnotesize Fonte: autores
 	\end{tabular}
@@ -417,6 +417,43 @@ Essa associação tem como objetivo minimizar o deslocamento de um time $T_{k}$,
 \end{table}
 
 \section{Análise de resultados}
+
+\begin{table}[H]
+	\centering
+	\caption{Análise dos resultados.}
+	\label{tab:resultados}
+	\vspace{0.2cm}
+	\begin{tabular}{ccccccr}
+		\toprule 
+		$S_{0}$ & $S_{k}$ & $k$ & Tentativas & Tempo & Diferença \% & Ganho \\ 
+		\midrule
+		837635 & 784889 &  3 & 19698 & 1s 903ms &  6.30\% &  52746 \\
+		848148 & 790269 & 10 & 18519 & 1s 795ms &  6.82\% &  57879 \\
+		814842 & 772594 &  9 & 19458 & 1s 892ms &  5.18\% &  42248 \\
+		864708 & 782358 &  5 & 18773 & 1s 823ms &  9.52\% &  82350 \\
+		858557 & 780693 &  8 & 19692 & 1s 910ms &  9.07\% &  77864 \\
+		858637 & 755076 &  9 & 19651 & 1s 912ms & 12.06\% & 103561 \\
+		840565 & 781085 &  4 & 20540 & 1s 984ms &  7.08\% &  59480 \\
+		825463 & 781733 &  6 & 18880 & 1s 830ms &  5.30\% &  43730 \\
+		848581 & 772612 &  9 & 19195 & 1s 862ms &  8.95\% &  75969 \\
+		844549 & 770172 &  8 & 18408 & 1s 791ms &  8.81\% &  74377 \\
+		865979 & 779945 &  6 & 20467 & 1s 985ms &  9.93\% &  86034 \\
+		857004 & 767938 &  5 & 19898 & 1s 928ms & 10.39\% &  89066 \\
+		795849 & 774157 &  3 & 19754 & 1s 914ms &  2.73\% &  21692 \\
+		862298 & 769219 &  8 & 18952 & 1s 846ms & 10.79\% &  93079 \\
+		842242 & 777349 &  4 & 19309 & 1s 868ms &  7.70\% &  64893 \\
+		\midrule
+		844337 & 776005 &    &       &          &  8.09\% &  68332 \\
+		\bottomrule
+		\footnotesize Fonte: autores
+	\end{tabular}
+\end{table}
+
+     
+
+
+       
+
 
 \section{Considerações finais}
 
