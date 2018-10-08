@@ -258,12 +258,12 @@ Inicialmente, pares de times abstratos são ordenados em ordem decrescente confo
 	\footnotesize Fonte: autores
 \end{table}
 
-O pseudo-código para a heurística dessa associação é mostrado no Algorítimo \ref{associa}.
+O pseudo-código para a heurística dessa associação é mostrado no Algorítimo \ref{alg:associa}.
 
 \begin{algorithm}[H]
 	\caption{Algoritmo para associação dos times reais aos times abstratos}
 	\algorithmfootnote{Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}}
-	\label{associa}
+	\label{alg:associa}
 	\Repita{todos os times reais sejam associados aos times abstratos} {
 		Seja $T_{1}$ o próximo time real a ser associado a um time abstrato\\
 		e seja $T_{2}$ o time, cuja cidade é mais próxima à cidade de $T_{1}$.\\
@@ -281,10 +281,16 @@ Essa associação tem como objetivo minimizar o deslocamento de um time $T_{k}$,
 
 \subsubsection{Terceira fase: Mando de Campo}
 
+Na terceira e última fase para gerar uma solução inicial, são estabelecidos os mandos de campo. Considera-se para isso a restrição de três jogos consecutivos dentro ou fora de casa, assim sendo, para gerar uma escala viável deve-se alternar o máximo possível o mando de campo.
+
+Os mandos de campo da primeira rodada são determinados aleatoriamente, e nas rodadas seguintes até a última do primeiro turno ($n-1$), uma heurística é utilizada para determinar o mando de um jogo entre os times $T_{1}$ e $T_{2}$.
+
+Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quantidade total de jogos consecutivos dentro ou fora de casa que um time $T_{i}$ jogou em rodadas anteriores, e a partir desse valor, o algorítimo \ref{alg:mando} é aplicado.
+
 \begin{algorithm}[H]
 	\caption{Algoritmo para determinação do mando de campo dos jogos}
 	\algorithmfootnote{Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}}
-	\label{mando}
+	\label{alg:mando}
 	Determine, de forma aleatória, o mando de campo dos jogos da primeira rodada.\\
 	\ParaCada{rodada $k = 2,3,...,(n-1)$ do primeiro turno}{
 		
