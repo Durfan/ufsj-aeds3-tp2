@@ -21,6 +21,7 @@
 \usepackage{float}
 
 \usepackage{tikz}
+\usepackage[portuguese, ruled]{algorithm2e}
 
 \author{Pablo Cecilio Oliveira\\
 	Alexander Cristian}
@@ -59,10 +60,12 @@ Na segunda fase ocorre o refinamento da solução gerada pela fase de construç�
 
 \section{Implementação}
 
+\subsection{Método de três fases para geração de uma solução inicial}
+
 \begin{figure}[H]
-\caption{Fatoração através do método do Polígono.}
-\label{fatora:poligono}
-\vspace{.6cm}
+	\caption{Método do polígono para três primeiras rodadas com n = 6}
+	\label{poligono}
+	\vspace{.6cm}
 	\begin{tikzpicture}
 		\tikzstyle{every node}=[draw, shape=circle, inner sep=4pt];
 		\tikzstyle{every path}=[draw, line width=0.4mm];
@@ -113,7 +116,7 @@ Na segunda fase ocorre o refinamento da solução gerada pela fase de construç�
 
 
 \begin{figure}[H]
-	\caption{Matriz de oponentes consecutivos para $n=6$.}
+	\caption{Matriz de oponentes consecutivos para $n=6$}
 	\label{matriz:consecutivos}
 	\[ \begin{bmatrix}
 	0 & 1 & 6 & 5 & 2 & 4 \\
@@ -124,6 +127,22 @@ Na segunda fase ocorre o refinamento da solução gerada pela fase de construç�
 	4 & 4 & 3 & 4 & 3 & 0
 	\end{bmatrix} \]
 \end{figure}
+
+\begin{algorithm}
+	\caption{Algoritmo para associação dos times reais aos times abstratos}
+	\label{associa}
+
+	\Repita{todos os times reais sejam associados aos times abstratos} {
+		Seja $T1$ o próximo time real a ser associado a um time abstrato\\
+		e seja $T2$ o time, cuja cidade é mais próxima à cidade de $T1$.\\
+		\eSe{$T2$ já foi associado} {
+			Encontre o primeiro par $(a,b)$ de times abstratos, tal que $a$ esteja\\
+			associado ao time $T2$ e $b$ ainda não esteja associado a nenhum time real.\\
+			$b \leftarrow T1$ }
+			{ Encontre o primeiro par $(a,b)$ de times abstratos, tal\\
+			que nenhum deles esteja associado a um time real.\\
+			$a \leftarrow T1$ } }
+\end{algorithm}
 
 
 Inicialmente os dados contidos no arquivo de entrada são verificados. Então é retornado o número de linhas do arquivo de clubes e por sequência o número de clubes. São carregados para um struct array os nomes das sedes e das cidades, e as distancias das cidades são carregadas para um 2Darray
