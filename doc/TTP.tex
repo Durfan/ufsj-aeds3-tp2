@@ -35,6 +35,14 @@
 }
 \makeatother
 
+\makeatletter
+\renewcommand*\env@matrix[1][\arraystretch]{%
+	\edef\arraystretch{#1}%
+	\hskip -\arraycolsep
+	\let\@ifnextchar\new@ifnextchar
+	\array{*\c@MaxMatrixCols c}}
+\makeatother
+
 \author{Pablo Cecilio Oliveira\\
 	Alexander Cristian}
 \title{Algorítimos e Estrutura de Dados III\\
@@ -72,19 +80,19 @@ Na segunda fase ocorre o refinamento da solução gerada pela fase de construç�
 
 \section{Implementação}
 
-Para a construção de uma solução inicial, utiliza-se o método de três fases inicialmente proposto por Ribeiro e Urrutia (2004a)\cite{urrutia:heuristics}.
+Para a construção de uma solução inicial, utiliza-se o método de três fases proposto por Ribeiro e Urrutia (2004a)\cite{urrutia:heuristics}.
 
 \subsection{Método de três fases para geração de uma solução inicial}
 
 \subsubsection{Primeira fase: Método do Polígono}
 
-A primeira fase da solução inicial consiste em uma fatoração que utiliza o método do polígono. Nesse método, sendo $n$ o número de times participantes do campeonato, forma-se um polígono com $n-1$ nós numerados, um $n$-ésimo time é considerado como um nó fora desse polígono.
+A primeira fase da solução inicial consiste em uma fatoração que utiliza o Método do Polígono. Nesse método, sendo $n$ o número de times participantes do campeonato, forma-se um polígono com $n-1$ nós numerados e um $n$-ésimo time é atribuído a um nó fora desse polígono.
 
-A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os times localizados nos nós $n+1-k$, e o $n$-ésimo time localizado fora do polígono joga contra o time localizado no primeiro nó do polígono. Para as $n-1$ rodadas seguintes, o polígono é movido em sentido horário para determinar os novos jogos. A figura \ref{poligono}, demonstra a fatoração para as três primeiras rodadas de um campeonato com 6 times.
+A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os times localizados nos nós $n+1-k$, o $n$-ésimo time localizado fora do polígono joga contra o time localizado no primeiro nó do polígono. Para as $n-1$ rodadas seguintes, o polígono é movido em sentido horário para determinar os novos jogos. A Figura \ref{poligono}, demonstra a fatoração para as três primeiras rodadas de um campeonato com $6$ times.
 
 \begin{figure}[H]
 	\centering
-	\caption{Método do polígono para três primeiras rodadas com n = 6}
+	\caption{Método do Polígono para três primeiras rodadas com n = 6}
 	\label{poligono}
 	\vspace{.6cm}
 	\begin{tikzpicture}
@@ -156,15 +164,15 @@ A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os tim
 	\end{tabular}
 \end{table}
 
-A tabela \ref{tab:poligono} mostra os resultados obtidos pelo método do polígono para $6$ times nas primeiras $n-1$ rodadas e espelhado para as $n-1$ rodadas seguintes no MDRR. O mesmo método pode ser aplicado aos 20 times requeridos nesse trabalho prático, para esse número de times ou qualquer outro número par de times, um polígono com $n-1$ vértices é utilizado.
+A Tabela \ref{tab:poligono} mostra os resultados obtidos pelo Método do Polígono para $6$ times nas primeiras $n-1$ rodadas e espelhado para as $n-1$ rodadas seguintes no MDRR. O mesmo método pode ser aplicado aos 20 times requeridos nesse trabalho prático, para esse número de times ou qualquer outro número par de times, um polígono com $n-1$ vértices é utilizado.
 
 \subsubsection{Segunda fase: Associando Times}
 
 A segunda fase consiste na associação entre os times reais e os times abstratos. Para representar times abstratos usam-se as letras correspondentes aos números gerados pelo método do polígono, já os times reais são representados por números, correspondentes a ordem de seus índices.
 
-Nessa fase obtêm-se uma matriz quadrada $n \times n$ de oponentes consecutivos a partir da escala gerada pelo método do polígono.
+Para essa fase, primeiro obtêm-se uma matriz quadrada de $n \times n$ oponentes consecutivos gerada partir da escala criada pelo Método do Polígono.
 
-São considerados oponentes consecutivos no caso de um time $T_{k}$ possuir confrontos entre $T_{i} \times T_{k}$ e $T_{j} \times T_{k}$ em uma ou mais rodadas consecutivas, não importando a ordem dos jogos. Como exemplo observa-se na tabela \ref{tab:consecutivos} que os times B e E são oponentes consecutivos por 6 vezes de outros times.
+São considerados como ''oponentes consecutivos'' no caso em que um time $T_{k}$ possuir confrontos entre $T_{i} \times T_{k}$ e $T_{j} \times T_{k}$ em uma ou mais rodadas consecutivas, não importando a ordem dos jogos. Como exemplo, observa-se na Tabela \ref{tab:consecutivos} que os times B e E são oponentes consecutivos por 6 vezes de outros times.
 
 \begin{table}[H]
 	\centering
@@ -185,14 +193,14 @@ São considerados oponentes consecutivos no caso de um time $T_{k}$ possuir conf
 	\end{tabular}
 \end{table}
 
-A figura \ref{matriz:consecutivos} demonstra a matriz quadrada de oponentes consecutivos dos jogos entre os times abstratos. Nessa matriz podemos observar que além de B e E serem oponentes consecutivos por 6 vezes, outros times também são consecutivos por uma ou mais vezes, como exemplo, C e A também são consecutivos por 6 vezes.
+A Figura \ref{matriz:consecutivos} demonstra a matriz quadrada de oponentes consecutivos dos jogos entre os times abstratos. Nessa matriz podemos observar que além de B e E serem oponentes consecutivos por 6 vezes, outros times também são consecutivos por uma ou mais vezes, como exemplo, C e A também são consecutivos por 6 vezes.
 
 \begin{figure}[H]
 	\centering
 	\caption{Matriz de oponentes consecutivos para $n=6$}
 	\label{matriz:consecutivos}
 	\vspace{-0.7cm}
-	\[ \begin{bmatrix}
+	\[ \begin{bmatrix}[0.8]
 	0 & 1 & 6 & 5 & 2 & 4 \\
 	1 & 0 & 2 & 5 & 6 & 4 \\
 	6 & 2 & 0 & 2 & 5 & 3 \\
@@ -203,7 +211,7 @@ A figura \ref{matriz:consecutivos} demonstra a matriz quadrada de oponentes cons
 	\footnotesize Fonte: autores
 \end{figure}
 
-A associação então ocorre entre os pares de times reais que possuem a menor distancia entre suas sedes com os pares de oponentes consecutivos de maior número de confrontos. Essa heurística é descrita a seguir.
+A associação, então, ocorre entre os pares de times reais que possuem a menor distância entre suas sedes com os pares de oponentes consecutivos de maior número de confrontos. Essa heurística é descrita a seguir.
 
 Inicialmente, pares de times abstratos são ordenados em ordem decrescente conforme o número de oponentes consecutivos (Tabela \ref{tab:abstratos}). Times reais são ordenados em ordem crescente de distância em relação às sedes de seus oponentes (Tabela \ref{tab:reais}), e são associados aos times abstratos nesta ordem. Dessa forma, os times abstratos com maior número de oponentes consecutivos serão preferencialmente associados aos times reais com as distâncias entre sedes menores.
 
@@ -260,8 +268,9 @@ Inicialmente, pares de times abstratos são ordenados em ordem decrescente confo
 
 O pseudo-código para a heurística dessa associação é mostrado no Algorítimo \ref{alg:associa}.
 
+\vspace{0.5cm}
 \begin{algorithm}[H]
-	\caption{Algoritmo para associação dos times reais aos times abstratos}
+	\caption{Associa times reais à times abstratos}
 	\algorithmfootnote{Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}}
 	\label{alg:associa}
 	\Repita{todos os times reais sejam associados aos times abstratos} {
@@ -277,7 +286,7 @@ O pseudo-código para a heurística dessa associação é mostrado no Algorítim
 \end{algorithm}
 \vspace{0.5cm}
 
-Essa associação tem como objetivo minimizar o deslocamento de um time $T_{k}$, baseando-se na ideia de que se existirem confrontos $T_{i} \times T_{k}$ e $T_{j} \times T_{k}$ consecutivos, a distancia percorrida por $T_{k}$ seria menor caso suas sedes forem próximas.
+Essa associação tem como objetivo minimizar o deslocamento de um time $T_{k}$, baseando-se na ideia de que se existirem confrontos $T_{i} \times T_{k}$ e $T_{j} \times T_{k}$ consecutivos, a distância percorrida por $T_{k}$ seria menor caso suas sedes forem próximas.
 
 \subsubsection{Terceira fase: Mando de Campo}
 
@@ -288,7 +297,7 @@ Os mandos de campo da primeira rodada são determinados aleatoriamente, e nas ro
 Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quantidade total de jogos consecutivos dentro ou fora de casa que um time $T_{i}$ jogou em rodadas anteriores, e a partir desse valor, o algorítimo \ref{alg:mando} é aplicado.
 
 \begin{algorithm}[H]
-	\caption{Algoritmo para determinação do mando de campo dos jogos}
+	\caption{Determina o mando de campo dos jogos}
 	\algorithmfootnote{Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}}
 	\label{alg:mando}
 	Determine, de forma aleatória, o mando de campo dos jogos da primeira rodada.\\
@@ -315,6 +324,41 @@ Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quanti
 \end{algorithm}
 
 \section{Análise de complexidade}
+
+Para as Funções utilizadas pelo programa as quais um número fixo de instruções, sejam eles $k$, são executas independente de $n$, essas classificam-se como $O(1)$ ou de complexidade constante. Dentre as listadas nas seções seguintes, se encontram:
+
+\begin{itemize}
+	\setlength\itemsep{1pt}
+	\item Funções que retornam uma condição booleana; 
+	\item Inicialização da Lista Simplesmente Encadeada;
+	\item Inserção ou remoção de um nó a partir do nó ''cabeça'' de uma Lista Simplesmente Encadeada;
+	\item Funções de retorno de impressão para mensagens de erro, ou para o retorno de impressão do tempo decorrido até determinado ponto relativo ao código;
+	\item A Função que realiza a copia de um trecho de memória, ou a que retorna um conteúdo endereçado diretamente para uma área de memoria;
+	\item A Função que gera um números randômicos através do seed fornecido pelo sistema.
+\end{itemize}
+
+Para as Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais que $n$ mais um número fixo de instruções são menores do que $cn$ ($f(n) = (n+1) \Rightarrow (n+1) \leqslant cn$). Essas compõe a maioria do programa e são listadas de forma geral a seguir:
+
+\begin{itemize}
+	\setlength\itemsep{1pt}
+	\item A Função que retorna um o numero de linhas de um arquivo;
+	\item Funções que carregam os dados dos arquivos para estruturas de dados;
+	\item Funções que carregam os dados dos arquivos para estruturas de dados;
+	\item Funções de uso geral da Lista Simplesmente Encadeada:
+	\begin{itemize}
+		\setlength\itemsep{1pt}
+		\item Funções que retorna um nó que contem um menor valor de um dado, ou a que retorna um nó que contem o maior valor de um dado;
+		\item Função que retorna a posição de um nó na lista;
+		\item Funções que carregam os dados dos arquivos para estruturas de dados;
+		\item Funções que removem ou inserem um nó da Lista conforme sua posição;
+		\item Função que troca as posições de dois nós;
+		\item Função que remove nós com dados duplicados;
+		\item Funções que ordenam a lista em ordem crescente ou decrescente;
+		\item Função que retorna a impressão da Lista;
+		\item Função que libera os dados da Lista da memoria
+	\end{itemize}
+	\item Funções de uso geral da Lista Simplesmente Encadeada:
+\end{itemize}
 
 \subsection{Funções de arquivos para os dados}
 
@@ -369,6 +413,28 @@ Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quanti
 	\end{tabular}
 \end{table}
 
+\subsection{Funções de Retorno de Impressão}
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\caption{Funções da Solução inicial.}
+	\label{tab:print}
+	\begin{tabular}{p{2.7cm} p{9.5cm} c}
+		\toprule 
+		Função & Finalidade & Complexidade \\ 
+		\midrule
+		$printTabela()$ & Retorna a impressão formatada da escala. & $O(n^2)$ \\
+		$printEscala()$ & Retorna a impressão não formatada da escala.. & $O(n^2)$ \\
+		$printTravel()$ & Retorna a impressão das distancias percorrida por cada um dos times. & $O(n)$ \\
+		$printMatrix()$ & Retorna a impressão de uma matriz $n \times n$. & $O(n^2)$ \\
+		$printCLUB()$ & Retorna a impressão não formatada do array struct de clubes. & $O(n^2)$ \\
+		$printCITY()$ & Retorna a impressão não formatada do array struct de cidades.. & $O(n^2)$ \\
+		\bottomrule
+		\footnotesize Fonte: autores
+	\end{tabular}
+\end{table}
+
 \subsection{Funções da Solução inicial}
 
 \begin{table}[H]
@@ -381,17 +447,16 @@ Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quanti
 		Função & Finalidade & Complexidade \\ 
 		\midrule
 		$initPolygon()$ & One-factorization para gerar uma tabela inicial valida. & $O(n^2)$ \\
-		$associaClub()$ & Associa os times reais aos times abstratos conforme o pseudo-código descrito no Algorítimo \ref{associa}. & $O(n^2)$ \\
+		$associaClub()$ & Associa os times reais aos times abstratos conforme o pseudo-código descrito no Algorítimo \ref{alg:associa}. & $O(n^2)$ \\
 		$changeClube()$ & Altera o índice dos clubes conforme a associação realizada em $associaClub()$. & $O(n)$ \\
 		$buildCalvin()$ & Cria os pares de times reais para $associaClub()$. & $O(n)$ \\
 		$buildHarold()$ & Cria os pares de times abstratos para $associaClub()$. & $O(n)$ \\
-		$buildLinked()$ & Cria uma lista de times associados para $associaClub()$. & $O(n)$ \\
+		$buildLinked()$ & Cria uma lista encadeada de times associados para $associaClub()$. & $O(n)$ \\
 		$islinked()$ & Verifica se um time real já esta associado. & $O(1)$ \\
 		$associar()$ & Associa times reais/abstratos na lista criada por $buildlinked()$. & $O(n)$ \\
 		$areClubs()$ & Verifica se todos os times já foram associados. & $O(n)$ \\
 		$findAT1()$ & Função booleana de retorno para $associaClub()$. & $O(1)$ \\
 		$findBT1()$ & Função booleana de retorno para $associaClub()$. & $O(1)$ \\
-		$findCTY()$ & Função booleana de retorno para $associaClub()$. & $O(1)$ \\
 		\bottomrule
 		\footnotesize Fonte: autores
 	\end{tabular}

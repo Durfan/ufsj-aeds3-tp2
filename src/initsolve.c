@@ -178,7 +178,7 @@ bool findBT1(node_t* ptr, int T2) {
     return (ptr->data.T1 == T2 && ptr->data.T2 == 0);
 }
 
-bool findCTY(node_t* ptr, int T) {
+bool findCTY(node_t* ptr, int T) { // Funçao Depreciada na versão de entrega
     assert(ptr != NULL);
     return (ptr->data.T1 == T || ptr->data.T2 == T);
 }
