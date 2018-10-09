@@ -17,12 +17,12 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 
+\usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{float}
 
 \usepackage{tikz}
 \usepackage[portuguese, ruled]{algorithm2e}
-\usepackage{copyrightbox}
 
 \makeatletter
 \newcommand{\algorithmfootnote}[2][\footnotesize]{%
@@ -35,13 +35,9 @@
 }
 \makeatother
 
-\makeatletter
-\renewcommand*\env@matrix[1][\arraystretch]{%
-	\edef\arraystretch{#1}%
-	\hskip -\arraycolsep
-	\let\@ifnextchar\new@ifnextchar
-	\array{*\c@MaxMatrixCols c}}
-\makeatother
+\usepackage{array}
+\newcolumntype{C}{>{\centering\arraybackslash}p{1cm}}
+\renewcommand*{\arraystretch}{1.2}
 
 \author{Pablo Cecilio Oliveira\\
 	Alexander Cristian}
@@ -181,21 +177,24 @@ São considerados como ''oponentes consecutivos'' no caso em que um time $T_{k}$
 
 A Figura \ref{matriz:consecutivos} demonstra a matriz quadrada de oponentes consecutivos dos jogos entre os times abstratos. Nessa matriz podemos observar que além de B e E serem oponentes consecutivos por 6 vezes, outros times também são consecutivos por uma ou mais vezes, como exemplo, C e A também são consecutivos por 6 vezes.
 
-\begin{figure}[H]
+\begin{table}[H]
 	\centering
 	\caption{Matriz de oponentes consecutivos para $n=6$}
-	\label{matriz:consecutivos}
-	\vspace{-0.7cm}
-	\[ \begin{bmatrix}[0.8]
-	0 & 1 & 6 & 5 & 2 & 4 \\
-	1 & 0 & 2 & 5 & 6 & 4 \\
-	6 & 2 & 0 & 2 & 5 & 3 \\
-	5 & 5 & 2 & 0 & 2 & 4 \\
-	2 & 6 & 5 & 2 & 0 & 3 \\
-	4 & 4 & 3 & 4 & 3 & 0
-	\end{bmatrix} \]
+	\label{tab:matconsecutivos}
+	\begin{tabular}{c *{6}{C}}
+		\toprule
+		  & A & B & C & D & E & F \\
+		A & 0 & 1 & 6 & 5 & 2 & 4 \\
+		B & 1 & 0 & 2 & 5 & 6 & 4 \\
+		C & 6 & 2 & 0 & 2 & 5 & 3 \\
+		D & 5 & 5 & 2 & 0 & 2 & 4 \\
+		E & 2 & 6 & 5 & 2 & 0 & 3 \\
+		F & 4 & 4 & 3 & 4 & 3 & 0 \\
+		\bottomrule
+	\end{tabular}
+	\vspace{0.2cm}\\
 	\footnotesize Fonte: autores
-\end{figure}
+\end{table}
 
 A associação, então, ocorre entre os pares de times reais que possuem a menor distância entre suas sedes com os pares de oponentes consecutivos de maior número de confrontos. Essa heurística é descrita a seguir.
 
@@ -378,151 +377,96 @@ Funções $O(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqslant cn^3$ :
 
 \subsection{Funções de arquivos para os dados}
 
-\begin{table}[H]
-	\renewcommand{\arraystretch}{1}
-	\centering
-	\caption{Funções de arquivos para os dados.}
-	\label{tab:arquivos}
-	\begin{tabular}{p{2.7cm} p{9.5cm} c}
-		\toprule 
-		Função & Finalidade & Complexidade \\ 
-		\midrule
-		$getlines()$ & Retorna o numero de linhas validas de um arquivo. & $O(n)$ \\
-		$getCLUB()$ & Carrega os clubes a partir do arquivo de clubes, salva os dados em array struct. & $O(n)$ \\
-		$getCITY()$ & Carrega as cidades a partir do arquivo de cidades, salva os dados em um array struct. & $O(n)$ \\
-		$getDIST()$ & Carrega as distancias a partir do arquivo de distancias, salva os dados em uma matriz alocada. & $O(n)$ \\
-		$errFile()$ & Retorna a msg de erro caso o arquivo não for encontrado. & $O(1)$ \\
-		\bottomrule
-		\footnotesize Fonte: autores
-	\end{tabular}
-\end{table}
+\begin{longtable}{p{3cm} p{11cm} p{1cm}}
+	\texttt{getlines()} & Retorna o numero de linhas validas de um arquivo. & $\mathcal{O}(n)$ \\
+	\texttt{getCLUB()} & Carrega os clubes a partir do arquivo de clubes, salva os dados em array struct. & $\mathcal{O}(n)$ \\
+	\texttt{getCITY()} & Carrega as cidades a partir do arquivo de cidades, salva os dados em um array struct. & $\mathcal{O}(n)$ \\
+	\texttt{getDIST()} & Carrega as distancias a partir do arquivo de distancias, salva os dados em uma matriz alocada. & $\mathcal{O}(n)$ \\
+	\texttt{errFile()} & Retorna a msg de erro caso o arquivo não for encontrado. & $\mathcal{O}(1)$ \\
+	\label{tab:files}
+\end{longtable}
+\vspace{-0.5cm}
 
 \subsection{Funções da Lista Encadeada Simples}
 
-\begin{table}[H]
-	\renewcommand{\arraystretch}{1}
-	\centering
-	\caption{Funções da Lista Encadeada Simples.}
-	\label{tab:linkedlist}
-	\begin{tabular}{p{2.7cm} p{9.5cm} c}
-		\toprule 
-		Função & Finalidade & Complexidade \\ 
-		\midrule
-		$create()$ & Inicializa uma Lista Encadeada Simples & $O(1)$ \\
-		$atP()$ & Dada a posição, retorna um nó da Lista. & $O(n)$ \\
-		$LLmin()$ & Retorna um nó com o menor valor de um dado. & $O(n)$ \\
-		$LLmax()$ & Retorna um nó com o maior valor de um dado. & $O(n)$ \\
-		$LLidx()$ & Retorna a posição de um nó. & $O(n)$ \\
-		$LLpsh()$ & Insere os dados a partir da posição cabeça. & $O(1)$ \\
-		$LLpop()$ & Remove os dados a partir da posição cabeça. & $O(1)$ \\
-		$LLdel()$ & Remove um nó, dado sua posição na Lista. & $O(n)$ \\
-		$LLins()$ & Insere um nó, dado sua posição na Lista. & $O(n)$ \\
-		$LLchg()$ & Troca a posição de dois nós. & $O(n)$ \\
-		$LLdup()$ & Remove os nós com dados duplicados. & $O(n)$ \\
-		$LLinc()$ & Ordena a Lista em ordem crescente. & $O(n)$ \\
-		$LLdec()$ & Ordena a Lista em ordem decrescente. & $O(n)$ \\
-		$LLprt()$ & Retorna a impressão da Lista. & $O(n)$ \\
-		$LLclr()$ & Libera os dados da Lista da memoria. & $O(n)$ \\
-		$isEmpty()$ & Retorna se uma Lista está ou não vazia. & $O(1)$ \\
-		\bottomrule
-		\footnotesize Fonte: autores
-	\end{tabular}
-\end{table}
+\begin{longtable}{p{3cm} p{11cm} p{1cm}}
+	\texttt{create()} & Inicializa uma Lista Encadeada Simples & $\mathcal{O}(1)$ \\
+	\texttt{atP()} & Dada a posição, retorna um nó da Lista. & $\mathcal{O}(n)$ \\
+	\texttt{LLmin()} & Retorna um nó com o menor valor de um dado. & $\mathcal{O}(n)$ \\
+	\texttt{LLmax()} & Retorna um nó com o maior valor de um dado. & $\mathcal{O}(n)$ \\
+	\texttt{LLidx()} & Retorna a posição de um nó. & $\mathcal{O}(n)$ \\
+	\texttt{LLpsh()} & Insere os dados a partir da posição cabeça. & $\mathcal{O}(1)$ \\
+	\texttt{LLpop()} & Remove os dados a partir da posição cabeça. & $\mathcal{O}(1)$ \\
+	\texttt{LLdel()} & Remove um nó, dado sua posição na Lista. & $\mathcal{O}(n)$ \\
+	\texttt{LLins()} & Insere um nó, dado sua posição na Lista. & $\mathcal{O}(n)$ \\
+	\texttt{LLchg()} & Troca a posição de dois nós. & $\mathcal{O}(n)$ \\
+	\texttt{LLdup()} & Remove os nós com dados duplicados. & $\mathcal{O}(n)$ \\
+	\texttt{LLinc()} & Ordena a Lista em ordem crescente. & $\mathcal{O}(n)$ \\
+	\texttt{LLdec()} & Ordena a Lista em ordem decrescente. & $\mathcal{O}(n)$ \\
+	\texttt{LLprt()} & Retorna a impressão da Lista. & $\mathcal{O}(n)$ \\
+	\texttt{LLclr()} & Libera os dados da Lista da memoria. & $\mathcal{O}(n)$ \\
+	\texttt{isEmpty()} & Retorna se uma Lista está ou não vazia. & $\mathcal{O}(1)$ \\
+	\label{tab:lista}
+\end{longtable}
+\vspace{-0.5cm}
 
 \subsection{Funções de Retorno de Impressão}
-
-\begin{table}[H]
-	\renewcommand{\arraystretch}{1}
-	\centering
-	\caption{Funções da Solução inicial.}
+	
+\begin{longtable}{p{3cm} p{11cm} p{1cm}}
+	\texttt{printTabela()} & Retorna a impressão formatada da escala. & $\mathcal{O}(n^2)$ \\
+	\texttt{printEscala()} & Retorna a impressão não formatada da escala.. & $\mathcal{O}(n^2)$ \\
+	\texttt{printTravel()} & Retorna a impressão das distancias percorrida por cada um dos times. & $O(n)$ \\
+	\texttt{printMatrix()} & Retorna a impressão de uma matriz $n \times n$. & $\mathcal{O}(n^2)$ \\
+	\texttt{printCLUB()} & Retorna a impressão não formatada do array struct de clubes. & $\mathcal{O}(n)$ \\
+	\texttt{printCITY()} & Retorna a impressão não formatada do array struct de cidades.. & $\mathcal{O}(n)$ \\
 	\label{tab:print}
-	\begin{tabular}{p{2.7cm} p{9.5cm} c}
-		\toprule 
-		Função & Finalidade & Complexidade \\ 
-		\midrule
-		$printTabela()$ & Retorna a impressão formatada da escala. & $O(n^2)$ \\
-		$printEscala()$ & Retorna a impressão não formatada da escala.. & $O(n^2)$ \\
-		$printTravel()$ & Retorna a impressão das distancias percorrida por cada um dos times. & $O(n)$ \\
-		$printMatrix()$ & Retorna a impressão de uma matriz $n \times n$. & $O(n^2)$ \\
-		$printCLUB()$ & Retorna a impressão não formatada do array struct de clubes. & $O(n)$ \\
-		$printCITY()$ & Retorna a impressão não formatada do array struct de cidades.. & $O(n)$ \\
-		\bottomrule
-		\footnotesize Fonte: autores
-	\end{tabular}
-\end{table}
+\end{longtable}
+\vspace{-0.5cm}
 
 \subsection{Funções da Solução inicial}
-
-\begin{table}[H]
-	\renewcommand{\arraystretch}{1}
-	\centering
-	\caption{Funções da Solução inicial.}
+	
+\begin{longtable}{p{3cm} p{11cm} p{1cm}}
+	\texttt{initPolygon()} & One-factorization para gerar uma tabela inicial valida. & $\mathcal{O}(n^2)$ \\
+	\texttt{associaClub()} & Associa os times reais aos times abstratos conforme o pseudo-código descrito no Algorítimo \ref{alg:associa}. & $\mathcal{O}(n^3)$ \\
+	\texttt{changeClube()} & Altera o índice dos clubes conforme a associação realizada em \texttt{associaClub()}. & $\mathcal{O}(n)$ \\
+	\texttt{buildCalvin()} & Cria os pares de times reais para \texttt{associaClub()}. & $\mathcal{O}(n^2)$ \\
+	\texttt{buildHarold()} & Cria os pares de times abstratos para \texttt{associaClub()}. & $\mathcal{O}(n^2)$ \\
+	\texttt{buildLinked()} & Cria uma lista simplesmente encadeada para o controle dos times associados na \texttt{associaClub()}. & $\mathcal{O}(n)$ \\
+	\texttt{islinked()} & Verifica se um time real já esta associado. & $\mathcal{O}(n)$ \\
+	\texttt{associar()} & Associa times reais com abstratos na lista criada por \texttt{buildlinked()}. & $\mathcal{O}(n)$ \\
+	\texttt{areClubs()} & Verifica se todos os times já foram associados. & $\mathcal{O}(n)$ \\
+	\texttt{findAT1()} & Função booleana de retorno para \texttt{associaClub()}. & $\mathcal{O}(1)$ \\
+	\texttt{findBT1()} & Função booleana de retorno para \texttt{associaClub()}. & $\mathcal{O}(1)$ \\
 	\label{tab:s0}
-	\begin{tabular}{p{2.7cm} p{9.5cm} c}
-		\toprule 
-		Função & Finalidade & Complexidade \\ 
-		\midrule
-		$initPolygon()$ & One-factorization para gerar uma tabela inicial valida. & $O(n^2)$ \\
-		$associaClub()$ & Associa os times reais aos times abstratos conforme o pseudo-código descrito no Algorítimo \ref{alg:associa}. & $O(n^3)$ \\
-		$changeClube()$ & Altera o índice dos clubes conforme a associação realizada em $associaClub()$. & $O(n)$ \\
-		$buildCalvin()$ & Cria os pares de times reais para $associaClub()$. & $O(n^2)$ \\
-		$buildHarold()$ & Cria os pares de times abstratos para $associaClub()$. & $O(n^2)$ \\
-		$buildLinked()$ & Cria uma lista encadeada de times associados para $associaClub()$. & $O(n)$ \\
-		$islinked()$ & Verifica se um time real já esta associado. & $O(n)$ \\
-		$associar()$ & Associa times reais/abstratos na lista criada por $buildlinked()$. & $O(n)$ \\
-		$areClubs()$ & Verifica se todos os times já foram associados. & $O(n)$ \\
-		$findAT1()$ & Função booleana de retorno para $associaClub()$. & $O(1)$ \\
-		$findBT1()$ & Função booleana de retorno para $associaClub()$. & $O(1)$ \\
-		\bottomrule
-		\footnotesize Fonte: autores
-	\end{tabular}
-\end{table}
+\end{longtable}
+\vspace{-0.5cm}
 
 \subsection{Funções de Mando de Campo}
 
-\begin{table}[H]
-	\renewcommand{\arraystretch}{1}
-	\centering
-	\caption{Funções de Mando de Campo.}
+\begin{longtable}{p{3cm} p{11cm} p{1cm}}
+	\texttt{setmando()} & Determina o mando de campo dos times conforme o pseudo-código descrito no Algorítimo \ref{alg:mando}. & $\mathcal{O}(n^3)$ \\
+	\texttt{sorteia()} & Determina randomicamente os mandos de campo da primeira rodada. & $\mathcal{O}(n)$ \\
+	\texttt{CSTMando()} & Verifica se a condição de três jogos consecutivos dentro ou fora de casa foi respeitada. & $\mathcal{O}(n^2)$ \\
+	\texttt{espelha()} & Espelha os mandos gerados no primeiro turno para o returno. & $\mathcal{O}(n^2)$ \\
+	\texttt{randint()} & Gera um inteiro randomicamente conforme o seed do sistema. & $\mathcal{O}(1)$ \\
 	\label{tab:mando}
-	\begin{tabular}{p{2.7cm} p{9.5cm} c}
-		\toprule 
-		Função & Finalidade & Complexidade \\ 
-		\midrule
-		$setmando()$ & Determina o mando de campo dos times conforme o pseudo-código descrito no Algorítimo \ref{alg:mando}. & $O(n^3)$ \\
-		$sorteia()$ & Determina randomicamente os mandos de campo da primeira rodada. & $O(n)$ \\
-		$CSTMando()$ & Verifica se a condição de três jogos consecutivos dentro ou fora de casa foi respeitada. & $O(n^2)$ \\
-		$espelha()$ & Espelha os mandos gerados no primeiro turno para o returno. & $O(n^2)$ \\
-		$randint()$ & Gera um inteiro randomicamente conforme o seed do sistema. & $O(1)$ \\
-		\bottomrule
-		\footnotesize Fonte: autores
-	\end{tabular}
-\end{table}
+\end{longtable}
+\vspace{-0.5cm}
 
 \subsection{Funções de uso comum ao programa}
 
-\begin{table}[H]
-	\renewcommand{\arraystretch}{1}
-	\centering
-	\caption{Funções de uso comum ao programa.}
+\begin{longtable}{p{3cm} p{11cm} p{1cm}}
+	\texttt{allocTable()} & Aloca uma matriz de ponteiros. & $O(n)$ \\
+	\texttt{freeMemory()} & Libera a memoria alocada por \texttt{allocTable()}. & $O(n)$ \\
+	\texttt{copyTable()} & Copia dados entre matrizes. & $O(n^2)$ \\
+	\texttt{shiftArray()} & Movimenta os dados em um array (shift). & $O(1)$ \\
+	\texttt{viagem()} & Retorna a distancia entre as sedes dos times. & $O(1)$ \\
+	\texttt{custos()} & Calcula e retorna os custos totais de uma escala de jogos gerada, assim como o custo de deslocamento individual dos times. & $O(n^2)$ \\
+	\texttt{timeresult()} & Retorna o tempo de execução até determinado ponto. & $O(1)$ \\
+	\texttt{wait()} & Função de espera (pausa o tempo de execução por $n$ segundos). & $O(n)$ \\
+	\texttt{ask()} & Espera por um input fornecido pelo usuário. & $O(n)$ \\
 	\label{tab:comum}
-	\begin{tabular}{p{2.7cm} p{9.5cm} c}
-		\toprule 
-		Função & Finalidade & Complexidade \\ 
-		\midrule
-		$allocTable()$ & Aloca uma matriz de ponteiros. & $O(n)$ \\
-		$freeMemory()$ & Libera a memoria alocada por $allocTable()$. & $O(n)$ \\
-		$copyTable()$ & Copia dados entre matrizes. & $O(n^2)$ \\
-		$shiftArray()$ & Movimenta os dados em um array (shift). & $O(1)$ \\
-		$viagem()$ & Retorna a distancia entre as sedes dos times. & $O(1)$ \\
-		$custos()$ & Calcula e retorna os custos totais de uma escala de jogos gerada, assim como o custo de deslocamento individual dos times. & $O(n^2)$ \\
-		$timeresult()$ & Retorna o tempo de execução até determinado ponto. & $O(1)$ \\
-		$wait()$ & Função de espera (pausa o tempo de execução por $n$ segundos). & $O(n)$ \\
-		$ask()$ & Espera por um input fornecido pelo usuário. & $O(n)$ \\
-		\bottomrule
-		\footnotesize Fonte: autores
-	\end{tabular}
-\end{table}
+\end{longtable}
 
 \section{Análise de resultados}
 
