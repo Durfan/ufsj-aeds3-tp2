@@ -334,7 +334,7 @@ Para as Funções utilizadas pelo programa as quais um número fixo de instruç�
 	\item Inserção ou remoção de um nó a partir do nó ''cabeça'' de uma Lista Simplesmente Encadeada;
 	\item Funções de retorno de impressão para mensagens de erro, ou para o retorno de impressão do tempo decorrido até determinado ponto relativo ao código;
 	\item A Função que realiza a copia de um trecho de memória, ou a que retorna um conteúdo endereçado diretamente para uma área de memoria;
-	\item A Função que gera um números randômicos através do seed fornecido pelo sistema.
+	\item A Função que gera números randômicos através do seed fornecido pelo sistema.
 \end{itemize}
 
 Para as Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais que $n$ mais um número fixo de instruções são menores do que $cn$ ($f(n) = (n+1) \Rightarrow (n+1) \leqslant cn$). Essas compõe a maioria do programa e são listadas de forma geral a seguir:
@@ -357,7 +357,12 @@ Para as Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais 
 		\item Função que retorna a impressão da Lista;
 		\item Função que libera os dados da Lista da memoria
 	\end{itemize}
-	\item Funções de uso geral da Lista Simplesmente Encadeada:
+	\item Funções de de retorno de impressão do struct array de clubes ou de cidades;
+	\item Função que altera os índices do struct array de clubes;
+	\item As Funções de manuseio da Lista Encadeada criada como auxilio a função $associaClub()$;
+	\item A Função de alocação de uma matriz de ponteiros;
+	\item A Função que libera a memoria alocada por uma matriz;
+	\item A Funções de espera por tempo ou por input;
 \end{itemize}
 
 \subsection{Funções de arquivos para os dados}
@@ -428,8 +433,8 @@ Para as Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais 
 		$printEscala()$ & Retorna a impressão não formatada da escala.. & $O(n^2)$ \\
 		$printTravel()$ & Retorna a impressão das distancias percorrida por cada um dos times. & $O(n)$ \\
 		$printMatrix()$ & Retorna a impressão de uma matriz $n \times n$. & $O(n^2)$ \\
-		$printCLUB()$ & Retorna a impressão não formatada do array struct de clubes. & $O(n^2)$ \\
-		$printCITY()$ & Retorna a impressão não formatada do array struct de cidades.. & $O(n^2)$ \\
+		$printCLUB()$ & Retorna a impressão não formatada do array struct de clubes. & $O(n)$ \\
+		$printCITY()$ & Retorna a impressão não formatada do array struct de cidades.. & $O(n)$ \\
 		\bottomrule
 		\footnotesize Fonte: autores
 	\end{tabular}
@@ -449,14 +454,35 @@ Para as Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais 
 		$initPolygon()$ & One-factorization para gerar uma tabela inicial valida. & $O(n^2)$ \\
 		$associaClub()$ & Associa os times reais aos times abstratos conforme o pseudo-código descrito no Algorítimo \ref{alg:associa}. & $O(n^2)$ \\
 		$changeClube()$ & Altera o índice dos clubes conforme a associação realizada em $associaClub()$. & $O(n)$ \\
-		$buildCalvin()$ & Cria os pares de times reais para $associaClub()$. & $O(n)$ \\
-		$buildHarold()$ & Cria os pares de times abstratos para $associaClub()$. & $O(n)$ \\
+		$buildCalvin()$ & Cria os pares de times reais para $associaClub()$. & $O(n^2)$ \\
+		$buildHarold()$ & Cria os pares de times abstratos para $associaClub()$. & $O(n^2)$ \\
 		$buildLinked()$ & Cria uma lista encadeada de times associados para $associaClub()$. & $O(n)$ \\
 		$islinked()$ & Verifica se um time real já esta associado. & $O(1)$ \\
 		$associar()$ & Associa times reais/abstratos na lista criada por $buildlinked()$. & $O(n)$ \\
 		$areClubs()$ & Verifica se todos os times já foram associados. & $O(n)$ \\
 		$findAT1()$ & Função booleana de retorno para $associaClub()$. & $O(1)$ \\
 		$findBT1()$ & Função booleana de retorno para $associaClub()$. & $O(1)$ \\
+		\bottomrule
+		\footnotesize Fonte: autores
+	\end{tabular}
+\end{table}
+
+\subsection{Funções de Mando de Campo}
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\caption{Funções de Mando de Campo.}
+	\label{tab:mando}
+	\begin{tabular}{p{2.7cm} p{9.5cm} c}
+		\toprule 
+		Função & Finalidade & Complexidade \\ 
+		\midrule
+		$setmando()$ & Determina o mando de campo dos times conforme o pseudo-código descrito no Algorítimo \ref{alg:mando}. & $O(n^3)$ \\
+		$sorteia()$ & Determina randomicamente os mandos de campo da primeira rodada. & $O(n)$ \\
+		$CSTMando()$ & Verifica se a condição de três jogos consecutivos dentro ou fora de casa foi respeitada. & $O(n^2)$ \\
+		$espelha()$ & Espelha os mandos gerados no primeiro turno para o returno. & $O(n^2)$ \\
+		$randint()$ & Gera um inteiro randomicamente conforme o seed do sistema. & $O(1)$ \\
 		\bottomrule
 		\footnotesize Fonte: autores
 	\end{tabular}
