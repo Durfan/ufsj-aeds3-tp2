@@ -127,10 +127,13 @@ A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os tim
 	\footnotesize Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}
 \end{figure}
 
+A Tabela \ref{tab:poligono} mostra os resultados obtidos pelo Método do Polígono para $6$ times nas primeiras $n-1$ rodadas e espelhado para as $n-1$ rodadas seguintes no MDRR. O mesmo método pode ser aplicado aos 20 times requeridos nesse trabalho prático, para esse número de times ou qualquer outro número par de times, um polígono com $n-1$ vértices é utilizado.
+
 \begin{table}[H]
 	\centering
 	\caption{Solução obtida pelo Método do Polígono}
 	\label{tab:poligono}
+	\vspace{0.1cm}
 	\begin{tabular}{l*{10}{c}}
 		\toprule
 		& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
@@ -142,11 +145,10 @@ A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os tim
 		Time 5 & 2 & 6 & 3 & 1 & 4 & 2 & 6 & 3 & 1 & 4 \\
 		Time 6 & 1 & 5 & 4 & 3 & 2 & 1 & 5 & 4 & 3 & 2 \\
 		\bottomrule
-		\footnotesize Fonte: autores
 	\end{tabular}
+	\vspace{0.1cm}\\
+	\footnotesize Fonte: autores
 \end{table}
-
-A Tabela \ref{tab:poligono} mostra os resultados obtidos pelo Método do Polígono para $6$ times nas primeiras $n-1$ rodadas e espelhado para as $n-1$ rodadas seguintes no MDRR. O mesmo método pode ser aplicado aos 20 times requeridos nesse trabalho prático, para esse número de times ou qualquer outro número par de times, um polígono com $n-1$ vértices é utilizado.
 
 \subsubsection{Segunda fase: Associando Times}
 
@@ -160,6 +162,7 @@ São considerados como ''oponentes consecutivos'' no caso em que um time $T_{k}$
 	\centering
 	\caption{Oponentes consecutivos}
 	\label{tab:consecutivos}
+	\vspace{0.1cm}
 	\begin{tabular}{l*{10}{c}}
 		\toprule
 		& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
@@ -171,8 +174,9 @@ São considerados como ''oponentes consecutivos'' no caso em que um time $T_{k}$
 		Time 5 & B & F & C & A & D & B & F & C & A & D \\
 		Time 6 & A & E & D & C & B & A & E & D & C & B \\
 		\bottomrule
-		\footnotesize Fonte: autores
 	\end{tabular}
+	\vspace{0.1cm}\\
+	\footnotesize Fonte: autores
 \end{table}
 
 A Tabela \ref{tab:matconsecutivos} demonstra a matriz quadrada de oponentes consecutivos dos jogos entre os times abstratos. Nessa matriz podemos observar que além de B e E serem oponentes consecutivos por 6 vezes, outros times também são consecutivos por uma ou mais vezes, como exemplo, C e A também são consecutivos por 6 vezes.
@@ -181,18 +185,19 @@ A Tabela \ref{tab:matconsecutivos} demonstra a matriz quadrada de oponentes cons
 	\centering
 	\caption{Matriz de oponentes consecutivos para $n=6$}
 	\label{tab:matconsecutivos}
+	\vspace{0.1cm}
 	\begin{tabular}{c *{6}{C}}
 		\toprule
 		  & A & B & C & D & E & F \\
-		A & 0 & 1 & 6 & 5 & 2 & 4 \\
-		B & 1 & 0 & 2 & 5 & 6 & 4 \\
-		C & 6 & 2 & 0 & 2 & 5 & 3 \\
-		D & 5 & 5 & 2 & 0 & 2 & 4 \\
-		E & 2 & 6 & 5 & 2 & 0 & 3 \\
-		F & 4 & 4 & 3 & 4 & 3 & 0 \\
+		A & - & 1 & 6 & 5 & 2 & 4 \\
+		B & 1 & - & 2 & 5 & 6 & 4 \\
+		C & 6 & 2 & - & 2 & 5 & 3 \\
+		D & 5 & 5 & 2 & - & 2 & 4 \\
+		E & 2 & 6 & 5 & 2 & - & 3 \\
+		F & 4 & 4 & 3 & 4 & 3 & - \\
 		\bottomrule
 	\end{tabular}
-	\vspace{0.2cm}\\
+	\vspace{0.1cm}\\
 	\footnotesize Fonte: autores
 \end{table}
 
@@ -205,7 +210,7 @@ Inicialmente, pares de times abstratos são ordenados em ordem decrescente confo
 	\centering
 	\caption{Pares ordenados de times reais.}
 	\label{tab:reais}
-	\vspace{0.2cm}
+	\vspace{0.1cm}
 	\begin{tabular}{cclr}
 		\toprule
 		 1 & (2,6) & (Atlético Mineiro, Cruzeiro) & 0 Km \\
@@ -225,7 +230,7 @@ Inicialmente, pares de times abstratos são ordenados em ordem decrescente confo
 		15 & (3,6) & (Atlético Paranaense, Cruzeiro) & 1001 Km \\
 		\bottomrule
 	\end{tabular}
-	\vspace{0.2cm}\\
+	\vspace{0.1cm}\\
 	\footnotesize Fonte: autores
 \end{table}
 
@@ -233,7 +238,7 @@ Inicialmente, pares de times abstratos são ordenados em ordem decrescente confo
 	\centering
 	\caption{Pares ordenados de times abstratos.}
 	\label{tab:abstratos}
-	\vspace{0.2cm}
+	\vspace{0.1cm}
 	\begin{tabular}{rcc c|c rcc c|c rcc}
 		\toprule
 		 1 & (E,B) & 6 &&& 11 & (D,F) & 4 &&& 21 & (D,E) & 2 \\
@@ -248,7 +253,7 @@ Inicialmente, pares de times abstratos são ordenados em ordem decrescente confo
 		10 & (A,D) & 5 &&& 20 & (C,F) & 3 &&& 30 & (A,B) & 1 \\
 		\bottomrule
 	\end{tabular}
-	\vspace{0.2cm}\\
+	\vspace{0.1cm}\\
 	\footnotesize Fonte: autores
 \end{table}
 
