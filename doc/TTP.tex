@@ -54,29 +54,15 @@ O Problema da Viagem do Torneio}
 
 \section{Introdução}
 
-Otimização é o processo de melhorar algo. Basicamente é a ferramenta de matemática que nós confiamos para obter respostas aos problemas. Em matemática e ciência da computação, um problema de otimização é o problema de encontrar a melhor solução de todas as soluções viáveis. A terminologia “melhor” solução implica que há mais de uma solução e as elas não são de igual valor. Esses problemas de otimização no domínio científico e da vida real encontram soluções em pesquisa algorítmica que mostra o uso de métodos clássicos, métodos heurísticos e baseados na natureza métodos para calcular a solução.
+O Problema da Viagem do Torneio Viajante (Traveling Tournament Problem) pode ser considerado como um problema de otimização matemática que envolve a criação de uma escala de jogos em um torneio viável.
 
-Na solução de problemas difíceis onde não há soluções exatas eficientes, abordagens heurísticas como Simulated Annealing, Busca Tabu, GRASP (Greedy Randomized Adaptive Search Procedure), VNS (Variable Neighborhood Search), VND (Variable Neighborhood Descent), o ILS (Iterated Local Search) e o Método de Reconexão por Caminhos (Path Relinking) se tornam alternativas populares.
+A viabilidade da escala é definida de maneira geral por dois  outros problemas. O primeiro é uma questão de viabilidade, o padrão de jogos em casa e longe deve ser suficientemente variado, de modo a evitar padrões de estadia e deslocamento excessivos. O segundo é uma questão de deslocamento, onde buscasse minimizar o custo total de deslocamento com objetivo de evitar viagens excessivas. Para simplicidade, afirmamos este objetivo como minimizar a distância total de deslocamento.
 
-Então neste trabalho nós apresentamos um algoritmo que faz uso de uma dessas abordagens, para resolver um problema de otimização conhecido como Traveling Tournament Problem.
+Neste trabalho prático é apresentado uma solução para o TTP do Campeonato Brasileiro de Futebol.
 
+A escala de jogos do Campeonato Brasileiro de Futebol consiste em definir uma escala de jogos viável entre $n$ times divididos em $n-1$ rodadas $k$ no primeiro turno, onde cada time joga com cada um dos outros sem repetições, e sem que existam mais que três jogos consecutivos fora de casa. Para o returno na rodada $k + (n - 1)$, os jogos são espelhados do primeiro turno, porem com o mando de campo invertido.
 
-\subsection{Especificação do problema}
-
-O Problema da viagem do torneio (Traveling Tournament Problem) é um problema de agendamento de esportes que abstrai as questões importantes na criação horários, onde a viagem em equipe é uma questão importante. Ligas esportivas profissionais existem em todo o mundo. Essas ligas são muitas vezes de grande importância econômica devido às enormes receitas geradas pela venda de bilhetes e direitos de transmissão para os jogos. Portanto, o planejamento dessas ligas é de suma importância. Um aspecto importante é a geração de um calendário para os torneios que especifica a ordem em que as equipes jogam entre si durante a temporada e o local de cada jogo. 
-
-Portanto consideramos um torneio de n times, onde n é um número par. Em um torneio simple round-robin (SRR), cada time joga com cada um dos demais exatamente uma vez, nas n - 1 rodadas pré-estabelecidas. O jogo entre os times i e j é representado pelo par não ordenado i, j. Há n=2 jogos em cada rodada. Cada time joga exatamente uma vez por rodada. Em um torneio double round-robin (DRR), cada time joga com cada um dos outros duas vezes, uma em casa e outra fora de casa. Um torneio mirrored double round-robin (MDRR) é um torneio SRR nas primeiras n – 1 rodadas, seguido das mesmas rodadas iniciais mas invertendo a sua localização. Uma viagem é uma sequência de jogos fora de casa. Enquanto uma estadia é uma sequência de jogos em casa. Assumimos que cada time tem um estádio para seu uso na sua cidade natal. As distâncias entre as cidades são conhecidas. Cada time parte de sua cidade no início do torneio e retorna à sua cidade no fim do torneio, se já não estiver lá. Sempre que duas rodadas de um time forem fora de casa, ele não retorna à sua cidade natal entre elas. 
-
-O problema da viagem do torneio (Traveling Tournament Problem) é definido como a seguir. Dados n times e as distâncias entre as suas cidades de origem, o problema consiste em definir uma sequência DRR de tal forma que nenhum time joga mais de três jogos fora de casa, não há repetições (ou seja, dois jogos consecutivos entre os mesmos times em localidades diferentes), e a soma das distâncias percorridas pelos times é minimizada. O problema da viagem do torneio espelhada tem uma restrição adicional: os jogos da rodada k são os mesmos da rodada k + (n- 1), k = 1; . . . ; n - 1, com a localização invertida.
-
-\subsection{Solução proposta}
-
-Para a resolução deste problema utilizamos o método de GRASP (Greedy Randomized Adaptive Search Procedures) que é uma meta-heurística constituída por heurísticas construtivas e busca local. Consiste de múltiplas aplicações de busca local, cada uma iniciando de uma solução diferente. As soluções iniciais são geradas por algum tipo de construção randômica gulosa ou algum esquema de perturbação, esse método é constituído basicamente de duas fases: uma fase de construção e uma fase de busca local, cujo objetivo é convergir à solução encontrada na fase de construção para um ótimo local.
-
-%A primeira fase é a fase de construção, no qual a solução viável é construída elemento a elemento. Cada elemento da solução é avaliado e, em seguida, é adicionado ordenadamente de acordo com um critério guloso, em uma lista, denominada de Lista de Candidatos (LC). Através de um fator $α ∈[0,1]$ é criado a Lista Restrita de Candidatos (LRC), cujos elementos são os melhores da LC e cujo tamanho é $| LRC |$ $=$ $α×$ $| LC |$ , onde $| LC |$ é o numero de elementos da lista de candidatos. Definido a LRC, seleciona-se, aleatoriamente, um candidato da LRC e, em seguida, atualiza-se ambas as listas LC e LRC. O método para quando LC $=$ Ø .
-
-Na segunda fase ocorre o refinamento da solução gerada pela fase de construção, aplicando um método de busca local. Quanto melhor é a qualidade da solução gerada pela heurística de construção, maior é a velocidade de convergência desta solução para um ótimo local.
-
+Na solução final para o problema, o custo de deslocamento dos times na escala de jogos deve ser considerado e seu retorno minimizado.
 
 \section{Implementação}
 
@@ -248,18 +234,18 @@ Inicialmente, pares de times abstratos são ordenados em ordem decrescente confo
 	\caption{Pares ordenados de times abstratos.}
 	\label{tab:abstratos}
 	\vspace{0.2cm}
-	\begin{tabular}{rcc c rcc c rcc}
+	\begin{tabular}{rcc c|c rcc c|c rcc}
 		\toprule
-		 1 & (E,B) & 6 && 11 & (D,F) & 4 && 21 & (D,E) & 2 \\
-		 2 & (C,A) & 6 && 12 & (F,A) & 4 && 22 & (C,D) & 2 \\
-		 3 & (B,E) & 6 && 13 & (F,D) & 4 && 23 & (C,B) & 2 \\
-		 4 & (A,C) & 6 && 14 & (B,F) & 4 && 24 & (B,C) & 2 \\
-		 5 & (E,C) & 5 && 15 & (A,F) & 4 && 25 & (E,D) & 2 \\
-		 6 & (D,B) & 5 && 16 & (F,B) & 4 && 26 & (A,E) & 2 \\
-		 7 & (D,A) & 5 && 17 & (E,F) & 3 && 27 & (E,A) & 2 \\
-		 8 & (C,E) & 5 && 18 & (F,C) & 3 && 28 & (D,C) & 2 \\
-		 9 & (B,D) & 5 && 19 & (F,E) & 3 && 29 & (B,A) & 1 \\
-		10 & (A,D) & 5 && 20 & (C,F) & 3 && 30 & (A,B) & 1 \\
+		 1 & (E,B) & 6 &&& 11 & (D,F) & 4 &&& 21 & (D,E) & 2 \\
+		 2 & (C,A) & 6 &&& 12 & (F,A) & 4 &&& 22 & (C,D) & 2 \\
+		 3 & (B,E) & 6 &&& 13 & (F,D) & 4 &&& 23 & (C,B) & 2 \\
+		 4 & (A,C) & 6 &&& 14 & (B,F) & 4 &&& 24 & (B,C) & 2 \\
+		 5 & (E,C) & 5 &&& 15 & (A,F) & 4 &&& 25 & (E,D) & 2 \\
+		 6 & (D,B) & 5 &&& 16 & (F,B) & 4 &&& 26 & (A,E) & 2 \\
+		 7 & (D,A) & 5 &&& 17 & (E,F) & 3 &&& 27 & (E,A) & 2 \\
+		 8 & (C,E) & 5 &&& 18 & (F,C) & 3 &&& 28 & (D,C) & 2 \\
+		 9 & (B,D) & 5 &&& 19 & (F,E) & 3 &&& 29 & (B,A) & 1 \\
+		10 & (A,D) & 5 &&& 20 & (C,F) & 3 &&& 30 & (A,B) & 1 \\
 		\bottomrule
 	\end{tabular}
 	\vspace{0.2cm}\\
@@ -386,7 +372,7 @@ Funções $O(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqslant cn^3$ :
 
 \begin{itemize}
 	\setlength\itemsep{1pt}
-	\item Funções que associa times reais aos times abstratos conforme o pseudo-código do Algorítimo \ref{alg:associa}; 
+	\item Função que associa times reais aos times abstratos conforme o pseudo-código do Algorítimo \ref{alg:associa}; 
 	\item Função que determina o mando de campo dos times conforme o pseudo-código descrito no Algorítimo \ref{alg:mando};
 \end{itemize}
 
@@ -570,17 +556,6 @@ Funções $O(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqslant cn^3$ :
 		\footnotesize Fonte: autores
 	\end{tabular}
 \end{table}
-
-     
-
-
-       
-
-
-\section{Considerações finais}
-
-Durante o desenvolvimento vários métodos foram testados com o objetivo de encontrar a maneira mais eficiente de solucionar o problema da viagem do torneio.
-//comentários sobre as dificuldades no desenvolvimento do código
 
 \pagebreak
 
