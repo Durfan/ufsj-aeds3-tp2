@@ -325,7 +325,9 @@ Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quanti
 
 \section{Análise de complexidade}
 
-Para as Funções utilizadas pelo programa as quais um número fixo de instruções, sejam eles $k$, são executas independente de $n$, essas classificam-se como $O(1)$ ou de complexidade constante. Dentre as listadas nas seções seguintes, se encontram:
+A análise feita é considerada para o pior caso, e sua complexidade é definida por tempo.
+
+As Funções utilizadas pelo programa as quais um número fixo de instruções, sejam eles $k$, são executas independente de $n$, essas classificam-se como $O(1)$ ou de complexidade constante. Dentre as listadas nas seções seguintes, se encontram:
 
 \begin{itemize}
 	\setlength\itemsep{1pt}
@@ -337,7 +339,7 @@ Para as Funções utilizadas pelo programa as quais um número fixo de instruç�
 	\item A Função que gera números randômicos através do seed fornecido pelo sistema.
 \end{itemize}
 
-Para as Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais que $n$ mais um número fixo de instruções são menores do que $cn$ ($f(n) = (n+1) \Rightarrow (n+1) \leqslant cn$). Essas compõe a maioria do programa e são listadas de forma geral a seguir:
+As Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais que $n$ mais um número fixo de instruções são menores do que $cn$ ($f(n) = (n+1) \Rightarrow (n+1) \leqslant cn$). Essas compõe a maioria do programa e são listadas de forma geral a seguir:
 
 \begin{itemize}
 	\setlength\itemsep{1pt}
@@ -363,6 +365,29 @@ Para as Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais 
 	\item A Função de alocação de uma matriz de ponteiros;
 	\item A Função que libera a memoria alocada por uma matriz;
 	\item A Funções de espera por tempo ou por input;
+\end{itemize}
+
+As Funções analisadas como sendo de complexidade quadrática, assim como as funções analisadas como complexidade cúbica definem e compõe a solução do problema da geração de uma escala viável no programa apresentado. 
+
+Funções $O(n^2)$, onde $f(n) = (n+1)^2 \Rightarrow (n+1)^2 \leqslant cn^2$ :
+
+\begin{itemize}
+	\setlength\itemsep{1pt}
+	\item Funções que retornam a impressão de 2d arrays; 
+	\item Função que gera uma escala pelo Método do Polígono;
+	\item As funções que criam as listas de pares de times reais e abstratos para a função associaClub();
+	\item A Função que verifica a restrição de jogos consecutivos dentro ou fora de casa;
+	\item A Função espelha o mando de campo gerado no primeiro turno;
+	\item A Função que copia um 2d array para outro 2d array;
+	\item A Função que retorna os custos das distancias da escala criada.
+\end{itemize}
+
+Funções $O(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqslant cn^3$ :
+
+\begin{itemize}
+	\setlength\itemsep{1pt}
+	\item Funções que associa times reais aos times abstratos conforme o pseudo-código do Algorítimo \ref{alg:associa}; 
+	\item Função que determina o mando de campo dos times conforme o pseudo-código descrito no Algorítimo \ref{alg:mando};
 \end{itemize}
 
 \subsection{Funções de arquivos para os dados}
@@ -452,12 +477,12 @@ Para as Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais 
 		Função & Finalidade & Complexidade \\ 
 		\midrule
 		$initPolygon()$ & One-factorization para gerar uma tabela inicial valida. & $O(n^2)$ \\
-		$associaClub()$ & Associa os times reais aos times abstratos conforme o pseudo-código descrito no Algorítimo \ref{alg:associa}. & $O(n^2)$ \\
+		$associaClub()$ & Associa os times reais aos times abstratos conforme o pseudo-código descrito no Algorítimo \ref{alg:associa}. & $O(n^3)$ \\
 		$changeClube()$ & Altera o índice dos clubes conforme a associação realizada em $associaClub()$. & $O(n)$ \\
 		$buildCalvin()$ & Cria os pares de times reais para $associaClub()$. & $O(n^2)$ \\
 		$buildHarold()$ & Cria os pares de times abstratos para $associaClub()$. & $O(n^2)$ \\
 		$buildLinked()$ & Cria uma lista encadeada de times associados para $associaClub()$. & $O(n)$ \\
-		$islinked()$ & Verifica se um time real já esta associado. & $O(1)$ \\
+		$islinked()$ & Verifica se um time real já esta associado. & $O(n)$ \\
 		$associar()$ & Associa times reais/abstratos na lista criada por $buildlinked()$. & $O(n)$ \\
 		$areClubs()$ & Verifica se todos os times já foram associados. & $O(n)$ \\
 		$findAT1()$ & Função booleana de retorno para $associaClub()$. & $O(1)$ \\
