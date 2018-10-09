@@ -52,7 +52,7 @@ O Problema da Viagem do Torneio}
 
 O Problema da Viagem do Torneio Viajante (Traveling Tournament Problem) pode ser considerado como um problema de otimização matemática que envolve a criação de uma escala de jogos em um torneio viável.
 
-A viabilidade da escala é definida de maneira geral por dois  outros problemas. O primeiro é uma questão de viabilidade, o padrão de jogos em casa e longe deve ser suficientemente variado, de modo a evitar padrões de estadia e deslocamento excessivos. O segundo é uma questão de deslocamento, onde buscasse minimizar o custo total de deslocamento com objetivo de evitar viagens excessivas. Para simplicidade, afirmamos este objetivo como minimizar a distância total de deslocamento.
+A viabilidade da escala é definida de maneira geral por dois  outros problemas. O primeiro é uma questão de viabilidade, o padrão de jogos em casa e longe deve ser suficientemente variado, de modo a evitar padrões de estadia e deslocamento excessivos. O segundo é uma questão de deslocamento, onde buscasse minimizar o custo total de deslocamento com objetivo de evitar viagens excessivas.
 
 Neste trabalho prático é apresentado uma solução para o TTP do Campeonato Brasileiro de Futebol.
 
@@ -175,7 +175,7 @@ São considerados como ''oponentes consecutivos'' no caso em que um time $T_{k}$
 	\end{tabular}
 \end{table}
 
-A Figura \ref{matriz:consecutivos} demonstra a matriz quadrada de oponentes consecutivos dos jogos entre os times abstratos. Nessa matriz podemos observar que além de B e E serem oponentes consecutivos por 6 vezes, outros times também são consecutivos por uma ou mais vezes, como exemplo, C e A também são consecutivos por 6 vezes.
+A Tabela \ref{tab:matconsecutivos} demonstra a matriz quadrada de oponentes consecutivos dos jogos entre os times abstratos. Nessa matriz podemos observar que além de B e E serem oponentes consecutivos por 6 vezes, outros times também são consecutivos por uma ou mais vezes, como exemplo, C e A também são consecutivos por 6 vezes.
 
 \begin{table}[H]
 	\centering
@@ -201,6 +201,7 @@ A associação, então, ocorre entre os pares de times reais que possuem a menor
 Inicialmente, pares de times abstratos são ordenados em ordem decrescente conforme o número de oponentes consecutivos (Tabela \ref{tab:abstratos}). Times reais são ordenados em ordem crescente de distância em relação às sedes de seus oponentes (Tabela \ref{tab:reais}), e são associados aos times abstratos nesta ordem. Dessa forma, os times abstratos com maior número de oponentes consecutivos serão preferencialmente associados aos times reais com as distâncias entre sedes menores.
 
 \begin{table}[H]
+	\renewcommand{\arraystretch}{1}
 	\centering
 	\caption{Pares ordenados de times reais.}
 	\label{tab:reais}
@@ -281,6 +282,7 @@ Os mandos de campo da primeira rodada são determinados aleatoriamente, e nas ro
 
 Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quantidade total de jogos consecutivos dentro ou fora de casa que um time $T_{i}$ jogou em rodadas anteriores, e a partir desse valor, o algorítimo \ref{alg:mando} é aplicado.
 
+\vspace{0.5cm}
 \begin{algorithm}[H]
 	\caption{Determina o mando de campo dos jogos}
 	\algorithmfootnote{Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}}
@@ -312,7 +314,7 @@ Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quanti
 
 A análise feita é considerada para o pior caso, e sua complexidade é definida por tempo.
 
-As Funções utilizadas pelo programa as quais um número fixo de instruções, sejam eles $k$, são executas independente de $n$, essas classificam-se como $O(1)$ ou de complexidade constante. Dentre as listadas nas seções seguintes, se encontram:
+As Funções utilizadas pelo programa as quais um número fixo de instruções, sejam eles $k$, são executas independente de $n$, essas classificam-se como $\mathcal{O}(1)$ ou de complexidade constante. Dentre as listadas nas seções seguintes, se encontram:
 
 \begin{itemize}
 	\setlength\itemsep{1pt}
@@ -324,7 +326,7 @@ As Funções utilizadas pelo programa as quais um número fixo de instruções, 
 	\item A Função que gera números randômicos através do seed fornecido pelo sistema.
 \end{itemize}
 
-As Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais que $n$ mais um número fixo de instruções são menores do que $cn$ ($f(n) = (n+1) \Rightarrow (n+1) \leqslant cn$). Essas compõe a maioria do programa e são listadas de forma geral a seguir:
+As Funções analisadas como sendo de complexidade linear, ou $\mathcal{O}(n)$, tais que $n$ mais um número fixo de instruções são menores do que $cn$ ($f(n) = (n+1) \Rightarrow (n+1) \leqslant cn$). Essas compõe a maioria do programa e são listadas de forma geral a seguir:
 
 \begin{itemize}
 	\setlength\itemsep{1pt}
@@ -346,7 +348,7 @@ As Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais que $
 	\end{itemize}
 	\item Funções de de retorno de impressão do struct array de clubes ou de cidades;
 	\item Função que altera os índices do struct array de clubes;
-	\item As Funções de manuseio da Lista Encadeada criada como auxilio a função $associaClub()$;
+	\item As Funções de manuseio da Lista Encadeada criada como auxilio a função\\ \texttt{associaClub()};
 	\item A Função de alocação de uma matriz de ponteiros;
 	\item A Função que libera a memoria alocada por uma matriz;
 	\item A Funções de espera por tempo ou por input;
@@ -354,7 +356,7 @@ As Funções analisadas como sendo de complexidade linear, ou $O(n)$, tais que $
 
 As Funções analisadas como sendo de complexidade quadrática, assim como as funções analisadas como complexidade cúbica definem e compõe a solução do problema da geração de uma escala viável no programa apresentado. 
 
-Funções $O(n^2)$, onde $f(n) = (n+1)^2 \Rightarrow (n+1)^2 \leqslant cn^2$ :
+Funções $\mathcal{O}(n^2)$, onde $f(n) = (n+1)^2 \Rightarrow (n+1)^2 \leqslant cn^2$ :
 
 \begin{itemize}
 	\setlength\itemsep{1pt}
@@ -367,7 +369,7 @@ Funções $O(n^2)$, onde $f(n) = (n+1)^2 \Rightarrow (n+1)^2 \leqslant cn^2$ :
 	\item A Função que retorna os custos das distancias da escala criada.
 \end{itemize}
 
-Funções $O(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqslant cn^3$ :
+Funções $\mathcal{O}(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqslant cn^3$ :
 
 \begin{itemize}
 	\setlength\itemsep{1pt}
@@ -415,10 +417,10 @@ Funções $O(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqslant cn^3$ :
 \begin{longtable}{p{3cm} p{11cm} p{1cm}}
 	\texttt{printTabela()} & Retorna a impressão formatada da escala. & $\mathcal{O}(n^2)$ \\
 	\texttt{printEscala()} & Retorna a impressão não formatada da escala.. & $\mathcal{O}(n^2)$ \\
-	\texttt{printTravel()} & Retorna a impressão das distancias percorrida por cada um dos times. & $O(n)$ \\
+	\texttt{printTravel()} & Retorna a impressão das distancias percorrida por cada um dos times. & $\mathcal{O}(n)$ \\
 	\texttt{printMatrix()} & Retorna a impressão de uma matriz $n \times n$. & $\mathcal{O}(n^2)$ \\
 	\texttt{printCLUB()} & Retorna a impressão não formatada do array struct de clubes. & $\mathcal{O}(n)$ \\
-	\texttt{printCITY()} & Retorna a impressão não formatada do array struct de cidades.. & $\mathcal{O}(n)$ \\
+	\texttt{printCITY()} & Retorna a impressão não formatada do array struct de cidades. & $\mathcal{O}(n)$ \\
 	\label{tab:print}
 \end{longtable}
 \vspace{-0.5cm}
