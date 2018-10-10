@@ -19,6 +19,7 @@
 
 \usepackage{longtable}
 \usepackage{booktabs}
+\usepackage[skip=1pt,labelfont=bf]{caption}
 \usepackage{float}
 
 \usepackage{tikz}
@@ -76,7 +77,7 @@ A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os tim
 	\centering
 	\caption{Método do Polígono para três primeiras rodadas com n = 6}
 	\label{poligono}
-	\vspace{.6cm}
+	\vspace{0.3cm}
 	\begin{tikzpicture}
 		\tikzstyle{every node}=[draw, shape=circle, inner sep=4pt];
 		\tikzstyle{every path}=[draw, line width=0.4mm];
@@ -123,17 +124,16 @@ A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os tim
 		\draw [<->] (-0.8,0.2) -- (0.8,0.2);
 		\draw [->] (1,4.25) to[out=10,in=-270] (2.25,3.25);
 	\end{tikzpicture}
-	\vspace{.3cm}\\
-	\footnotesize Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}
+	\flushright \footnotesize Fonte: \citet*{marcio:jogos} \hspace{35pt}
 \end{figure}
 
 A Tabela \ref{tab:poligono} mostra os resultados obtidos pelo Método do Polígono para $6$ times nas primeiras $n-1$ rodadas e espelhado para as $n-1$ rodadas seguintes no MDRR. O mesmo método pode ser aplicado aos 20 times requeridos nesse trabalho prático, para esse número de times ou qualquer outro número par de times, um polígono com $n-1$ vértices é utilizado.
 
 \begin{table}[H]
+	\renewcommand{\arraystretch}{1}
 	\centering
 	\caption{Solução obtida pelo Método do Polígono}
 	\label{tab:poligono}
-	\vspace{0.1cm}
 	\begin{tabular}{l*{10}{c}}
 		\toprule
 		& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
@@ -145,9 +145,8 @@ A Tabela \ref{tab:poligono} mostra os resultados obtidos pelo Método do Polígo
 		Time 5 & 2 & 6 & 3 & 1 & 4 & 2 & 6 & 3 & 1 & 4 \\
 		Time 6 & 1 & 5 & 4 & 3 & 2 & 1 & 5 & 4 & 3 & 2 \\
 		\bottomrule
+		\multicolumn{11}{l}{\footnotesize Fonte: autores}
 	\end{tabular}
-	\vspace{0.1cm}\\
-	\footnotesize Fonte: autores
 \end{table}
 
 \subsubsection{Segunda fase: Associando Times}
@@ -159,10 +158,10 @@ Para essa fase, primeiro obtêm-se uma matriz quadrada de $n \times n$ oponentes
 São considerados como ''oponentes consecutivos'' no caso em que um time $T_{k}$ possuir confrontos entre $T_{i} \times T_{k}$ e $T_{j} \times T_{k}$ em uma ou mais rodadas consecutivas, não importando a ordem dos jogos. Como exemplo, observa-se na Tabela \ref{tab:consecutivos} que os times B e E são oponentes consecutivos por 6 vezes de outros times.
 
 \begin{table}[H]
+	\renewcommand{\arraystretch}{1}
 	\centering
 	\caption{Oponentes consecutivos}
 	\label{tab:consecutivos}
-	\vspace{0.1cm}
 	\begin{tabular}{l*{10}{c}}
 		\toprule
 		& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
@@ -174,18 +173,17 @@ São considerados como ''oponentes consecutivos'' no caso em que um time $T_{k}$
 		Time 5 & B & F & C & A & D & B & F & C & A & D \\
 		Time 6 & A & E & D & C & B & A & E & D & C & B \\
 		\bottomrule
+		\multicolumn{11}{l}{\footnotesize Fonte: autores}
 	\end{tabular}
-	\vspace{0.1cm}\\
-	\footnotesize Fonte: autores
 \end{table}
 
 A Tabela \ref{tab:matconsecutivos} demonstra a matriz quadrada de oponentes consecutivos dos jogos entre os times abstratos. Nessa matriz podemos observar que além de B e E serem oponentes consecutivos por 6 vezes, outros times também são consecutivos por uma ou mais vezes, como exemplo, C e A também são consecutivos por 6 vezes.
 
 \begin{table}[H]
+	\renewcommand{\arraystretch}{1}
 	\centering
 	\caption{Matriz de oponentes consecutivos para $n=6$}
 	\label{tab:matconsecutivos}
-	\vspace{0.1cm}
 	\begin{tabular}{c *{6}{C}}
 		\toprule
 		  & A & B & C & D & E & F \\
@@ -196,9 +194,8 @@ A Tabela \ref{tab:matconsecutivos} demonstra a matriz quadrada de oponentes cons
 		E & 2 & 6 & 5 & 2 & - & 3 \\
 		F & 4 & 4 & 3 & 4 & 3 & - \\
 		\bottomrule
+		\multicolumn{7}{l}{\footnotesize Fonte: autores}
 	\end{tabular}
-	\vspace{0.1cm}\\
-	\footnotesize Fonte: autores
 \end{table}
 
 A associação, então, ocorre entre os pares de times reais que possuem a menor distância entre suas sedes com os pares de oponentes consecutivos de maior número de confrontos. Essa heurística é descrita a seguir.
@@ -210,7 +207,6 @@ Inicialmente, pares de times abstratos são ordenados em ordem decrescente confo
 	\centering
 	\caption{Pares ordenados de times reais.}
 	\label{tab:reais}
-	\vspace{0.1cm}
 	\begin{tabular}{cclr}
 		\toprule
 		 1 & (2,6) & (Atlético Mineiro, Cruzeiro) & 0 Km \\
@@ -229,16 +225,15 @@ Inicialmente, pares de times abstratos são ordenados em ordem decrescente confo
 		14 & (2,3) & (Atlético Mineiro, Atlético Paranaense) & 1000 Km \\
 		15 & (3,6) & (Atlético Paranaense, Cruzeiro) & 1001 Km \\
 		\bottomrule
+		\multicolumn{4}{l}{\footnotesize Fonte: autores}
 	\end{tabular}
-	\vspace{0.1cm}\\
-	\footnotesize Fonte: autores
 \end{table}
 
 \begin{table}[H]
+	\renewcommand{\arraystretch}{1}
 	\centering
 	\caption{Pares ordenados de times abstratos.}
 	\label{tab:abstratos}
-	\vspace{0.1cm}
 	\begin{tabular}{rcc c|c rcc c|c rcc}
 		\toprule
 		 1 & (E,B) & 6 &&& 11 & (D,F) & 4 &&& 21 & (D,E) & 2 \\
@@ -252,9 +247,8 @@ Inicialmente, pares de times abstratos são ordenados em ordem decrescente confo
 		 9 & (B,D) & 5 &&& 19 & (F,E) & 3 &&& 29 & (B,A) & 1 \\
 		10 & (A,D) & 5 &&& 20 & (C,F) & 3 &&& 30 & (A,B) & 1 \\
 		\bottomrule
+		\multicolumn{13}{l}{\footnotesize Fonte: autores}
 	\end{tabular}
-	\vspace{0.1cm}\\
-	\footnotesize Fonte: autores
 \end{table}
 
 O pseudo-código para a heurística dessa associação é mostrado no Algorítimo \ref{alg:associa}.
@@ -262,7 +256,7 @@ O pseudo-código para a heurística dessa associação é mostrado no Algorítim
 \vspace{0.5cm}
 \begin{algorithm}[H]
 	\caption{Associa times reais à times abstratos}
-	\algorithmfootnote{Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}}
+	\algorithmfootnote{Fonte: \citet*{marcio:jogos}}
 	\label{alg:associa}
 	\Repita{todos os times reais sejam associados aos times abstratos} {
 		Seja $T_{1}$ o próximo time real a ser associado a um time abstrato\\
@@ -290,7 +284,7 @@ Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quanti
 \vspace{0.5cm}
 \begin{algorithm}[H]
 	\caption{Determina o mando de campo dos jogos}
-	\algorithmfootnote{Fonte: \Citeauthor{marcio:jogos} \Citep{marcio:jogos}}
+	\algorithmfootnote{Fonte: \citet*{marcio:jogos}}
 	\label{alg:mando}
 	Determine, de forma aleatória, o mando de campo dos jogos da primeira rodada.\\
 	\ParaCada{rodada $k = 2,3,...,(n-1)$ do primeiro turno}{
@@ -478,11 +472,11 @@ Funções $\mathcal{O}(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqsla
 \section{Análise de resultados}
 
 \begin{table}[H]
+	\renewcommand{\arraystretch}{1}
 	\centering
 	\caption{Análise dos resultados.}
 	\label{tab:resultados}
-	\vspace{0.2cm}
-	\begin{tabular}{ccccccr}
+	\begin{tabular}{*{6}{c} r}
 		\toprule 
 		$S_{0}$ & $S_{k}$ & $k$ & Tentativas & Tempo & Diferença \% & Ganho \\ 
 		\midrule
@@ -504,7 +498,7 @@ Funções $\mathcal{O}(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqsla
 		\midrule
 		844337 & 776005 &    &       &          &  8.09\% &  68332 \\
 		\bottomrule
-		\footnotesize Fonte: autores
+		\multicolumn{6}{l}{\footnotesize Fonte: autores}
 	\end{tabular}
 \end{table}
 
