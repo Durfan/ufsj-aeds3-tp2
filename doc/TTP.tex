@@ -63,7 +63,7 @@ Na solução final para o problema, o custo de deslocamento dos times na escala 
 
 \section{Implementação}
 
-Para a construção de uma solução inicial, utiliza-se o método de três fases proposto por Ribeiro e Urrutia (2004a)\cite{urrutia:heuristics}, e posteriormente para o refinamento dos resultados foi adotada um método heurístico de LNS (large neighborhood search).
+Para a construção de uma solução inicial, utiliza-se o método de três fases proposto por Ribeiro e Urrutia (2004a)\cite{urrutia:heuristics}, e posteriormente para o refinamento dos resultados foi adotada um método heurístico de LNS (large neighborhood search), introduzido por Shaw (1997)\cite{tp:Shaw}.
 
 \subsection{Método de três fases para geração de uma solução inicial}
 
@@ -496,13 +496,21 @@ Funções $\mathcal{O}(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqsla
 		862298 & 769219 &  8 & 18952 & 1s 846ms & 10.79\% &  93079 \\
 		842242 & 777349 &  4 & 19309 & 1s 868ms &  7.70\% &  64893 \\
 		\midrule
-		844337 & 776005 &    &       &          &  8.09\% &  68332 \\
+		844337 & 776005 &    &       &          &  8.042\% &  68331.6 \\
 		\bottomrule
 		\multicolumn{6}{l}{\footnotesize Fonte: autores}
 	\end{tabular}
 \end{table}
 
-Mediante a analise de resultados obtidos, podemos concluir que o uso do método heurístico de LNS (Large Neighborhood Search) que é baseada no princípio de destruição e reconstrução de rotas. Proporciona uma melhora significativa na resolução do problema, onde em media existe um ganho de aproximadamente 8,09\% nas comparações.
+Mediante a análise de resultados obtidos, pode-se perceber a vantagem do uso de um método heurístico como o de LNS (Large Neighborhood Search), que é baseado no princípio de destruição e reconstrução de rotas. Onde utilizamos a primeira tabela gerada pelo método de 3 fases, a reorganizando K vezes, de forma a construir uma nova melhor. 
+
+Na tabela acima temos então que S(0) é o valor inicial obtido, referente a distância em km que os times irão percorrer durante a realização do campeonato, e S(K) o valor da distância prevista após a aplicação do método heurístico. 
+
+Portanto a abordagem proporciona uma melhora significativa na resolução do problema, onde em média existe uma redução de aproximadamente 8.05\% na distância total a ser percorrida pelos times. 
+
+Contudo, sabendo que normalmente os clubes de futebol fretam aviões para transportar seus jogadores; e tendo em mente que o querosene de aviação (QAV)\cite{ttp:qav} possui o preço atual de R\$3,30 o litro, e que um avião adequado para acomodar um time de futebol, viaja a 880km por hora utilizando em média 8,09 litros por quilômetro\cite{ttp:rendimento}. Podemos concluir que com o uso dessa heurística, a redução de 68.332km de viagem durante o campeonato resultariam na economia de R\$1.824.259 e 78 horas de viagem. 
+
+Desta forma pode-se traduzir para o cenário das competições brasileiras que não só seriam reduzidos os de gastos dos clubes, mas também os jogadores sofreriam de um desgaste menor entre as partidas.
 
 \pagebreak
 
