@@ -67,7 +67,7 @@ Na solução final para o problema, o custo de deslocamento dos times na escala 
 
 \section{Implementação}
 
-Para a construção de uma solução inicial, utiliza-se o método de três fases proposto por Ribeiro e Urrutia (2004a)\cite{urrutia:heuristics}.
+Para a construção de uma solução inicial, utiliza-se o método de três fases proposto por Ribeiro e Urrutia (2004a)\cite{urrutia:heuristics}, e posteriormente para o refinamento dos resultados foi adotada um método heurístico de LNS (large neighborhood search).
 
 \subsection{Método de três fases para geração de uma solução inicial}
 
@@ -509,6 +509,8 @@ Funções $\mathcal{O}(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqsla
 		\multicolumn{6}{l}{\footnotesize Fonte: autores}
 	\end{tabular}
 \end{table}
+
+Mediante a analise de resultados obtidos, podemos concluir que o uso do método heurístico de LNS (Large Neighborhood Search) que é baseada no princípio de destruição e reconstrução de rotas. Proporciona uma melhora significativa na resolução do problema, onde em media existe um ganho de aproximadamente 8,09\% nas comparações.
 
 \pagebreak
 
