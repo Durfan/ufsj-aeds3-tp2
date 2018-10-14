@@ -2,20 +2,21 @@
 
 \usepackage[left=3.00cm, right=2.00cm, top=2.00cm, bottom=2.00cm]{geometry}
 \usepackage{lmodern}
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
+\usepackage{microtype}
 
-\usepackage{indentfirst}
-\usepackage{setspace}
-\onehalfspacing
+\usepackage{indentfirst,setspace}
+\setlength{\parindent}{1.3cm}
+\setlength{\parskip}{0.2cm}
+\singlespacing
+
+\usepackage{amssymb,amsmath,amsfonts}
 
 \usepackage[numbers]{natbib}
 \usepackage{url}
 \bibliographystyle{plainnat}
-
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{amsfonts}
 
 \usepackage{longtable}
 \usepackage{booktabs}
@@ -24,6 +25,11 @@
 
 \usepackage{tikz}
 \usepackage[portuguese, ruled]{algorithm2e}
+
+\usepackage{array}
+\newcolumntype{C}{>{\centering\arraybackslash}p{1cm}}
+\renewcommand*{\arraystretch}{1.2}
+
 
 \makeatletter
 \newcommand{\algorithmfootnote}[2][\footnotesize]{%
@@ -36,9 +42,9 @@
 }
 \makeatother
 
-\usepackage{array}
-\newcolumntype{C}{>{\centering\arraybackslash}p{1cm}}
-\renewcommand*{\arraystretch}{1.2}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
 
 \author{Pablo Cecilio Oliveira\\
 	Alexander Cristian}
@@ -51,9 +57,7 @@ O Problema da Viagem do Torneio}
 
 \section{Introdução}
 
-O Problema da Viagem do Torneio Viajante (Traveling Tournament Problem) pode ser considerado como um problema de otimização matemática que envolve a criação de uma escala de jogos em um torneio viável.
-
-A viabilidade da escala é definida de maneira geral por dois  outros problemas. O primeiro é uma questão de viabilidade, o padrão de jogos em casa e longe deve ser suficientemente variado, de modo a evitar padrões de estadia e deslocamento excessivos. O segundo é uma questão de deslocamento, onde buscasse minimizar o custo total de deslocamento com objetivo de evitar viagens excessivas.
+O Problema da Viagem do Torneio Viajante (\textit{Traveling Tournament Problem}) pode ser considerado como um problema de otimização matemática que envolve a criação de uma escala de jogos viável para um torneio. Essa viabilidade pode ser definida de maneira geral por dois outros problemas. O primeiro é uma questão de viabilidade, o padrão de jogos em casa e longe deve ser suficientemente variado, de modo a evitar padrões de estadia e deslocamento excessivos. O segundo é uma questão de deslocamento, onde buscasse minimizar o custo total de deslocamento com objetivo de evitar viagens excessivas.
 
 Neste trabalho prático é apresentado uma solução para o TTP do Campeonato Brasileiro de Futebol.
 
@@ -68,15 +72,16 @@ Para a construção de uma solução inicial, utiliza-se o método de três fase
 \subsection{Método de três fases para geração de uma solução inicial}
 
 \subsubsection{Primeira fase: Método do Polígono}
+\label{subsec:primeirafase}
 
 A primeira fase da solução inicial consiste em uma fatoração que utiliza o Método do Polígono. Nesse método, sendo $n$ o número de times participantes do campeonato, forma-se um polígono com $n-1$ nós numerados e um $n$-ésimo time é atribuído a um nó fora desse polígono.
 
-A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os times localizados nos nós $n+1-k$, o $n$-ésimo time localizado fora do polígono joga contra o time localizado no primeiro nó do polígono. Para as $n-1$ rodadas seguintes, o polígono é movido em sentido horário para determinar os novos jogos. A Figura \ref{poligono}, demonstra a fatoração para as três primeiras rodadas de um campeonato com $6$ times.
+A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os times localizados nos nós $n+1-k$, o $n$-ésimo time localizado fora do polígono joga contra o time localizado no primeiro nó do polígono. Para as $n-1$ rodadas seguintes, o polígono é movido em sentido horário para determinar os novos jogos. A Figura \ref{fig:poligono}, demonstra a fatoração para as três primeiras rodadas de um campeonato com $6$ times.
 
 \begin{figure}[H]
 	\centering
 	\caption{Método do Polígono para três primeiras rodadas com n = 6}
-	\label{poligono}
+	\label{fig:poligono}
 	\vspace{0.3cm}
 	\begin{tikzpicture}
 		\tikzstyle{every node}=[draw, shape=circle, inner sep=4pt];
@@ -127,8 +132,6 @@ A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os tim
 	\flushright \footnotesize Fonte: \citet*{marcio:jogos} \hspace{35pt}
 \end{figure}
 
-A Tabela \ref{tab:poligono} mostra os resultados obtidos pelo Método do Polígono para $6$ times nas primeiras $n-1$ rodadas e espelhado para as $n-1$ rodadas seguintes no MDRR. O mesmo método pode ser aplicado aos 20 times requeridos nesse trabalho prático, para esse número de times ou qualquer outro número par de times, um polígono com $n-1$ vértices é utilizado.
-
 \begin{table}[H]
 	\renewcommand{\arraystretch}{1}
 	\centering
@@ -148,6 +151,8 @@ A Tabela \ref{tab:poligono} mostra os resultados obtidos pelo Método do Polígo
 		\multicolumn{11}{l}{\footnotesize Fonte: autores}
 	\end{tabular}
 \end{table}
+
+A Tabela \ref{tab:poligono} mostra os resultados obtidos pelo Método do Polígono para $6$ times nas primeiras $n-1$ rodadas e espelhado para as $n-1$ rodadas seguintes no MDRR\footnote{Mirrored Double Round Robin}. O mesmo método pode ser aplicado aos 20 times requeridos nesse trabalho prático, para esse número de times ou qualquer outro número par de times, um polígono com $n-1$ vértices é utilizado.
 
 \subsubsection{Segunda fase: Associando Times}
 
@@ -271,7 +276,7 @@ O pseudo-código para a heurística dessa associação é mostrado no Algorítim
 \end{algorithm}
 \vspace{0.5cm}
 
-Essa associação tem como objetivo minimizar o deslocamento de um time $T_{k}$, baseando-se na ideia de que se existirem confrontos $T_{i} \times T_{k}$ e $T_{j} \times T_{k}$ consecutivos, a distância percorrida por $T_{k}$ seria menor caso suas sedes forem próximas.
+Essa heurística de associação tem como objetivo minimizar o deslocamento de um time $T_{k}$, isso baseia-se na ideia de que se existirem confrontos $T_{i} \times T_{k}$ e $T_{j} \times T_{k}$ consecutivos, a distância percorrida por $T_{k}$ seria menor caso as sedes de seus oponentes consecutivos forem próximas.
 
 \subsubsection{Terceira fase: Mando de Campo}
 
@@ -279,7 +284,7 @@ Na terceira e última fase para gerar uma solução inicial, são estabelecidos 
 
 Os mandos de campo da primeira rodada são determinados aleatoriamente, e nas rodadas seguintes até a última do primeiro turno ($n-1$), uma heurística é utilizada para determinar o mando de um jogo entre os times $T_{1}$ e $T_{2}$.
 
-Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quantidade total de jogos consecutivos dentro ou fora de casa que um time $T_{i}$ jogou em rodadas anteriores, e a partir desse valor, o algorítimo \ref{alg:mando} é aplicado.
+Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quantidade total de jogos consecutivos dentro ou fora de casa que um time $T_{i}$ jogou em rodadas anteriores, e a partir desse valor, o Algorítimo \ref{alg:mando} é aplicado.
 
 \vspace{0.5cm}
 \begin{algorithm}[H]
@@ -308,8 +313,9 @@ Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quanti
 	Determinar os jogos do segundo turno espelhados ao primeiro turno.\\
 	Caso a escala ainda permanecer inviável, reinicie o algoritmo.
 \end{algorithm}
+\vspace{0.5cm}
 
-\section{Análise de complexidade}
+\section{Análise de Complexidade}
 
 A análise feita é considerada para o pior caso, e sua complexidade é definida por tempo.
 
@@ -322,7 +328,7 @@ As Funções utilizadas pelo programa as quais um número fixo de instruções, 
 	\item Inserção ou remoção de um nó a partir do nó ''cabeça'' de uma Lista Simplesmente Encadeada;
 	\item Funções de retorno de impressão para mensagens de erro, ou para o retorno de impressão do tempo decorrido até determinado ponto relativo ao código;
 	\item A Função que realiza a copia de um trecho de memória, ou a que retorna um conteúdo endereçado diretamente para uma área de memoria;
-	\item A Função que gera números randômicos através do seed fornecido pelo sistema.
+	\item A Função que gera números randômicos através do \textit{seed} fornecido pelo sistema.
 \end{itemize}
 
 As Funções analisadas como sendo de complexidade linear, ou $\mathcal{O}(n)$, tais que $n$ mais um número fixo de instruções são menores do que $cn$ ($f(n) = (n+1) \Rightarrow (n+1) \leqslant cn$). Essas compõe a maioria do programa e são listadas de forma geral a seguir:
@@ -345,12 +351,12 @@ As Funções analisadas como sendo de complexidade linear, ou $\mathcal{O}(n)$, 
 		\item Função que retorna a impressão da Lista;
 		\item Função que libera os dados da Lista da memoria
 	\end{itemize}
-	\item Funções de de retorno de impressão do struct array de clubes ou de cidades;
-	\item Função que altera os índices do struct array de clubes;
+	\item Funções de de retorno de impressão do \textit{struct array} de clubes ou de cidades;
+	\item Função que altera os índices do \textit{struct array} de clubes;
 	\item As Funções de manuseio da Lista Encadeada criada como auxilio a função\\ \texttt{associaClub()};
 	\item A Função de alocação de uma matriz de ponteiros;
 	\item A Função que libera a memoria alocada por uma matriz;
-	\item A Funções de espera por tempo ou por input;
+	\item As Funções de espera por tempo e função de espera por uma entrada feita pelo usuário;
 \end{itemize}
 
 As Funções analisadas como sendo de complexidade quadrática, assim como as funções analisadas como complexidade cúbica definem e compõe a solução do problema da geração de uma escala viável no programa apresentado. 
@@ -359,12 +365,12 @@ Funções $\mathcal{O}(n^2)$, onde $f(n) = (n+1)^2 \Rightarrow (n+1)^2 \leqslant
 
 \begin{itemize}
 	\setlength\itemsep{1pt}
-	\item Funções que retornam a impressão de 2d arrays; 
+	\item Funções que retornam a impressão de \textit{2d arrays}; 
 	\item Função que gera uma escala pelo Método do Polígono;
-	\item As funções que criam as listas de pares de times reais e abstratos para a função associaClub();
+	\item As funções que criam as listas de pares de times reais e abstratos para a função \texttt{associaClub()};
 	\item A Função que verifica a restrição de jogos consecutivos dentro ou fora de casa;
 	\item A Função espelha o mando de campo gerado no primeiro turno;
-	\item A Função que copia um 2d array para outro 2d array;
+	\item A Função que copia um \textit{2d array} para outro \textit{2d array};
 	\item A Função que retorna os custos das distancias da escala criada.
 \end{itemize}
 
@@ -376,14 +382,16 @@ Funções $\mathcal{O}(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqsla
 	\item Função que determina o mando de campo dos times conforme o pseudo-código descrito no Algorítimo \ref{alg:mando};
 \end{itemize}
 
-\subsection{Funções de arquivos para os dados}
+\section{Lista das Funções}
+
+\subsection{Funções dos Arquivos}
 
 \begin{longtable}{p{3cm} p{11cm} p{1cm}}
 	\texttt{getlines()} & Retorna o numero de linhas validas de um arquivo. & $\mathcal{O}(n)$ \\
-	\texttt{getCLUB()} & Carrega os clubes a partir do arquivo de clubes, salva os dados em array struct. & $\mathcal{O}(n)$ \\
-	\texttt{getCITY()} & Carrega as cidades a partir do arquivo de cidades, salva os dados em um array struct. & $\mathcal{O}(n)$ \\
+	\texttt{getCLUB()} & Carrega os clubes a partir do arquivo de clubes, salva os dados em \textit{struct array}. & $\mathcal{O}(n)$ \\
+	\texttt{getCITY()} & Carrega as cidades a partir do arquivo de cidades, salva os dados em um \textit{struct array}. & $\mathcal{O}(n)$ \\
 	\texttt{getDIST()} & Carrega as distancias a partir do arquivo de distancias, salva os dados em uma matriz alocada. & $\mathcal{O}(n)$ \\
-	\texttt{errFile()} & Retorna a msg de erro caso o arquivo não for encontrado. & $\mathcal{O}(1)$ \\
+	\texttt{errFile()} & Retorna a mensagem de erro caso um arquivo não for encontrado. & $\mathcal{O}(1)$ \\
 	\label{tab:files}
 \end{longtable}
 \vspace{-0.5cm}
@@ -418,8 +426,8 @@ Funções $\mathcal{O}(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqsla
 	\texttt{printEscala()} & Retorna a impressão não formatada da escala.. & $\mathcal{O}(n^2)$ \\
 	\texttt{printTravel()} & Retorna a impressão das distancias percorrida por cada um dos times. & $\mathcal{O}(n)$ \\
 	\texttt{printMatrix()} & Retorna a impressão de uma matriz $n \times n$. & $\mathcal{O}(n^2)$ \\
-	\texttt{printCLUB()} & Retorna a impressão não formatada do array struct de clubes. & $\mathcal{O}(n)$ \\
-	\texttt{printCITY()} & Retorna a impressão não formatada do array struct de cidades. & $\mathcal{O}(n)$ \\
+	\texttt{printCLUB()} & Retorna a impressão não formatada do \textit{struct array} de clubes. & $\mathcal{O}(n)$ \\
+	\texttt{printCITY()} & Retorna a impressão não formatada do \textit{struct array} de cidades. & $\mathcal{O}(n)$ \\
 	\label{tab:print}
 \end{longtable}
 \vspace{-0.5cm}
@@ -449,27 +457,27 @@ Funções $\mathcal{O}(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqsla
 	\texttt{sorteia()} & Determina randomicamente os mandos de campo da primeira rodada. & $\mathcal{O}(n)$ \\
 	\texttt{CSTMando()} & Verifica se a condição de três jogos consecutivos dentro ou fora de casa foi respeitada. & $\mathcal{O}(n^2)$ \\
 	\texttt{espelha()} & Espelha os mandos gerados no primeiro turno para o returno. & $\mathcal{O}(n^2)$ \\
-	\texttt{randint()} & Gera um inteiro randomicamente conforme o seed do sistema. & $\mathcal{O}(1)$ \\
+	\texttt{randint()} & Gera um inteiro randomicamente conforme o \textit{seed} do sistema. & $\mathcal{O}(1)$ \\
 	\label{tab:mando}
 \end{longtable}
 \vspace{-0.5cm}
 
-\subsection{Funções de uso comum ao programa}
+\subsection{Funções Gerais}
 
 \begin{longtable}{p{3cm} p{11cm} p{1cm}}
 	\texttt{allocTable()} & Aloca uma matriz de ponteiros. & $O(n)$ \\
 	\texttt{freeMemory()} & Libera a memoria alocada por \texttt{allocTable()}. & $O(n)$ \\
 	\texttt{copyTable()} & Copia dados entre matrizes. & $O(n^2)$ \\
-	\texttt{shiftArray()} & Movimenta os dados em um array (shift). & $O(1)$ \\
+	\texttt{shiftArray()} & Movimenta os dados em um array (\textit{shift}). & $O(1)$ \\
 	\texttt{viagem()} & Retorna a distancia entre as sedes dos times. & $O(1)$ \\
 	\texttt{custos()} & Calcula e retorna os custos totais de uma escala de jogos gerada, assim como o custo de deslocamento individual dos times. & $O(n^2)$ \\
 	\texttt{timeresult()} & Retorna o tempo de execução até determinado ponto. & $O(1)$ \\
-	\texttt{wait()} & Função de espera (pausa o tempo de execução por $n$ segundos). & $O(n)$ \\
-	\texttt{ask()} & Espera por um input fornecido pelo usuário. & $O(n)$ \\
+	\texttt{wait()} & Função de espera (pausa o tempo de execução por $n$ segundos). & $\mathcal{O}(n)$ \\
+	\texttt{ask()} & Espera por uma entrada fornecida pelo usuário. & $\mathcal{O}(n)$ \\
 	\label{tab:comum}
 \end{longtable}
 
-\section{Análise de resultados}
+\section{Análise de Resultados}
 
 \begin{table}[H]
 	\renewcommand{\arraystretch}{1}
