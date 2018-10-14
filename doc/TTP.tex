@@ -263,6 +263,7 @@ O pseudo-código para a heurística dessa associação é mostrado no Algorítim
 	\caption{Associa times reais à times abstratos}
 	\algorithmfootnote{Fonte: \citet*{marcio:jogos}}
 	\label{alg:associa}
+	Entrada{Entrada}
 	\Repita{todos os times reais sejam associados aos times abstratos} {
 		Seja $T_{1}$ o próximo time real a ser associado a um time abstrato\\
 		e seja $T_{2}$ o time, cuja cidade é mais próxima à cidade de $T_{1}$.\\
@@ -317,163 +318,123 @@ Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quanti
 
 \section{Análise de Complexidade}
 
-A análise feita é considerada para o pior caso, e sua complexidade é definida por tempo.
+A análise considerada o pior caso, e sua complexidade é definida por tempo.
 
-As Funções utilizadas pelo programa as quais um número fixo de instruções, sejam eles $k$, são executas independente de $n$, essas classificam-se como $\mathcal{O}(1)$ ou de complexidade constante. Dentre as listadas nas seções seguintes, se encontram:
+As Funções utilizadas pelo programa as quais um número fixo de instruções, sejam eles $k$, são executas independente de $n$, essas classificam-se como $\mathcal{O}(1)$ ou de complexidade constante e foram ignoradas na complexidade total do programa.
 
-\begin{itemize}
-	\setlength\itemsep{1pt}
-	\item Funções que retornam uma condição booleana; 
-	\item Inicialização da Lista Simplesmente Encadeada;
-	\item Inserção ou remoção de um nó a partir do nó ''cabeça'' de uma Lista Simplesmente Encadeada;
-	\item Funções de retorno de impressão para mensagens de erro, ou para o retorno de impressão do tempo decorrido até determinado ponto relativo ao código;
-	\item A Função que realiza a copia de um trecho de memória, ou a que retorna um conteúdo endereçado diretamente para uma área de memoria;
-	\item A Função que gera números randômicos através do \textit{seed} fornecido pelo sistema.
-\end{itemize}
+A partir do escopo principal do programa, a análise é dividida pelas seguintes partes:
 
-As Funções analisadas como sendo de complexidade linear, ou $\mathcal{O}(n)$, tais que $n$ mais um número fixo de instruções são menores do que $cn$ ($f(n) = (n+1) \Rightarrow (n+1) \leqslant cn$). Essas compõe a maioria do programa e são listadas de forma geral a seguir:
+\begin{enumerate}
+\setlength\itemsep{1pt}
+	\item Alocando os dados: $ 2 \times \underbrace{n+1}_{getlines()} + \;\; 2 \times \underbrace{n(n+1)}_{allocTable()} = 2n^2 + 4n +1 $
+	
+	\item Obtendo os dados: $ \underbrace{n+2}_{getCLUB()} + \underbrace{n+1}_{getCITY()} + \underbrace{n+2}_{getDIST()} = 3n + 5 $
+	
+	\item Usando o método do polígono e imprimindo os resultados: \[ \underbrace{n-1 + (n-1)(\frac{n+2}{2})}_{initPolygon()} + \underbrace{n(n+1)}_{printEscala()} = \frac{3n^2 + 5n -4}{2} \]
+	
+	\item Associando os clubes: $ \underbrace{n^3 + 5n^2 + 8n + 2}_{associaClub()} $
+	
+	\item Copiando a escala gerada pelo polígono e definindo os mandos de campo: \[ \underbrace{n(2n-1)}_{copyTable()} + \underbrace{\frac{n^3 + 6n^2 + 12n}{4}}_{setmando()} + \underbrace{n(n+1)}_{printEscala()} = \frac{n^3 + 18n^2 + 12n}{4} \]
+	
+	\item Busca por profundidade: \[ 2 \times \underbrace{n(n+1)}_{allocTable()} + \underbrace{n(2n-1)}_{copyTable()} + \underbrace{n+1}_{freeMemory()} + \;\; ITER(2\underbrace{n(2n-1)}_{copyTable()} + \underbrace{\frac{n^3 + 6n^2 + 12n}{4}}_{setmando()}) \] \[ = \frac{16n^2 + 8n + 4 + ITER(n^3 + 22n^2 + 8n)}{4} \]
+	
+	\item Liberando a memoria e imprimindo os resultados: \[ 4 \times \underbrace{n+1}_{freeMemory()} + \underbrace{n(n+1)}_{printTabela()} + \underbrace{n+1}_{printTravel()} = n^2 + 6n + 5 \]
+\end{enumerate}
 
-\begin{itemize}
-	\setlength\itemsep{1pt}
-	\item A Função que retorna um o numero de linhas de um arquivo;
-	\item Funções que carregam os dados dos arquivos para estruturas de dados;
-	\item Funções que carregam os dados dos arquivos para estruturas de dados;
-	\item Funções de uso geral da Lista Simplesmente Encadeada:
-	\begin{itemize}
-		\setlength\itemsep{1pt}
-		\item Funções que retorna um nó que contem um menor valor de um dado, ou a que retorna um nó que contem o maior valor de um dado;
-		\item Função que retorna a posição de um nó na lista;
-		\item Funções que carregam os dados dos arquivos para estruturas de dados;
-		\item Funções que removem ou inserem um nó da Lista conforme sua posição;
-		\item Função que troca as posições de dois nós;
-		\item Função que remove nós com dados duplicados;
-		\item Funções que ordenam a lista em ordem crescente ou decrescente;
-		\item Função que retorna a impressão da Lista;
-		\item Função que libera os dados da Lista da memoria
-	\end{itemize}
-	\item Funções de de retorno de impressão do \textit{struct array} de clubes ou de cidades;
-	\item Função que altera os índices do \textit{struct array} de clubes;
-	\item As Funções de manuseio da Lista Encadeada criada como auxilio a função\\ \texttt{associaClub()};
-	\item A Função de alocação de uma matriz de ponteiros;
-	\item A Função que libera a memoria alocada por uma matriz;
-	\item As Funções de espera por tempo e função de espera por uma entrada feita pelo usuário;
-\end{itemize}
-
-As Funções analisadas como sendo de complexidade quadrática, assim como as funções analisadas como complexidade cúbica definem e compõe a solução do problema da geração de uma escala viável no programa apresentado. 
-
-Funções $\mathcal{O}(n^2)$, onde $f(n) = (n+1)^2 \Rightarrow (n+1)^2 \leqslant cn^2$ :
-
-\begin{itemize}
-	\setlength\itemsep{1pt}
-	\item Funções que retornam a impressão de \textit{2d arrays}; 
-	\item Função que gera uma escala pelo Método do Polígono;
-	\item As funções que criam as listas de pares de times reais e abstratos para a função \texttt{associaClub()};
-	\item A Função que verifica a restrição de jogos consecutivos dentro ou fora de casa;
-	\item A Função espelha o mando de campo gerado no primeiro turno;
-	\item A Função que copia um \textit{2d array} para outro \textit{2d array};
-	\item A Função que retorna os custos das distancias da escala criada.
-\end{itemize}
-
-Funções $\mathcal{O}(n^3)$, onde $f(n) = n(n+1)^2 \Rightarrow n(n+1)^2 \leqslant cn^3$ :
-
-\begin{itemize}
-	\setlength\itemsep{1pt}
-	\item Função que associa times reais aos times abstratos conforme o pseudo-código do Algorítimo \ref{alg:associa}; 
-	\item Função que determina o mando de campo dos times conforme o pseudo-código descrito no Algorítimo \ref{alg:mando};
-\end{itemize}
+Simplificando a soma das funções chamadas pelo escopo principal do programa e eliminado as constantes, a complexidade total do programa é definida pela equação: $ n^3 + 37n^2 + 45n \leqslant cn^3 \rightarrow \mathcal{O}(n^3) $.
 
 \section{Lista das Funções}
 
 \subsection{Funções dos Arquivos}
 
-\begin{longtable}{p{3cm} p{11cm} p{1cm}}
-	\texttt{getlines()} & Retorna o numero de linhas validas de um arquivo. & $\mathcal{O}(n)$ \\
-	\texttt{getCLUB()} & Carrega os clubes a partir do arquivo de clubes, salva os dados em \textit{struct array}. & $\mathcal{O}(n)$ \\
-	\texttt{getCITY()} & Carrega as cidades a partir do arquivo de cidades, salva os dados em um \textit{struct array}. & $\mathcal{O}(n)$ \\
-	\texttt{getDIST()} & Carrega as distancias a partir do arquivo de distancias, salva os dados em uma matriz alocada. & $\mathcal{O}(n)$ \\
-	\texttt{errFile()} & Retorna a mensagem de erro caso um arquivo não for encontrado. & $\mathcal{O}(1)$ \\
+\begin{longtable}{>{\ttfamily}p{3cm} p{11cm} p{1cm}}
+	getlines() & Retorna o numero de linhas validas de um arquivo. & $\mathcal{O}(n)$ \\
+	getCLUB() & Carrega os clubes a partir do arquivo de clubes, salva os dados em \textit{struct array}. & $\mathcal{O}(n)$ \\
+	getCITY() & Carrega as cidades a partir do arquivo de cidades, salva os dados em um \textit{struct array}. & $\mathcal{O}(n)$ \\
+	getDIST() & Carrega as distancias a partir do arquivo de distancias, salva os dados em uma matriz alocada. & $\mathcal{O}(n)$ \\
+	errFile() & Retorna a mensagem de erro caso um arquivo não for encontrado. & $\mathcal{O}(1)$ \\
 	\label{tab:files}
 \end{longtable}
 \vspace{-0.5cm}
 
 \subsection{Funções da Lista Encadeada Simples}
 
-\begin{longtable}{p{3cm} p{11cm} p{1cm}}
-	\texttt{create()} & Inicializa uma Lista Encadeada Simples & $\mathcal{O}(1)$ \\
-	\texttt{atP()} & Dada a posição, retorna um nó da Lista. & $\mathcal{O}(n)$ \\
-	\texttt{LLmin()} & Retorna um nó com o menor valor de um dado. & $\mathcal{O}(n)$ \\
-	\texttt{LLmax()} & Retorna um nó com o maior valor de um dado. & $\mathcal{O}(n)$ \\
-	\texttt{LLidx()} & Retorna a posição de um nó. & $\mathcal{O}(n)$ \\
-	\texttt{LLpsh()} & Insere os dados a partir da posição cabeça. & $\mathcal{O}(1)$ \\
-	\texttt{LLpop()} & Remove os dados a partir da posição cabeça. & $\mathcal{O}(1)$ \\
-	\texttt{LLdel()} & Remove um nó, dado sua posição na Lista. & $\mathcal{O}(n)$ \\
-	\texttt{LLins()} & Insere um nó, dado sua posição na Lista. & $\mathcal{O}(n)$ \\
-	\texttt{LLchg()} & Troca a posição de dois nós. & $\mathcal{O}(n)$ \\
-	\texttt{LLdup()} & Remove os nós com dados duplicados. & $\mathcal{O}(n)$ \\
-	\texttt{LLinc()} & Ordena a Lista em ordem crescente. & $\mathcal{O}(n)$ \\
-	\texttt{LLdec()} & Ordena a Lista em ordem decrescente. & $\mathcal{O}(n)$ \\
-	\texttt{LLprt()} & Retorna a impressão da Lista. & $\mathcal{O}(n)$ \\
-	\texttt{LLclr()} & Libera os dados da Lista da memoria. & $\mathcal{O}(n)$ \\
-	\texttt{isEmpty()} & Retorna se uma Lista está ou não vazia. & $\mathcal{O}(1)$ \\
+\begin{longtable}{>{\ttfamily}p{3cm} p{11cm} p{1cm}}
+	create() & Inicializa uma Lista Encadeada Simples & $\mathcal{O}(1)$ \\
+	atP()   & Dada a posição, retorna um nó da Lista. & $\mathcal{O}(n)$ \\
+	LLmin() & Retorna um nó com o menor valor de um dado. & $\mathcal{O}(n)$ \\
+	LLmax() & Retorna um nó com o maior valor de um dado. & $\mathcal{O}(n)$ \\
+	LLidx() & Retorna a posição de um nó. & $\mathcal{O}(n)$ \\
+	LLpsh() & Insere os dados a partir da posição cabeça. & $\mathcal{O}(1)$ \\
+	LLpop() & Remove os dados a partir da posição cabeça. & $\mathcal{O}(1)$ \\
+	LLdel() & Remove um nó, dado sua posição na Lista. & $\mathcal{O}(n)$ \\
+	LLins() & Insere um nó, dado sua posição na Lista. & $\mathcal{O}(n)$ \\
+	LLchg() & Troca a posição de dois nós. & $\mathcal{O}(n)$ \\
+	LLdup() & Remove os nós com dados duplicados. & $\mathcal{O}(n)$ \\
+	LLinc() & Ordena a Lista em ordem crescente. & $\mathcal{O}(n)$ \\
+	LLdec() & Ordena a Lista em ordem decrescente. & $\mathcal{O}(n)$ \\
+	LLprt() & Retorna a impressão da Lista. & $\mathcal{O}(n)$ \\
+	LLclr()  & Libera os dados da Lista da memoria. & $\mathcal{O}(n)$ \\
+	isEmpty() & Retorna se uma Lista está ou não vazia. & $\mathcal{O}(1)$ \\
 	\label{tab:lista}
 \end{longtable}
 \vspace{-0.5cm}
 
 \subsection{Funções de Retorno de Impressão}
 	
-\begin{longtable}{p{3cm} p{11cm} p{1cm}}
-	\texttt{printTabela()} & Retorna a impressão formatada da escala. & $\mathcal{O}(n^2)$ \\
-	\texttt{printEscala()} & Retorna a impressão não formatada da escala.. & $\mathcal{O}(n^2)$ \\
-	\texttt{printTravel()} & Retorna a impressão das distancias percorrida por cada um dos times. & $\mathcal{O}(n)$ \\
-	\texttt{printMatrix()} & Retorna a impressão de uma matriz $n \times n$. & $\mathcal{O}(n^2)$ \\
-	\texttt{printCLUB()} & Retorna a impressão não formatada do \textit{struct array} de clubes. & $\mathcal{O}(n)$ \\
-	\texttt{printCITY()} & Retorna a impressão não formatada do \textit{struct array} de cidades. & $\mathcal{O}(n)$ \\
+\begin{longtable}{>{\ttfamily}p{3cm} p{11cm} p{1cm}}
+	printTabela() & Retorna a impressão formatada da escala. & $\mathcal{O}(n^2)$ \\
+	printEscala() & Retorna a impressão não formatada da escala.. & $\mathcal{O}(n^2)$ \\
+	printTravel() & Retorna a impressão das distancias percorrida por cada um dos times. & $\mathcal{O}(n)$ \\
+	printMatrix() & Retorna a impressão de uma matriz $n \times n$. & $\mathcal{O}(n^2)$ \\
+	printCLUB() & Retorna a impressão não formatada do \textit{struct array} de clubes. & $\mathcal{O}(n)$ \\
+	printCITY() & Retorna a impressão não formatada do \textit{struct array} de cidades. & $\mathcal{O}(n)$ \\
 	\label{tab:print}
 \end{longtable}
 \vspace{-0.5cm}
 
 \subsection{Funções da Solução inicial}
 	
-\begin{longtable}{p{3cm} p{11cm} p{1cm}}
-	\texttt{initPolygon()} & One-factorization para gerar uma tabela inicial valida. & $\mathcal{O}(n^2)$ \\
-	\texttt{associaClub()} & Associa os times reais aos times abstratos conforme o pseudo-código descrito no Algorítimo \ref{alg:associa}. & $\mathcal{O}(n^3)$ \\
-	\texttt{changeClube()} & Altera o índice dos clubes conforme a associação realizada em \texttt{associaClub()}. & $\mathcal{O}(n)$ \\
-	\texttt{buildCalvin()} & Cria os pares de times reais para \texttt{associaClub()}. & $\mathcal{O}(n^2)$ \\
-	\texttt{buildHarold()} & Cria os pares de times abstratos para \texttt{associaClub()}. & $\mathcal{O}(n^2)$ \\
-	\texttt{buildLinked()} & Cria uma lista simplesmente encadeada para o controle dos times associados na \texttt{associaClub()}. & $\mathcal{O}(n)$ \\
-	\texttt{islinked()} & Verifica se um time real já esta associado. & $\mathcal{O}(n)$ \\
-	\texttt{associar()} & Associa times reais com abstratos na lista criada por \texttt{buildlinked()}. & $\mathcal{O}(n)$ \\
-	\texttt{areClubs()} & Verifica se todos os times já foram associados. & $\mathcal{O}(n)$ \\
-	\texttt{findAT1()} & Função booleana de retorno para \texttt{associaClub()}. & $\mathcal{O}(1)$ \\
-	\texttt{findBT1()} & Função booleana de retorno para \texttt{associaClub()}. & $\mathcal{O}(1)$ \\
+\begin{longtable}{>{\ttfamily}p{3cm} p{11cm} p{1cm}}
+	initPolygon() & One-factorization para gerar uma tabela inicial valida. & $\mathcal{O}(n^2)$ \\
+	associaClub() & Associa os times reais aos times abstratos conforme o pseudo-código descrito no Algorítimo \ref{alg:associa}. & $\mathcal{O}(n^3)$ \\
+	changeClube() & Altera o índice dos clubes conforme a associação realizada em \texttt{associaClub()}. & $\mathcal{O}(n)$ \\
+	buildCalvin() & Cria os pares de times reais para \texttt{associaClub()}. & $\mathcal{O}(n^2)$ \\
+	buildHarold() & Cria os pares de times abstratos para \texttt{associaClub()}. & $\mathcal{O}(n^2)$ \\
+	buildLinked() & Cria uma lista simplesmente encadeada para o controle dos times associados na \texttt{associaClub()}. & $\mathcal{O}(n)$ \\
+	islinked() & Verifica se um time real já esta associado. & $\mathcal{O}(n)$ \\
+	associar() & Associa times reais com abstratos na lista criada por \texttt{buildlinked()}. & $\mathcal{O}(n)$ \\
+	areClubs() & Verifica se todos os times já foram associados. & $\mathcal{O}(n)$ \\
+	findAT1() & Função booleana de retorno para \texttt{associaClub()}. & $\mathcal{O}(1)$ \\
+	findBT1() & Função booleana de retorno para \texttt{associaClub()}. & $\mathcal{O}(1)$ \\
 	\label{tab:s0}
 \end{longtable}
 \vspace{-0.5cm}
 
 \subsection{Funções de Mando de Campo}
 
-\begin{longtable}{p{3cm} p{11cm} p{1cm}}
-	\texttt{setmando()} & Determina o mando de campo dos times conforme o pseudo-código descrito no Algorítimo \ref{alg:mando}. & $\mathcal{O}(n^3)$ \\
-	\texttt{sorteia()} & Determina randomicamente os mandos de campo da primeira rodada. & $\mathcal{O}(n)$ \\
-	\texttt{CSTMando()} & Verifica se a condição de três jogos consecutivos dentro ou fora de casa foi respeitada. & $\mathcal{O}(n^2)$ \\
-	\texttt{espelha()} & Espelha os mandos gerados no primeiro turno para o returno. & $\mathcal{O}(n^2)$ \\
-	\texttt{randint()} & Gera um inteiro randomicamente conforme o \textit{seed} do sistema. & $\mathcal{O}(1)$ \\
+\begin{longtable}{>{\ttfamily}p{3cm} p{11cm} p{1cm}}
+	setmando() & Determina o mando de campo dos times conforme o pseudo-código descrito no Algorítimo \ref{alg:mando}. & $\mathcal{O}(n^3)$ \\
+	sorteia() & Determina randomicamente os mandos de campo da primeira rodada. & $\mathcal{O}(n)$ \\
+	CSTMando() & Verifica se a condição de três jogos consecutivos dentro ou fora de casa foi respeitada. & $\mathcal{O}(n^2)$ \\
+	espelha() & Espelha os mandos gerados no primeiro turno para o returno. & $\mathcal{O}(n^2)$ \\
+	randint() & Gera um inteiro randomicamente conforme o \textit{seed} do sistema. & $\mathcal{O}(1)$ \\
 	\label{tab:mando}
 \end{longtable}
 \vspace{-0.5cm}
 
 \subsection{Funções Gerais}
 
-\begin{longtable}{p{3cm} p{11cm} p{1cm}}
-	\texttt{allocTable()} & Aloca uma matriz de ponteiros. & $O(n)$ \\
-	\texttt{freeMemory()} & Libera a memoria alocada por \texttt{allocTable()}. & $O(n)$ \\
-	\texttt{copyTable()} & Copia dados entre matrizes. & $O(n^2)$ \\
-	\texttt{shiftArray()} & Movimenta os dados em um array (\textit{shift}). & $O(1)$ \\
-	\texttt{viagem()} & Retorna a distancia entre as sedes dos times. & $O(1)$ \\
-	\texttt{custos()} & Calcula e retorna os custos totais de uma escala de jogos gerada, assim como o custo de deslocamento individual dos times. & $O(n^2)$ \\
-	\texttt{timeresult()} & Retorna o tempo de execução até determinado ponto. & $O(1)$ \\
-	\texttt{wait()} & Função de espera (pausa o tempo de execução por $n$ segundos). & $\mathcal{O}(n)$ \\
-	\texttt{ask()} & Espera por uma entrada fornecida pelo usuário. & $\mathcal{O}(n)$ \\
+\begin{longtable}{>{\ttfamily}p{3cm} p{11cm} p{1cm}}
+	allocTable() & Aloca uma matriz de ponteiros. & $O(n^2)$ \\
+	freeMemory() & Libera a memoria alocada por \texttt{allocTable()}. & $O(n)$ \\
+	copyTable() & Copia dados entre matrizes. & $O(n^2)$ \\
+	shiftArray() & Movimenta os dados em um array (\textit{shift}). & $O(1)$ \\
+	viagem() & Retorna a distancia entre as sedes dos times. & $O(1)$ \\
+	custos() & Calcula e retorna os custos totais de uma escala de jogos gerada, assim como o custo de deslocamento individual dos times. & $O(n^2)$ \\
+	timeresult() & Retorna o tempo de execução até determinado ponto. & $O(1)$ \\
+	wait() & Função de espera (pausa o tempo de execução por $n$ segundos). & $\mathcal{O}(n)$ \\
+	ask() & Espera por uma entrada fornecida pelo usuário. & $\mathcal{O}(n)$ \\
 	\label{tab:comum}
 \end{longtable}
 
