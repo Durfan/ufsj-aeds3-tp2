@@ -59,15 +59,13 @@ O Problema da Viagem do Torneio}
 
 O Problema da Viagem do Torneio Viajante (\textit{Traveling Tournament Problem}) pode ser considerado como um problema de otimização matemática que envolve a criação de uma escala de jogos viável para um torneio. Essa viabilidade pode ser definida de maneira geral por dois outros problemas. O primeiro é uma questão de viabilidade, o padrão de jogos em casa e longe deve ser suficientemente variado, de modo a evitar padrões de estadia e deslocamento excessivos. O segundo é uma questão de deslocamento, onde se busca minimizar o custo total de deslocamento.
 
-Neste trabalho prático é apresentado uma solução para o TTP do Campeonato Brasileiro de Futebol.
+Neste trabalho prático é apresentado uma solução aproximada para o TTP do Campeonato Brasileiro de Futebol.
 
 A escala de jogos do Campeonato Brasileiro de Futebol consiste em definir uma escala de jogos viável entre $n$ times divididos em $n-1$ rodadas $k$ no primeiro turno, onde cada time joga com cada um dos outros sem repetições, e sem que existam mais que três jogos consecutivos fora de casa. Para o returno na rodada $k + (n - 1)$, os jogos são espelhados do primeiro turno, porem com o mando de campo invertido.
 
-Na solução final para o problema, o custo de deslocamento dos times na escala de jogos deve ser considerado e seu retorno minimizado.
-
 \section{Implementação}
 
-Para a construção de uma solução inicial, utiliza-se o método de três fases proposto por Ribeiro e Urrutia\cite{urrutia:heuristics}, e posteriormente, para refinar a solução foi adotado o método LNS (\textit{Large Neighborhood Search}), que utiliza de busca em profundidade para obter melhores resultados.
+Para a construção de uma solução inicial, utiliza-se o método de três fases proposto por Ribeiro e Urrutia\cite{urrutia:heuristics}, e posteriormente, é adotado o método LNS (\textit{Large Neighborhood Search}), que utiliza de busca em profundidade para se obter melhores resultados nas soluções aproximadas.
 
 \subsection{Método de três fases para geração de uma solução inicial}
 
@@ -320,9 +318,9 @@ Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quanti
 
 Após serem obtidos os resultados de custos da solução inicial, uma busca em profundidade é realizada utilizando-se do movimento de troca de mandos de campo. 
 
-Para isso, a escala obtida inicialmente é submetida a número constante de interações de mudança de mando. Essas interações tem como objetivo alcançar melhores resultados por meio de mudanças do custo total da escala em cada interação.
+Para isso, a escala obtida inicialmente é submetida a um número constante de interações de mudança de mando. Essas interações tem como objetivo alcançar melhores resultados por meio de mudanças do custo total da escala em cada interação.
 
-A melhor solução que for encontrada nessas interações é definida então como a solução aproximada para o problema. 
+A melhor solução que for encontrada nessas interações é definida então como a solução aproximada para o problema.
 
 \section{Análise de Complexidade}
 
@@ -345,6 +343,9 @@ A partir do escopo principal do programa, a análise é dividida pelas seguintes
 	\item Copiando a escala gerada pelo polígono e definindo os mandos de campo: \[ \underbrace{n(2n-1)}_{copyTable()} + \underbrace{\frac{n^3 + 6n^2 + 12n}{4}}_{setmando()} + \underbrace{n(n+1)}_{printEscala()} = \frac{n^3 + 18n^2 + 12n}{4} \]
 	
 	\item Busca por profundidade: \[ 2 \times \underbrace{n(n+1)}_{allocTable()} + \underbrace{n(2n-1)}_{copyTable()} + \underbrace{n+1}_{freeMemory()} + \;\; ITER(2\underbrace{n(2n-1)}_{copyTable()} + \underbrace{\frac{n^3 + 6n^2 + 12n}{4}}_{setmando()}) \] \[ = \frac{16n^2 + 8n + 4 + ITER(n^3 + 22n^2 + 8n)}{4} \]
+	\begin{itemize}
+		\item Define-se $ITER$ como um número constante de interações.
+	\end{itemize}
 	
 	\item Liberando a memoria e imprimindo os resultados: \[ 4 \times \underbrace{n+1}_{freeMemory()} + \underbrace{n(n+1)}_{printTabela()} + \underbrace{n+1}_{printTravel()} = n^2 + 6n + 5 \]
 \end{enumerate}
@@ -479,7 +480,7 @@ Simplificando a soma das funções chamadas pelo escopo principal do programa e 
 	\end{tabular}
 \end{table}
 
-Mediante a análise de resultados obtidos, pode-se perceber a vantagem do uso de um método heurístico como o de LNS (Large Neighborhood Search), que é baseado no princípio de destruição e reconstrução de rotas. Onde utilizamos a primeira tabela gerada pelo método de 3 fases, a reorganizando K vezes, de forma a construir uma nova melhor. 
+Mediante a análise de resultados obtidos, pode-se perceber a vantagem do uso de um método heurístico como o de LNS (Large Neighborhood Search), que é baseado no princípio de destruição e reconstrução de rotas. Onde utilizamos a primeira tabela gerada pelo método de 3 fases, a reorganizando K vezes, de forma a construir uma melhor solução. 
 
 Na tabela acima temos então que S(0) é o valor inicial obtido, referente a distância em km que os times irão percorrer durante a realização do campeonato, e S(K) o valor da distância prevista após a aplicação do método heurístico. 
 
