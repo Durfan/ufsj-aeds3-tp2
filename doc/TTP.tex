@@ -14,9 +14,8 @@
 
 \usepackage{amssymb,amsmath,amsfonts}
 
-\usepackage[numbers]{natbib}
-\usepackage{url}
-\bibliographystyle{plainnat}
+\usepackage[num,overcite]{abntex2cite}
+\citebrackets[]
 
 \usepackage{longtable}
 \usepackage{booktabs}
@@ -65,7 +64,7 @@ A escala de jogos do Campeonato Brasileiro de Futebol consiste em definir uma es
 
 \section{Implementação}
 
-Para a construção de uma solução inicial, utiliza-se o método de três fases proposto por Ribeiro e Urrutia\cite{urrutia:heuristics}, e posteriormente, é adotado o método LNS (\textit{Large Neighborhood Search}), que utiliza de busca em profundidade para se obter melhores resultados nas soluções aproximadas.
+Para a construção de uma solução inicial, utiliza-se o método de três fases proposto por \citeauthor{urrutia:heuristics}, e posteriormente, é adotado o método LNS (\textit{Large Neighborhood Search}), que utiliza de busca em profundidade para se obter melhores resultados nas soluções aproximadas.
 
 \subsection{Método de três fases para geração de uma solução inicial}
 
@@ -127,7 +126,7 @@ A cada rodada, os times localizados nos nós $k=2,3,...,n/2$ jogam contra os tim
 		\draw [<->] (-0.8,0.2) -- (0.8,0.2);
 		\draw [->] (1,4.25) to[out=10,in=-270] (2.25,3.25);
 	\end{tikzpicture}
-	\flushright \footnotesize Fonte: \citet*{marcio:jogos} \hspace{35pt}
+	\flushright \footnotesize Fonte: \citeauthor{marcio:jogos} \hspace{35pt}
 \end{figure}
 
 \begin{table}[H]
@@ -259,7 +258,7 @@ O pseudo-código para a heurística dessa associação é mostrado no Algorítim
 \vspace{0.5cm}
 \begin{algorithm}[H]
 	\caption{Associa times reais à times abstratos}
-	\algorithmfootnote{Fonte: \citet*{marcio:jogos}}
+	\algorithmfootnote{Fonte: \citeauthor{marcio:jogos}}
 	\label{alg:associa}
 	Entrada{Entrada}
 	\Repita{todos os times reais sejam associados aos times abstratos} {
@@ -288,7 +287,7 @@ Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quanti
 \vspace{0.5cm}
 \begin{algorithm}[H]
 	\caption{Determina o mando de campo dos jogos}
-	\algorithmfootnote{Fonte: \citet*{marcio:jogos}}
+	\algorithmfootnote{Fonte: \citeauthor{marcio:jogos}}
 	\label{alg:mando}
 	Determine, de forma aleatória, o mando de campo dos jogos da primeira rodada.\\
 	\ParaCada{rodada $k = 2,3,...,(n-1)$ do primeiro turno}{
@@ -491,7 +490,6 @@ Contudo, sabendo que normalmente os clubes de futebol fretam aviões para transp
 Desta forma pode-se traduzir para o cenário das competições brasileiras que não só seriam reduzidos os de gastos dos clubes, mas também os jogadores sofreriam de um desgaste menor entre as partidas.
 
 \begin{flushleft}
-	\nocite{*}
 	\bibliography{TTP}
 	\vfill
 	O histórico do desenvolvimento desse trabalho se encontra online em:\\ \url{https://github.com/Durfan/ufsj-aeds3-tp2}.
