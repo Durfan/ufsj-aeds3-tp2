@@ -57,7 +57,7 @@ O Problema da Viagem do Torneio}
 
 \section{Introdução}
 
-O Problema da Viagem do Torneio Viajante (\textit{Traveling Tournament Problem}) pode ser considerado como um problema de otimização matemática que envolve a criação de uma escala de jogos viável para um torneio. Essa viabilidade pode ser definida de maneira geral por dois outros problemas. O primeiro é uma questão de viabilidade, o padrão de jogos em casa e longe deve ser suficientemente variado, de modo a evitar padrões de estadia e deslocamento excessivos. O segundo é uma questão de deslocamento, onde buscasse minimizar o custo total de deslocamento com objetivo de evitar viagens excessivas.
+O Problema da Viagem do Torneio Viajante (\textit{Traveling Tournament Problem}) pode ser considerado como um problema de otimização matemática que envolve a criação de uma escala de jogos viável para um torneio. Essa viabilidade pode ser definida de maneira geral por dois outros problemas. O primeiro é uma questão de viabilidade, o padrão de jogos em casa e longe deve ser suficientemente variado, de modo a evitar padrões de estadia e deslocamento excessivos. O segundo é uma questão de deslocamento, onde se busca minimizar o custo total de deslocamento.
 
 Neste trabalho prático é apresentado uma solução para o TTP do Campeonato Brasileiro de Futebol.
 
@@ -67,7 +67,7 @@ Na solução final para o problema, o custo de deslocamento dos times na escala 
 
 \section{Implementação}
 
-Para a construção de uma solução inicial, utiliza-se o método de três fases proposto por Ribeiro e Urrutia (2004a)\cite{urrutia:heuristics}, e posteriormente para o refinamento dos resultados foi adotada um método heurístico de LNS (large neighborhood search), introduzido por Shaw (1997)\cite{tp:Shaw}.
+Para a construção de uma solução inicial, utiliza-se o método de três fases proposto por Ribeiro e Urrutia\cite{urrutia:heuristics}, e posteriormente, para refinar a solução foi adotado o método LNS (\textit{Large Neighborhood Search}), que utiliza de busca em profundidade para obter melhores resultados.
 
 \subsection{Método de três fases para geração de uma solução inicial}
 
@@ -315,6 +315,14 @@ Para que a heurística possa ser usada, é preciso definir $N_{i}$ como a quanti
 	Caso a escala ainda permanecer inviável, reinicie o algoritmo.
 \end{algorithm}
 \vspace{0.5cm}
+
+\subsection{LNS da solução inicial}
+
+Após serem obtidos os resultados de custos da solução inicial, uma busca em profundidade é realizada utilizando-se do movimento de troca de mandos de campo. 
+
+Para isso, a escala obtida inicialmente é submetida a número constante de interações de mudança de mando. Essas interações tem como objetivo alcançar melhores resultados por meio de mudanças do custo total da escala em cada interação.
+
+A melhor solução que for encontrada nessas interações é definida então como a solução aproximada para o problema. 
 
 \section{Análise de Complexidade}
 
