@@ -1,4 +1,4 @@
-# Traveling Tournament Problem
+# AED's III TP 2 - Traveling Tournament Problem
 
 Trabalho Prático de Algoritmos e Estruturas de Dados III sobre o TTP.  
 Solução implementada utilizando o método guloso.
